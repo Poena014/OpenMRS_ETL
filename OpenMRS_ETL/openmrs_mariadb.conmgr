@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="openmrs_mariadb"
+  DTS:DTSID="{1241709C-33D8-4CB3-8ED6-05DAC4205A5C}"
+  DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="server=localhost;user id=openmrs;Initial Catalog=openmrs;database=openmrs;persistsecurityinfo=True;">
+      <DTS:Password
+        DTS:Name="password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAACAAAAAAAQZgAAAAEAACAAAAAcinjAYeedBvvJUSvQW9eAIH1Y6jKv14QBA6DSCwOsTQAAAAAOgAAAAAIAACAAAAAzfC8jDpLMuDHXCWM+FjstMikQZkj4XdhysR7XmQc4S5AAAAD9ivP2NmYsEz2Ra8kw83kYVJVKP5x2+SeZ72rwUrNL6d0l5H/Udlw6O9zCCuRyWGmaSFyblk/lF0u5GHrdiRRecbR0e6C2ZvVG4UI03GmTNUDvUQYCfcpJerb5+S20FmFv5aP5RnLgRxQxUXd/q9AiMSur3rf5oQj+2Xf8rqBfsJqdHwIq15hjoX4x6aHVKllAAAAA2+snBmNErDv7nF9hOdisfRabCk4aoRTa+0krxj2sn+CGXruQbnKuGOtNWrOksR5eAlz3l/e2LZhYk/YO8e3p0w==</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

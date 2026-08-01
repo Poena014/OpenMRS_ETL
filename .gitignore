@@ -427,3 +427,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Archivos de conexión SSIS (solo se versiona la versión inicial)
+*.conmgr

@@ -1,10 +1,10 @@
 use OpenmrsETL
 go
 
-CREATE TABLE DimConceptoClinico(
-	id INT,
-	campo1 VARCHAR(50)
+CREATE TABLE DimTiempo(
+	TiempoKey INT Primary Key,
+	Fecha DATETIME NOT NULL,
+	Dia TINYINT NOT NULL,
+	Mes TINYINT NOT NULL,
+	Anio TINYINT NOT NULL
 )
-
-CREATE INDEX primary_ind ON DimConceptoClinico (id)
-GO

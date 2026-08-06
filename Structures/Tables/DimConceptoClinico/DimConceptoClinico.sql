@@ -1,10 +1,16 @@
 use OpenmrsETL
 go
 
+DROP TABLE IF EXISTS DimConceptoClinico
+
 CREATE TABLE DimConceptoClinico(
-	id INT,
-	campo1 VARCHAR(50)
+	ConceptoClinicoKey INT Primary Key,
+	ConceptoId INT,
+	NombreCompleto VARCHAR(100),
+	NombreCorto VARCHAR(30),
+	ClaseConcepto INT,
+	CategoriaConcepto INT
 )
 
-CREATE INDEX primary_ind ON DimConceptoClinico (id)
+CREATE INDEX primary_ind ON DimConceptoClinico (ConceptoClinicoKey)
 GO

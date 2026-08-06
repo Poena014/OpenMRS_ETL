@@ -1,10 +1,17 @@
 use OpenmrsETL
 GO 
 
+DROP TABLE IF EXISTS FactCondicionClinica
+
 CREATE TABLE FactCondicionClinica(
-	id INT,
-	campo1 VARCHAR(50)
+	PacienteId INT ,
+	FechaId INT,
+	LocationId INT,
+	EncounterTypeId INT,
+	ConceptId INT,
+	CantidadObservaciones INT,
+	esValida BIT
 )
 
-CREATE INDEX primary_ind ON FactCondicionClinica (id)
+CREATE INDEX Paciente_Fecha_Ind ON FactCondicionClinica (PacienteId, FechaId)
 GO

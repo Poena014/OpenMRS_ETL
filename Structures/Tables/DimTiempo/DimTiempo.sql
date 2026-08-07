@@ -1,10 +1,12 @@
 use OpenmrsETL
 go
 
+DROP TABLE IF EXISTS DimTiempo
+
 CREATE TABLE DimTiempo(
 	TiempoKey INT Primary Key,
 	Fecha DATETIME NOT NULL,
 	Dia TINYINT NOT NULL,
 	Mes TINYINT NOT NULL,
-	Anio TINYINT NOT NULL
+	Anio SMALLINT NOT NULL
 )

@@ -28,4 +28,5 @@ NOW() fechaProceso
 from person a
 JOIN person_address pa ON a.person_id =pa.person_id 
 JOIN person_name pn ON a.person_id=pn.person_id
+ORDER BY a.person_id asc
 

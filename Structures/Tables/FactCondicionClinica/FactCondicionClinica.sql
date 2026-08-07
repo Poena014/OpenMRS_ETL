@@ -6,8 +6,8 @@ DROP TABLE IF EXISTS FactCondicionClinica
 CREATE TABLE FactCondicionClinica(
 	PacienteKey INT NOT NULL FOREIGN KEY REFERENCES
 		DimPaciente(PacienteKey),
-	ConceptoClinicoKey INT NOT NULL FOREIGN KEY REFERENCES
-		DimConceptoClinico(ConceptoClinicoKey),
+	DiagnosticoKey INT NOT NULL FOREIGN KEY REFERENCES
+		DimDiagnosticos(DiagnosticoKey),
 	CondicionClinicaKey INT NOT NULL FOREIGN KEY REFERENCES
 		DimCondicionClinica(CondicionClinicaKey),
 	UbicacionKey INT NOT NULL FOREIGN KEY REFERENCES

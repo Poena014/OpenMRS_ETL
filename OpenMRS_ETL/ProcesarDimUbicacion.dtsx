@@ -5,33 +5,33 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-SEU29NB"
   DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
-  DTS:DTSID="{FB029FA0-02F2-4C52-9ED1-DA2898536D11}"
+  DTS:DTSID="{DD112F59-F530-4DAE-BAFA-87179AE2EDFC}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="3082"
-  DTS:ObjectName="Package"
+  DTS:ObjectName="ProcesarDimUbicacion"
   DTS:PackageType="5"
-  DTS:VersionBuild="27"
-  DTS:VersionGUID="{16B8FEC0-69B0-4C3A-931D-D8C3C776398D}">
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{6DCAFAE7-44DB-4A4F-A293-7D3C730D4FDB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
       DTS:CreationName="OLEDB"
-      DTS:DTSID="{8BD7B8A8-B0D9-480D-9198-A859996E3DCD}"
+      DTS:DTSID="{B1D858EB-60A5-4E9E-A569-AC559C586BC4}"
       DTS:ObjectName="DESKTOP-SEU29NB\SERVER1.OpenmrsETL1">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{8BD7B8A8-B0D9-480D-9198-A859996E3DCD}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{B1D858EB-60A5-4E9E-A569-AC559C586BC4}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
       DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
-      DTS:DTSID="{36E21DEE-507A-44E6-8DD9-0634FFF4D092}"
+      DTS:DTSID="{BD0D8EEE-FE6B-46A6-AD4F-FABEFD0AF519}"
       DTS:ObjectName="localhost.openmrs.openmrs1">
       <DTS:ObjectData>
         <DTS:ConnectionManager
@@ -39,7 +39,7 @@
           <DTS:Password
             DTS:Name="password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABWDvM74CNOF5JzkK3VmBIMenBqpbApat/tJrpOyNQEUAAAAAAOgAAAAAIAACAAAABpwZ4O+QamJUEEGSDzOTGhwQsv8nYDe98cbbHGicTW5kAAAABYT49Z1RrqfukudbnoCprQn64zJM1i/Nmq+ZIaRQKpuhhDfcX6CJZFfOwSdjQ71WvL9OrHL9e2VhDrqQrax8IFQAAAAH3dWZotUjfMEEhDg7cJVn9FcmzmyRrzOeoB3vHK0P9yRatLGOHIrZmrg6a5R16wSjiYX90jotL/y2ACfTCKUiU</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADILS7mwm9jNR7bdKU4Tk04Fi7PBocnDymOYafTJGISegAAAAAOgAAAAAIAACAAAAABm09NNHFpQcwW25hc0xnsxN0vmlmHGI/KucqQa4B0EEAAAACJAVSY/tfcVUz0Y1IGH7SyWFiGNP1dDDt18OpPY4bT3QNUxwyx9yf/MNDN/Km5MhlqQczeFSSRh1Eq0ajEf4f9QAAAALerOqET0fQPEHZgBqO9BTsuwdwPHYXOidC6IVQRSU9R5DMwjLFGgaQtYHRog6GVqYLHLIz45lruhTGVxtR3gHs</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -50,7 +50,7 @@
       DTS:refId="Package\DimPaciente"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Fact1"
-      DTS:DTSID="{CFF4BAEF-9A5B-4F8E-A86D-BFF86842578E}"
+      DTS:DTSID="{79738A69-5726-43F1-A207-1D07184A9688}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="DimPaciente"
@@ -76,45 +76,45 @@
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[person_id]"
                       cachedDataType="i4"
                       cachedName="person_id"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[person_id]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[nombres]"
                       cachedDataType="wstr"
                       cachedLength="101"
                       cachedName="nombres"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[nombres]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[apellidos]"
                       cachedDataType="wstr"
                       cachedLength="101"
                       cachedName="apellidos"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[apellidos]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[sexo]"
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="sexo"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[sexo]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaNacimiento]"
                       cachedDataType="dbTimeStamp"
                       cachedName="fechaNacimiento"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaIngreso]"
                       cachedDataType="dbTimeStamp"
                       cachedName="fechaIngreso"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaBaja]"
                       cachedDataType="dbTimeStamp"
                       cachedName="fechaBaja"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]" />
                     <inputColumn
                       refId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaProceso]"
                       cachedDataType="dbTimeStamp"
                       cachedName="fechaProceso"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]" />
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -139,7 +139,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[person_id]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -161,7 +161,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[nombres]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -183,7 +183,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[apellidos]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -205,7 +205,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[sexo]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -225,7 +225,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -245,7 +245,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -265,7 +265,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -285,7 +285,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]}</property>
+                          name="SourceInputColumnLineageID">#{Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -320,11 +320,253 @@
               </outputs>
             </component>
             <component
-              refId="Package\DimPaciente\Destino de OLE DB"
+              refId="Package\DimPaciente\Leer Datos Cliente Mariadb"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Leer Datos Cliente Mariadb"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select a.person_id,
+UPPER(CONCAT(IFNULL(pn.given_name,'') , ' ',IFNULL(pn.middle_name,''))) nombres,
+UPPER(CONCAT(IFNULL(pn.family_name,'') , ' ',IFNULL(pn.family_name2,''))) apellidos,
+a.gender sexo,
+a.birthdate fechaNacimiento,
+a.date_created fechaIngreso,
+a.date_voided  fechaBaja,
+NOW() fechaProceso
+from person a
+JOIN person_address pa ON a.person_id =pa.person_id 
+JOIN person_name pn ON a.person_id=pn.person_id
+ORDER BY a.person_id asc</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]"
+                      name="person_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
+                      length="101"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]"
+                      name="nombres"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
+                      length="101"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
+                      name="apellidos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
+                      length="50"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]"
+                      name="sexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
+                      name="fechaNacimiento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
+                      name="fechaIngreso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
+                      name="fechaBaja"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
+                      dataType="i4"
+                      name="person_id" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
+                      dataType="wstr"
+                      length="101"
+                      name="nombres" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
+                      dataType="wstr"
+                      length="101"
+                      name="apellidos" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
+                      dataType="wstr"
+                      length="50"
+                      name="sexo" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
+                      dataType="dbTimeStamp"
+                      name="fechaNacimiento" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
+                      dataType="dbTimeStamp"
+                      name="fechaIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
+                      dataType="dbTimeStamp"
+                      name="fechaBaja" />
+                    <externalMetadataColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="fechaProceso" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
+                      dataType="i4"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
+                      name="person_id" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
+                      dataType="wstr"
+                      length="101"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
+                      name="nombres" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
+                      dataType="wstr"
+                      length="101"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
+                      name="apellidos" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
+                      name="sexo" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
+                      name="fechaNacimiento" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
+                      name="fechaIngreso" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
+                      name="fechaBaja" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
               description="Destino de OLE DB"
-              name="Destino de OLE DB"
+              name="Llenar Datos DimPaciete SQLServer"
               usesDispositions="true"
               version="4">
               <properties>
@@ -377,7 +619,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\DimPaciente\Destino de OLE DB.Connections[OleDbConnection]"
+                  refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
@@ -385,110 +627,110 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB]"
                   errorOrTruncationOperation="Insertar"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[person_id]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[person_id]"
                       cachedDataType="i4"
                       cachedName="person_id"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteId]"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[person_id]" />
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteId]"
+                      lineageId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of apellidos]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of apellidos]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Copy of apellidos"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Apellidos]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Apellidos]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of apellidos]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of sexo]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of sexo]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="1"
                       cachedName="Copy of sexo"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Sexo]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Sexo]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of sexo]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaNacimiento]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaNacimiento]"
                       cachedDataType="dbTime"
                       cachedName="Copy of fechaNacimiento"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaNacimiento]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaNacimiento]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaNacimiento]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaIngreso]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaIngreso]"
                       cachedDataType="dbTime"
                       cachedName="Copy of fechaIngreso"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaIngreso]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaBaja]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaBaja]"
                       cachedDataType="dbTime"
                       cachedName="Copy of fechaBaja"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaBaja]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaProceso]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaProceso]"
                       cachedDataType="dbTime"
                       cachedName="Copy of fechaProceso"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaProceso]" />
                     <inputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of nombres]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of nombres]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Copy of nombres"
-                      externalMetadataColumnId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombres]"
+                      externalMetadataColumnId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombres]"
                       lineageId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of nombres]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
                       dataType="i4"
                       name="PacienteKey" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteId]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteId]"
                       dataType="i4"
                       name="PacienteId" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombres]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombres]"
                       codePage="1252"
                       dataType="str"
                       length="100"
                       name="Nombres" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Apellidos]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Apellidos]"
                       codePage="1252"
                       dataType="str"
                       length="100"
                       name="Apellidos" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Sexo]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Sexo]"
                       codePage="1252"
                       dataType="str"
                       length="1"
                       name="Sexo" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaNacimiento]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaNacimiento]"
                       dataType="wstr"
                       length="10"
                       name="FechaNacimiento" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
                       dataType="dbTimeStamp"
                       name="FechaIngreso" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
                       dataType="dbTimeStamp"
                       name="FechaBaja" />
                     <externalMetadataColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
                       dataType="dbTimeStamp"
                       name="FechaProceso" />
                   </externalMetadataColumns>
@@ -496,263 +738,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\DimPaciente\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Outputs[Salida de error de destino de OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Salida de error de destino de OLE DB"
-                  synchronousInputId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  synchronousInputId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\DimPaciente\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\DimPaciente\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      refId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\DimPaciente\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\DimPaciente\Leer Datos Cliente"
-              componentClassID="Microsoft.ManagedComponentHost"
-              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
-              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
-              name="Leer Datos Cliente"
-              usesDispositions="true"
-              version="4">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select a.person_id,
-UPPER(CONCAT(IFNULL(pn.given_name,'') , ' ',IFNULL(pn.middle_name,''))) nombres,
-UPPER(CONCAT(IFNULL(pn.family_name,'') , ' ',IFNULL(pn.family_name2,''))) apellidos,
-a.gender sexo,
-a.birthdate fechaNacimiento,
-a.date_created fechaIngreso,
-a.date_voided  fechaBaja,
-NOW() fechaProceso
-from person a
-JOIN person_address pa ON a.person_id =pa.person_id 
-JOIN person_name pn ON a.person_id=pn.person_id</property>
-                <property
-                  dataType="System.Int32"
-                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                  name="CommandTimeout">30</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
-                  name="AllowImplicitStringConversion">true</property>
-                <property
-                  dataType="System.String"
-                  description="Nombre de la tabla de la base de datos de origen."
-                  expressionType="Notify"
-                  name="TableOrViewName"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Especificar el modo de recuperar información de columnas externas"
-                  name="AccessMode"
-                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
-                <property
-                  dataType="System.String"
-                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\DimPaciente\Leer Datos Cliente.Connections[IDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
-                  connectionManagerRefId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
-                  description="Administrador de conexiones administrado"
-                  name="IDbConnection" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET]"
-                  name="Salida de origen de ADO NET">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[person_id]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[person_id]"
-                      name="person_id"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[nombres]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
-                      length="101"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[nombres]"
-                      name="nombres"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
-                      length="101"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
-                      name="apellidos"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[sexo]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
-                      length="50"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[sexo]"
-                      name="sexo"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
-                      name="fechaNacimiento"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
-                      name="fechaIngreso"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
-                      name="fechaBaja"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
-                      name="fechaProceso"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
-                      dataType="i4"
-                      name="person_id" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
-                      dataType="wstr"
-                      length="101"
-                      name="nombres" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
-                      dataType="wstr"
-                      length="101"
-                      name="apellidos" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
-                      dataType="wstr"
-                      length="50"
-                      name="sexo" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
-                      name="fechaNacimiento" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
-                      dataType="dbTimeStamp"
-                      name="fechaIngreso" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      name="fechaBaja" />
-                    <externalMetadataColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
-                      dataType="dbTimeStamp"
-                      name="fechaProceso" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET]"
-                  isErrorOut="true"
-                  name="Salida de error de origen de ADO NET">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
-                      dataType="i4"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
-                      name="person_id" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
-                      dataType="wstr"
-                      length="101"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
-                      name="nombres" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
-                      dataType="wstr"
-                      length="101"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
-                      name="apellidos" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
-                      dataType="wstr"
-                      length="50"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
-                      name="sexo" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
-                      name="fechaNacimiento" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
-                      name="fechaIngreso" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
-                      name="fechaBaja" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
-                      name="fechaProceso" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      lineageId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -764,19 +765,46 @@ JOIN person_name pn ON a.person_id=pn.person_id</property>
           <paths>
             <path
               refId="Package\DimPaciente.Paths[Salida de conversión de datos]"
-              endId="Package\DimPaciente\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              endId="Package\DimPaciente\Llenar Datos DimPaciete SQLServer.Inputs[Entrada de destino de OLE DB]"
               name="Salida de conversión de datos"
               startId="Package\DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos]" />
             <path
               refId="Package\DimPaciente.Paths[Salida de origen de ADO NET]"
               endId="Package\DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos]"
               name="Salida de origen de ADO NET"
-              startId="Package\DimPaciente\Leer Datos Cliente.Outputs[Salida de origen de ADO NET]" />
+              startId="Package\DimPaciente\Leer Datos Cliente Mariadb.Outputs[Salida de origen de ADO NET]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar DimPaciente"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{FAF9B823-E7A5-4DDF-A808-0696FC493AA0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar DimPaciente"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B1D858EB-60A5-4E9E-A569-AC559C586BC4}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimPaciente&#xA;dbcc checkident('DimPaciente',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{2DF99DFE-CBB0-4677-9F4E-759CF019FB4D}"
+      DTS:From="Package\Limpiar DimPaciente"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\DimPaciente" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
 <!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
@@ -788,11 +816,37 @@ JOIN person_name pn ON a.person_id=pn.person_id</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="141,42"
           Id="Package\DimPaciente"
-          TopLeft="399,88" />
+          TopLeft="396,242" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Limpiar DimPaciente"
+          TopLeft="375,135" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="466,177">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -802,39 +856,27 @@ JOIN person_name pn ON a.person_id=pn.person_id</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="170,42"
-          Id="Package\DimPaciente\Leer Datos Cliente"
-          TopLeft="399,100" />
+          Size="213,42"
+          Id="Package\DimPaciente\Leer Datos Cliente Mariadb"
+          TopLeft="382,124" />
         <NodeLayout
           Size="180,42"
           Id="Package\DimPaciente\Conversión de datos"
-          TopLeft="404,216" />
+          TopLeft="397,260" />
         <EdgeLayout
           Id="Package\DimPaciente.Paths[Salida de origen de ADO NET]"
-          TopLeft="484,142">
+          TopLeft="487.75,166">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="10,74"
+              EndConnector="0,94"
               Start="0,0"
-              End="10,66.5">
+              End="0,86.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,33"
-                    Point2="0,37"
-                    Point3="4,37" />
-                  <mssgle:LineSegment
-                    End="6,37" />
-                  <mssgle:CubicBezierSegment
-                    Point1="6,37"
-                    Point2="10,37"
-                    Point3="10,41" />
-                  <mssgle:LineSegment
-                    End="10,66.5" />
+                    End="0,86.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -844,35 +886,23 @@ JOIN person_name pn ON a.person_id=pn.person_id</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="175,42"
-          Id="Package\DimPaciente\Destino de OLE DB"
-          TopLeft="389,329" />
+          Size="258,42"
+          Id="Package\DimPaciente\Llenar Datos DimPaciete SQLServer"
+          TopLeft="359,372" />
         <EdgeLayout
           Id="Package\DimPaciente.Paths[Salida de conversión de datos]"
-          TopLeft="494,258">
+          TopLeft="487.5,302">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-17.5,71"
+              EndConnector="0,70"
               Start="0,0"
-              End="-17.5,63.5">
+              End="0,62.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,31.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,31.5"
-                    Point2="0,35.5"
-                    Point3="-4,35.5" />
-                  <mssgle:LineSegment
-                    End="-13.5,35.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-13.5,35.5"
-                    Point2="-17.5,35.5"
-                    Point3="-17.5,39.5" />
-                  <mssgle:LineSegment
-                    End="-17.5,63.5" />
+                    End="0,62.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -885,15 +915,7 @@ JOIN person_name pn ON a.person_id=pn.person_id</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DimPaciente\Leer Datos Cliente">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DimPaciente\Destino de OLE DB">
+    design-time-name="Package\DimPaciente\Llenar Datos DimPaciete SQLServer">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -902,6 +924,14 @@ JOIN person_name pn ON a.person_id=pn.person_id</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimPaciente\Leer Datos Cliente Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimUbicacionInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="39"
-  DTS:VersionGUID="{3EA168D9-6850-4336-8843-E09C9435AA3E}">
+  DTS:VersionBuild="40"
+  DTS:VersionGUID="{895778AB-E7B2-416B-991A-3A06974A4D8F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -39,7 +39,7 @@
           <DTS:Password
             DTS:Name="password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC1d1KZWaeMvuous141Zp+sgBTfb1bzrul/nsINs/KThAAAAAAOgAAAAAIAACAAAABhW+bXTAjWWmUJ4NgcpsrXa/PXuaGDwi+0G9B5aNanakAAAAA/YVuG9m34atUNUJ7S56zxg6TS7w4CeTNbVDYvuXm6x+9I5TkmrlBQsM0WIePJT/sY1uZMA6p4jb9S91YbLiLYQAAAAF731lvxzY/yjLQ7oyfOIygJc5r3ynB9QInHWU9oP15e5hdWGMd9mgho1NvUd7Fp/Xy/Ks+Jk/60J39TB9eZW+A</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADr8MDVBUx9ElYFqOHYZklRSAkouqCU051kNlTLaub4uQAAAAAOgAAAAAIAACAAAAADO08HwwExVunMd3qAfy0NOEaRZ/P0HJerPrBeXRl4ZEAAAACQ55n2r4uJ/CBubqk74wWt1a0G7JVrj10cItq3WxQBbzaS+zf9kQ54PR0e2di447ehMe5d7hlvYpK/n/wiyzQ9QAAAAApjT/ZyRhgWWqEb5NE1HLnP0Re0HtHHTGVHDu10+msr+zNFIGr6nYvLYHFy470OGin76rBiPolll5XbeeqklHc</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -78,6 +78,221 @@
           version="1">
           <components>
             <component
+              refId="Package\Llenar DimUbicacion\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[direccionId]"
+                      cachedDataType="i4"
+                      cachedName="direccionId"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[direccionCompleta]"
+                      cachedDataType="wstr"
+                      cachedLength="872"
+                      cachedName="direccionCompleta"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[ciudad]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ciudad"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[ciudad]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[departamento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="departamento"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[departamento]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[pais]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="pais"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[pais]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[codigoPostal]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="codigoPostal"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[codigoPostal]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]"
+                      name="Copy of direccionId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionCompleta]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionCompleta]"
+                      name="Copy of direccionCompleta"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ciudad]"
+                      name="Copy of ciudad"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[ciudad]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of departamento]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of departamento]"
+                      name="Copy of departamento"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[departamento]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of pais]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of pais]"
+                      name="Copy of pais"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[pais]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of codigoPostal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of codigoPostal]"
+                      name="Copy of codigoPostal"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[codigoPostal]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
@@ -91,18 +306,16 @@
                   description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select a.person_id,
-UPPER(CONCAT(IFNULL(pn.given_name,'') , ' ',IFNULL(pn.middle_name,''))) nombres,
-UPPER(CONCAT(IFNULL(pn.family_name,'') , ' ',IFNULL(pn.family_name2,''))) apellidos,
-a.gender sexo,
-a.birthdate fechaNacimiento,
-a.date_created fechaIngreso,
-a.date_voided  fechaBaja,
-NOW() fechaProceso
-from person a
-JOIN person_address pa ON a.person_id =pa.person_id 
-JOIN person_name pn ON a.person_id=pn.person_id
-ORDER BY a.person_id asc</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select DISTINCT 
+pa.person_address_id direccionId,
+UPPER(CONCAT(IFNULL(pa.address1,''),' // ',IFNULL(pa.city_village,'N/Ciudad'),' ',IFNULL(pa.state_province,'N/Departamento'),' ',IFNULL(pa.country,'N/PAIS'),' ',IFNULL(pa.postal_code,'N/POSTAL'))) direccionCompleta,
+UPPER(IFNULL(pa.city_village,'N/CIUDAD')) ciudad,
+UPPER(IFNULL(pa.state_province,'N/DEPARTAMENTO')) departamento ,
+UPPER(IFNULL(pa.country,'N/PAIS')) pais,
+UPPER(IFNULL(pa.postal_code,'N/POSTAL')) codigoPostal
+from obs o 
+join person p on o.person_id =p.person_id 
+join person_address pa on p.person_id =pa.person_id</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
@@ -140,118 +353,96 @@ ORDER BY a.person_id asc</property>
                   name="Salida de origen de ADO NET">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]"
-                      name="person_id"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionId]"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]"
+                      name="direccionId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
-                      length="101"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]"
-                      name="nombres"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionCompleta]"
+                      length="872"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]"
+                      name="direccionCompleta"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[ciudad]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
-                      length="101"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
-                      name="apellidos"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[ciudad]"
+                      length="255"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[ciudad]"
+                      name="ciudad"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[departamento]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[departamento]"
+                      length="255"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[departamento]"
+                      name="departamento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[pais]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[pais]"
                       length="50"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]"
-                      name="sexo"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[pais]"
+                      name="pais"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[codigoPostal]"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
-                      name="fechaNacimiento"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
-                      name="fechaIngreso"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
-                      name="fechaBaja"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
-                      name="fechaProceso"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[codigoPostal]"
+                      length="50"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[codigoPostal]"
+                      name="codigoPostal"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionId]"
                       dataType="i4"
-                      name="person_id" />
+                      name="direccionId" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionCompleta]"
                       dataType="wstr"
-                      length="101"
-                      name="nombres" />
+                      length="872"
+                      name="direccionCompleta" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[ciudad]"
                       dataType="wstr"
-                      length="101"
-                      name="apellidos" />
+                      length="255"
+                      name="ciudad" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[departamento]"
+                      dataType="wstr"
+                      length="255"
+                      name="departamento" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[pais]"
                       dataType="wstr"
                       length="50"
-                      name="sexo" />
+                      name="pais" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
-                      name="fechaNacimiento" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
-                      dataType="dbTimeStamp"
-                      name="fechaIngreso" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      name="fechaBaja" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
-                      dataType="dbTimeStamp"
-                      name="fechaProceso" />
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[codigoPostal]"
+                      dataType="wstr"
+                      length="50"
+                      name="codigoPostal" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -260,48 +451,40 @@ ORDER BY a.person_id asc</property>
                   name="Salida de error de origen de ADO NET">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionId]"
                       dataType="i4"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
-                      name="person_id" />
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionId]"
+                      name="direccionId" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionCompleta]"
                       dataType="wstr"
-                      length="101"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
-                      name="nombres" />
+                      length="872"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionCompleta]"
+                      name="direccionCompleta" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ciudad]"
                       dataType="wstr"
-                      length="101"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
-                      name="apellidos" />
+                      length="255"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ciudad]"
+                      name="ciudad" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[departamento]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[departamento]"
+                      name="departamento" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[pais]"
                       dataType="wstr"
                       length="50"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
-                      name="sexo" />
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[pais]"
+                      name="pais" />
                     <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
-                      name="fechaNacimiento" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
-                      name="fechaIngreso" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
-                      name="fechaBaja" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
-                      name="fechaProceso" />
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[codigoPostal]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[codigoPostal]"
+                      name="codigoPostal" />
                     <outputColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
                       dataType="i4"
@@ -390,6 +573,54 @@ ORDER BY a.person_id asc</property>
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of direccionId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of direccionId"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionId]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of pais]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of pais"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Pais]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of pais]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of ciudad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of ciudad"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Ciudad]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ciudad]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of departamento]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of departamento"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Departamento]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of departamento]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of codigoPostal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of codigoPostal"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoPostal]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of codigoPostal]" />
+                    <inputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of direccionCompleta]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="Copy of direccionCompleta"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionCompleta]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionCompleta]" />
+                  </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
@@ -400,12 +631,6 @@ ORDER BY a.person_id asc</property>
                       refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionId]"
                       dataType="i4"
                       name="DireccionId" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionCompleta]"
-                      codePage="1252"
-                      dataType="str"
-                      length="500"
-                      name="DireccionCompleta" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Pais]"
                       codePage="1252"
@@ -430,6 +655,12 @@ ORDER BY a.person_id asc</property>
                       dataType="str"
                       length="10"
                       name="CodigoPostal" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionCompleta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="DireccionCompleta" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -461,8 +692,13 @@ ORDER BY a.person_id asc</property>
           </components>
           <paths>
             <path
-              refId="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
+              refId="Package\Llenar DimUbicacion.Paths[Salida de conversión de datos]"
               endId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de conversión de datos"
+              startId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
+              endId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos]"
               name="Salida de origen de ADO NET"
               startId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET]" />
           </paths>
@@ -529,7 +765,7 @@ ORDER BY a.person_id asc</property>
     design-time-name="Package\Llenar DimUbicacion">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="270,42"
           Id="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer"
@@ -538,20 +774,46 @@ ORDER BY a.person_id asc</property>
           Size="227,42"
           Id="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
           TopLeft="382,124" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Llenar DimUbicacion\Conversión de datos"
+          TopLeft="398,246" />
         <EdgeLayout
           Id="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
-          TopLeft="494.75,166">
+          TopLeft="491.75,166">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,206"
+              EndConnector="0,80"
               Start="0,0"
-              End="0,198.5">
+              End="0,72.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,198.5" />
+                    End="0,72.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar DimUbicacion.Paths[Salida de conversión de datos]"
+          TopLeft="491,288">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,84"
+              Start="0,0"
+              End="0,76.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,76.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

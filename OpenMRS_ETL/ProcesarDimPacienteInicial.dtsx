@@ -5,33 +5,33 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-SEU29NB"
   DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
-  DTS:DTSID="{DD112F59-F530-4DAE-BAFA-87179AE2EDFC}"
+  DTS:DTSID="{B2DD3F58-3B0E-4912-B0F9-AAF6ABDB114B}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="3082"
-  DTS:ObjectName="ProcesarDimUbicacion"
+  DTS:ObjectName="ProcesarDimPacienteInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="36"
-  DTS:VersionGUID="{6DCAFAE7-44DB-4A4F-A293-7D3C730D4FDB}">
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{5BF45B97-C4EC-4F0A-A8C3-E18BFA829C93}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
       DTS:CreationName="OLEDB"
-      DTS:DTSID="{B1D858EB-60A5-4E9E-A569-AC559C586BC4}"
+      DTS:DTSID="{8BD7B8A8-B0D9-480D-9198-A859996E3DCD}"
       DTS:ObjectName="DESKTOP-SEU29NB\SERVER1.OpenmrsETL1">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{B1D858EB-60A5-4E9E-A569-AC559C586BC4}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{8BD7B8A8-B0D9-480D-9198-A859996E3DCD}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
       DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
-      DTS:DTSID="{BD0D8EEE-FE6B-46A6-AD4F-FABEFD0AF519}"
+      DTS:DTSID="{36E21DEE-507A-44E6-8DD9-0634FFF4D092}"
       DTS:ObjectName="localhost.openmrs.openmrs1">
       <DTS:ObjectData>
         <DTS:ConnectionManager
@@ -39,7 +39,7 @@
           <DTS:Password
             DTS:Name="password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADILS7mwm9jNR7bdKU4Tk04Fi7PBocnDymOYafTJGISegAAAAAOgAAAAAIAACAAAAABm09NNHFpQcwW25hc0xnsxN0vmlmHGI/KucqQa4B0EEAAAACJAVSY/tfcVUz0Y1IGH7SyWFiGNP1dDDt18OpPY4bT3QNUxwyx9yf/MNDN/Km5MhlqQczeFSSRh1Eq0ajEf4f9QAAAALerOqET0fQPEHZgBqO9BTsuwdwPHYXOidC6IVQRSU9R5DMwjLFGgaQtYHRog6GVqYLHLIz45lruhTGVxtR3gHs</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB07IlEEn70viuyFKBzV++ikTyUKqR8wr+pNrn0EQ6VHgAAAAAOgAAAAAIAACAAAAA7LanfbrqOmaT2CDE5pBx5h8qwcqflgJ+wwf9iYicfD0AAAACeUKNV5NHH+Bk6joKHI5pio71mxLvjRzLA40PsKW6CJiDsGjQ4lwxTc5co8Io63BWlNJIoKfvo2Gg9joESvXhRQAAAAAQkBgvVqFSigwprJMdME9JY4iZk2hr/hcGGfHiy40Ml1KfMfmZwhHjKq4fq6n/XXrgNWeY8cUG7FMfIwlhyO9k</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -50,7 +50,7 @@
       DTS:refId="Package\DimPaciente"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Fact1"
-      DTS:DTSID="{79738A69-5726-43F1-A207-1D07184A9688}"
+      DTS:DTSID="{CFF4BAEF-9A5B-4F8E-A86D-BFF86842578E}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="DimPaciente"
@@ -781,7 +781,7 @@ ORDER BY a.person_id asc</property>
       DTS:refId="Package\Limpiar DimPaciente"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
-      DTS:DTSID="{FAF9B823-E7A5-4DDF-A808-0696FC493AA0}"
+      DTS:DTSID="{0092464A-9148-43DB-9D4B-268BC7BE60B1}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Limpiar DimPaciente"
@@ -790,7 +790,7 @@ ORDER BY a.person_id asc</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{B1D858EB-60A5-4E9E-A569-AC559C586BC4}"
+          SQLTask:Connection="{8BD7B8A8-B0D9-480D-9198-A859996E3DCD}"
           SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimPaciente&#xA;dbcc checkident('DimPaciente',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -799,7 +799,7 @@ ORDER BY a.person_id asc</property>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Restricción]"
       DTS:CreationName=""
-      DTS:DTSID="{2DF99DFE-CBB0-4677-9F4E-759CF019FB4D}"
+      DTS:DTSID="{69475F1E-72DE-422E-BF0F-593A5CC383CE}"
       DTS:From="Package\Limpiar DimPaciente"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"

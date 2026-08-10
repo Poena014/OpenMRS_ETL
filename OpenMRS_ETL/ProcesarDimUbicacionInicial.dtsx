@@ -1,0 +1,588 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/30/2026 9:17:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-SEU29NB"
+  DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
+  DTS:DTSID="{31EE1501-E429-4330-8669-A2E6C9B071C9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="ProcesarDimUbicacionInicial"
+  DTS:PackageType="5"
+  DTS:VersionBuild="39"
+  DTS:VersionGUID="{3EA168D9-6850-4336-8843-E09C9435AA3E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B1D858EB-60A5-4E9E-A569-AC559C586BC4}"
+      DTS:ObjectName="DESKTOP-SEU29NB\SERVER1.OpenmrsETL1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{B1D858EB-60A5-4E9E-A569-AC559C586BC4}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
+      DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
+      DTS:DTSID="{BD0D8EEE-FE6B-46A6-AD4F-FABEFD0AF519}"
+      DTS:ObjectName="localhost.openmrs.openmrs1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="server=localhost;user id=openmrs;database=openmrs;compress=False;logging=False;">
+          <DTS:Password
+            DTS:Name="password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC1d1KZWaeMvuous141Zp+sgBTfb1bzrul/nsINs/KThAAAAAAOgAAAAAIAACAAAABhW+bXTAjWWmUJ4NgcpsrXa/PXuaGDwi+0G9B5aNanakAAAAA/YVuG9m34atUNUJ7S56zxg6TS7w4CeTNbVDYvuXm6x+9I5TkmrlBQsM0WIePJT/sY1uZMA6p4jb9S91YbLiLYQAAAAF731lvxzY/yjLQ7oyfOIygJc5r3ynB9QInHWU9oP15e5hdWGMd9mgho1NvUd7Fp/Xy/Ks+Jk/60J39TB9eZW+A</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar DimUbicacion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{FAF9B823-E7A5-4DDF-A808-0696FC493AA0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar DimUbicacion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B1D858EB-60A5-4E9E-A569-AC559C586BC4}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimPaciente&#xA;dbcc checkident('DimPaciente',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Llenar DimUbicacion"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Fact1"
+      DTS:DTSID="{79738A69-5726-43F1-A207-1D07184A9688}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Llenar DimUbicacion"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Leer Datos Ubicacion Mariadb"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select a.person_id,
+UPPER(CONCAT(IFNULL(pn.given_name,'') , ' ',IFNULL(pn.middle_name,''))) nombres,
+UPPER(CONCAT(IFNULL(pn.family_name,'') , ' ',IFNULL(pn.family_name2,''))) apellidos,
+a.gender sexo,
+a.birthdate fechaNacimiento,
+a.date_created fechaIngreso,
+a.date_voided  fechaBaja,
+NOW() fechaProceso
+from person a
+JOIN person_address pa ON a.person_id =pa.person_id 
+JOIN person_name pn ON a.person_id=pn.person_id
+ORDER BY a.person_id asc</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[person_id]"
+                      name="person_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
+                      length="101"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[nombres]"
+                      name="nombres"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
+                      length="101"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[apellidos]"
+                      name="apellidos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
+                      length="50"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]"
+                      name="sexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
+                      name="fechaNacimiento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
+                      name="fechaIngreso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
+                      name="fechaBaja"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[person_id]"
+                      dataType="i4"
+                      name="person_id" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[nombres]"
+                      dataType="wstr"
+                      length="101"
+                      name="nombres" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[apellidos]"
+                      dataType="wstr"
+                      length="101"
+                      name="apellidos" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[sexo]"
+                      dataType="wstr"
+                      length="50"
+                      name="sexo" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
+                      dataType="dbTimeStamp"
+                      name="fechaNacimiento" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
+                      dataType="dbTimeStamp"
+                      name="fechaIngreso" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
+                      dataType="dbTimeStamp"
+                      name="fechaBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="fechaProceso" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[person_id]"
+                      name="person_id" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
+                      dataType="wstr"
+                      length="101"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[nombres]"
+                      name="nombres" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
+                      dataType="wstr"
+                      length="101"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[apellidos]"
+                      name="apellidos" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[sexo]"
+                      name="sexo" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
+                      name="fechaNacimiento" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
+                      name="fechaIngreso" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
+                      name="fechaBaja" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Llenar Datos DimUbicacion SQLServer"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[DimUbicacion]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[UbicacionKey]"
+                      dataType="i4"
+                      name="UbicacionKey" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionId]"
+                      dataType="i4"
+                      name="DireccionId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionCompleta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="DireccionCompleta" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Pais" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Ciudad" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Departamento]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Departamento" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoPostal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="CodigoPostal" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
+              endId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de origen de ADO NET"
+              startId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{2DF99DFE-CBB0-4677-9F4E-759CF019FB4D}"
+      DTS:From="Package\Limpiar DimUbicacion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Llenar DimUbicacion" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Limpiar DimUbicacion"
+          TopLeft="375,135" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Llenar DimUbicacion"
+          TopLeft="376,249" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="467.25,177">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,72"
+              Start="0,0"
+              End="0,64.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Llenar DimUbicacion">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="270,42"
+          Id="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer"
+          TopLeft="359,372" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
+          TopLeft="382,124" />
+        <EdgeLayout
+          Id="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
+          TopLeft="494.75,166">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,206"
+              Start="0,0"
+              End="0,198.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,198.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

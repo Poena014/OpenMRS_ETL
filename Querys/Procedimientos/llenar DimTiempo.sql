@@ -2,7 +2,7 @@ use OpenmrsETL
 GO
 
 DECLARE @FechaInicio DATE ='2023-01-01'
-DECLARE @FechaFin DATE='2026-06-30'
+DECLARE @FechaFin DATE=GETDATE()
 DECLARE @FechaActual DATE = @FechaInicio
 
 DECLARE @TiempoKey INT

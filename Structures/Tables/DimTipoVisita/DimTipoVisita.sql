@@ -1,10 +1,14 @@
 use OpenmrsETL
 go
 
-CREATE TABLE DimConceptoClinico(
-	id INT,
-	campo1 VARCHAR(50)
+DROP TABLE IF EXISTS DimTipoVisita
+
+CREATE TABLE DimTipoVisita(
+	TipoVisitaKey INT Primary Key IDENTITY(1,1),
+	TipoVisitaId INT NOT NULL,
+	Nombre VARCHAR(100) NOT NULL,
+	Descripcion VARCHAR(100) NOT NULL
 )
 
-CREATE INDEX primary_ind ON DimConceptoClinico (id)
+CREATE INDEX primary_ind ON DimTipoVisita (TipoVisitaKey)
 GO

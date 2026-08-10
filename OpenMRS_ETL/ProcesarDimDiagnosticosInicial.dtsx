@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-SEU29NB"
   DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
-  DTS:DTSID="{B05E8C29-98AB-4BAB-9BAC-03BEA4DE07FC}"
+  DTS:DTSID="{6B51A3A6-B9D2-44A4-9DF9-EB1B3FF9D15E}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimCondicionClinica"
   DTS:PackageType="5"
-  DTS:VersionBuild="49"
-  DTS:VersionGUID="{F34261E9-8C46-48A3-88A5-290001F84ABB}">
+  DTS:VersionBuild="52"
+  DTS:VersionGUID="{916D4F35-EAD1-433A-B952-222B825ED5C8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -39,7 +39,7 @@
           <DTS:Password
             DTS:Name="password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADBPdq0zxsHuIGHsLzvIC4UlJwzSMUtR7Dg1tC7jS/ynAAAAAAOgAAAAAIAACAAAAB4stahTgZkPOtW3Rkpz0G5hG5pHP5xbw1BAAVor2J4pEAAAAC9BwOK8KEKsy8DaAIun0DxDZFrRBxNC3a0WB8h0s3kaPSyEogQBJ5889XXQATW8v5nMrQmFRJ2s1mLlS6BmjDBQAAAAMlXgAoSaJs5lwpiVjgqmNYAboQDOG+AonKQ4rMNXoj+2iD5oR9/9s3XWXsbMfRrQshkSGdPzw2Wd4iIupGopqo</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAALOrmf3JmQ21k5hTvbxtQITNlwnc93Vsu7l6Yc6ELtFAAAAAAOgAAAAAIAACAAAACVZq3DalneyuwthjVHGyejpK4034szZ8J4BPyWyrfY6UAAAABq6DU8AGwrXCAKTGM3NozbSRA51iCuYccPh97UPxkqhYE2nmP0/6W5HNW0m8vgRI1BxaKkt0zUQpL8eOPhSzhnQAAAANikNmxW4tAL+cp5im2mPMFZhk2uJLIqvntEX0bLffkSXPdUGE/+yHfXaZJip39QOsoWcj2pGHXT/K+xD3BkzKQ</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -666,33 +666,21 @@ GROUP BY  c.concept_id</property>
         <NodeLayout
           Size="201,42"
           Id="Package\Limpiar DimDiagnosticos"
-          TopLeft="365,131" />
+          TopLeft="374,129" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="465.5,173">
+          TopLeft="475.75,171">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="11.5,69"
+              EndConnector="0,71"
               Start="0,0"
-              End="11.5,61.5">
+              End="0,63.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,30.5"
-                    Point2="0,34.5"
-                    Point3="4,34.5" />
-                  <mssgle:LineSegment
-                    End="7.5,34.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="7.5,34.5"
-                    Point2="11.5,34.5"
-                    Point3="11.5,38.5" />
-                  <mssgle:LineSegment
-                    End="11.5,61.5" />
+                    End="0,63.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

@@ -5,52 +5,23 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-SEU29NB"
   DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
-  DTS:DTSID="{6B51A3A6-B9D2-44A4-9DF9-EB1B3FF9D15E}"
+  DTS:DTSID="{B3269438-7AE9-46DF-8E24-FED9C878138C}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimCondicionClinica"
   DTS:PackageType="5"
-  DTS:VersionBuild="52"
-  DTS:VersionGUID="{916D4F35-EAD1-433A-B952-222B825ED5C8}">
+  DTS:VersionBuild="54"
+  DTS:VersionGUID="{0AC91682-C77F-4789-8EE7-FE09567C4447}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{5F01D879-E765-499F-8DA7-24C38D5A61F9}"
-      DTS:ObjectName="DESKTOP-SEU29NB\SERVER1.OpenmrsETL1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{5F01D879-E765-499F-8DA7-24C38D5A61F9}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
-      DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
-      DTS:DTSID="{2B0B6546-013D-45D3-B25C-A1E0D37CD52B}"
-      DTS:ObjectName="localhost.openmrs.openmrs1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="server=localhost;user id=openmrs;database=openmrs;compress=False;logging=False;">
-          <DTS:Password
-            DTS:Name="password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAALOrmf3JmQ21k5hTvbxtQITNlwnc93Vsu7l6Yc6ELtFAAAAAAOgAAAAAIAACAAAACVZq3DalneyuwthjVHGyejpK4034szZ8J4BPyWyrfY6UAAAABq6DU8AGwrXCAKTGM3NozbSRA51iCuYccPh97UPxkqhYE2nmP0/6W5HNW0m8vgRI1BxaKkt0zUQpL8eOPhSzhnQAAAANikNmxW4tAL+cp5im2mPMFZhk2uJLIqvntEX0bLffkSXPdUGE/+yHfXaZJip39QOsoWcj2pGHXT/K+xD3BkzKQ</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
       DTS:refId="Package\DimDiagnosticos"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Fact1"
-      DTS:DTSID="{A2170E99-D09E-428C-99CF-5F3F730291D6}"
+      DTS:DTSID="{02CE5305-4FF5-4382-9550-8F7905F026D9}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="DimDiagnosticos"
@@ -298,8 +269,8 @@ GROUP BY  c.concept_id</property>
               <connections>
                 <connection
                   refId="Package\DimDiagnosticos\Leer Datos Diagnosticos Mariadb.Connections[IDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
-                  connectionManagerRefId="Package.ConnectionManagers[localhost.openmrs.openmrs1]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
                   description="Administrador de conexiones administrado"
                   name="IDbConnection" />
               </connections>
@@ -472,7 +443,7 @@ GROUP BY  c.concept_id</property>
                   dataType="System.Int32"
                   description="Especifica el modo utilizado para obtener acceso a la base de datos."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">3</property>
                 <property
                   dataType="System.Boolean"
                   description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
@@ -484,7 +455,7 @@ GROUP BY  c.concept_id</property>
                 <property
                   dataType="System.String"
                   description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadOptions"></property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
@@ -493,8 +464,8 @@ GROUP BY  c.concept_id</property>
               <connections>
                 <connection
                   refId="Package\DimDiagnosticos\Llenar Datos Diagnosticos SQLServer.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -623,7 +594,7 @@ GROUP BY  c.concept_id</property>
       DTS:refId="Package\Limpiar DimDiagnosticos"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
-      DTS:DTSID="{28E0F7DD-20C7-4ABF-9964-29DE72056893}"
+      DTS:DTSID="{5CF73CE9-959A-41DD-AEAC-F8014571142B}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Limpiar DimDiagnosticos"
@@ -632,7 +603,7 @@ GROUP BY  c.concept_id</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{5F01D879-E765-499F-8DA7-24C38D5A61F9}"
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
           SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimDiagnosticos&#xA;dbcc checkident('DimDiagnosticos',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -641,7 +612,7 @@ GROUP BY  c.concept_id</property>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Restricción]"
       DTS:CreationName=""
-      DTS:DTSID="{1335FA8F-0579-49F2-BD72-D279FDEDAB99}"
+      DTS:DTSID="{15618505-9A50-4437-9BF7-87D8B82DC08B}"
       DTS:From="Package\Limpiar DimDiagnosticos"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"
@@ -666,10 +637,10 @@ GROUP BY  c.concept_id</property>
         <NodeLayout
           Size="201,42"
           Id="Package\Limpiar DimDiagnosticos"
-          TopLeft="374,129" />
+          TopLeft="373,129" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="475.75,171">
+          TopLeft="475.25,171">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -696,55 +667,19 @@ GROUP BY  c.concept_id</property>
     design-time-name="Package\DimDiagnosticos">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="265,42"
           Id="Package\DimDiagnosticos\Llenar Datos Diagnosticos SQLServer"
           TopLeft="347,398" />
         <NodeLayout
-          Size="241,42"
-          Id="Package\DimDiagnosticos\Leer Datos Diagnosticos Mariadb"
-          TopLeft="333,117" />
-        <NodeLayout
           Size="180,42"
           Id="Package\DimDiagnosticos\Conversión de datos"
           TopLeft="380,249" />
-        <EdgeLayout
-          Id="Package\DimDiagnosticos.Paths[Salida de origen de ADO NET]"
-          TopLeft="453.5,159">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="16.5,90"
-              Start="0,0"
-              End="16.5,82.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,41" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,41"
-                    Point2="0,45"
-                    Point3="4,45" />
-                  <mssgle:LineSegment
-                    End="12.5,45" />
-                  <mssgle:CubicBezierSegment
-                    Point1="12.5,45"
-                    Point2="16.5,45"
-                    Point3="16.5,49" />
-                  <mssgle:LineSegment
-                    End="16.5,82.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-8.2087109375,50,32.917421875,9.7978515625"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="241,42"
+          Id="Package\DimDiagnosticos\Leer Datos Diagnosticos Mariadb"
+          TopLeft="333,117" />
         <EdgeLayout
           Id="Package\DimDiagnosticos.Paths[Salida de conversión de datos]"
           TopLeft="470,291">
@@ -776,9 +711,41 @@ GROUP BY  c.concept_id</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-11.7087109375,58.5,32.917421875,9.7978515625"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimDiagnosticos.Paths[Salida de origen de ADO NET]"
+          TopLeft="453.5,159">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.5,90"
+              Start="0,0"
+              End="16.5,82.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,41"
+                    Point2="0,45"
+                    Point3="4,45" />
+                  <mssgle:LineSegment
+                    End="12.5,45" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.5,45"
+                    Point2="16.5,45"
+                    Point3="16.5,49" />
+                  <mssgle:LineSegment
+                    End="16.5,82.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

@@ -1,14 +1,14 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <SSIS:Parameters xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
   <SSIS:Parameter
-    SSIS:Name="FechaCargaInicial">
+    SSIS:Name="ConexionSqlServer_CS">
     <SSIS:Properties>
       <SSIS:Property
-        SSIS:Name="ID">{b2f8b54b-f585-4947-8e07-5c188398c942}</SSIS:Property>
+        SSIS:Name="ID">{42462A28-1EB8-4306-A263-5079393C4072}</SSIS:Property>
       <SSIS:Property
         SSIS:Name="CreationName"></SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Description"></SSIS:Property>
+        SSIS:Name="Description">Cadena de conexion completa al SQL Server destino (autenticacion integrada)</SSIS:Property>
       <SSIS:Property
         SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
       <SSIS:Property
@@ -16,9 +16,30 @@
       <SSIS:Property
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Value">2023-01-01T00:00:00</SSIS:Property>
+        SSIS:Name="Value"></SSIS:Property>
       <SSIS:Property
-        SSIS:Name="DataType">16</SSIS:Property>
+        SSIS:Name="DataType">18</SSIS:Property>
+    </SSIS:Properties>
+  </SSIS:Parameter>
+  <SSIS:Parameter
+    SSIS:Name="ConexionMariaDB_CS">
+    <SSIS:Properties>
+      <SSIS:Property
+        SSIS:Name="ID">{E5FF88C3-B9BA-4565-A161-77A735C38D99}</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="CreationName"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Description">Cadena de conexion a la base fuente OpenMRS (MariaDB) con password incluida</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Required">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Sensitive">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Value"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>
   </SSIS:Parameter>
 </SSIS:Parameters>

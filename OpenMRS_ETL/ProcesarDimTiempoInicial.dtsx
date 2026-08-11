@@ -11,24 +11,10 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimTiempoInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{DDD5B534-B8A9-4A69-8BC3-19AD3E1D57DF}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{21A75F7D-C78A-468C-A692-F0CA8FD0D701}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-SEU29NB\SERVER1.OpenmrsETL1]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{098A5768-FAF3-40B8-B777-E39CAF20CAB1}"
-      DTS:ObjectName="DESKTOP-SEU29NB\SERVER1.OpenmrsETL1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-ProcesarDimTiempoInicial-{098A5768-FAF3-40B8-B777-E39CAF20CAB1}DESKTOP-SEU29NB\SERVER1.OpenmrsETL1;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
@@ -44,7 +30,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{098A5768-FAF3-40B8-B777-E39CAF20CAB1}"
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
           SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;DELETE FROM DimTiempo" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -61,7 +47,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{098A5768-FAF3-40B8-B777-E39CAF20CAB1}"
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
           SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;DECLARE @FechaInicio DATE ='2023-01-01'&#xA;DECLARE @FechaFin DATE=GETDATE()&#xA;DECLARE @FechaActual DATE = @FechaInicio&#xA;&#xA;DECLARE @TiempoKey INT&#xA;DECLARE @Dia INT&#xA;DECLARE @Mes INT&#xA;DECLARE @Anio INT&#xA;&#xA;WHILE @FechaActual&lt;=@FechaFin&#xA;BEGIN&#xA;&#x9;SET @TiempoKey = CONVERT(INT, CONVERT(VARCHAR(8), @FechaActual, 112))&#xA;&#x9;SET @Dia=DAY(@FechaActual)&#xA;&#x9;SET @Mes=MONTH(@FechaActual)&#xA;&#x9;SET @Anio=YEAR(@FechaActual)&#xA;&#xA;&#x9;INSERT INTO DimTiempo (TiempoKey,Fecha, Dia,Mes,Anio)&#xA;&#x9;VALUES (@TiempoKey,@FechaActual, @Dia,@Mes, @Anio)&#xA;&#xA;&#x9;SET @FechaActual=DATEADD(DAY,1,@FechaActual)&#xA;&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -89,13 +75,13 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="176,42"
-          Id="Package\Llenar DimTiempo"
-          TopLeft="410,292" />
-        <NodeLayout
           Size="174,42"
           Id="Package\Limpiar DimTiempo"
           TopLeft="407,180" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Llenar DimTiempo"
+          TopLeft="410,292" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="496,222">

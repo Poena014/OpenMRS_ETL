@@ -430,3 +430,8 @@ FodyWeavers.xsd
 
 # Archivos de conexión SSIS (solo se versiona la versión inicial)
 *.conmgr
+
+# Parámetros de proyecto SSIS: Project.params puede contener contraseñas
+# (p. ej. ConexionMariaDB_CS con la password de MariaDB). Solo se versiona
+# de forma forzada con "git add -f" para su revisión manual.
+OpenMRS_ETL/Project.params

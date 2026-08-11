@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="ConexionMariaDB"
+  DTS:DTSID="{C41D271F-15A2-42F9-9B9F-14241C35D875}"
+  DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::ConexionMariaDB_CS]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

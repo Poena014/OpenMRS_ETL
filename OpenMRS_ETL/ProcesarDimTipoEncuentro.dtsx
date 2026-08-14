@@ -602,12 +602,12 @@ ORDER BY et.encounter_type_id ASC</property>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:refId="Package.PrecedenceConstraints[Restriccion]"
       DTS:CreationName=""
       DTS:DTSID="{A8AA8230-8497-41C4-8A40-B1D7C13CFAA3}"
       DTS:From="Package\Limpiar DimTipoEncuentro"
       DTS:LogicalAnd="True"
-      DTS:ObjectName="Restricción"
+      DTS:ObjectName="Restriccion"
       DTS:To="Package\Cargar DimTipoEncuentro" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
@@ -627,7 +627,7 @@ ORDER BY et.encounter_type_id ASC</property>
           Id="Package\Cargar DimTipoEncuentro"
           TopLeft="315,157" />
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Restricción]"
+          Id="Package.PrecedenceConstraints[Restriccion]"
           TopLeft="407.5,108">
           <EdgeLayout.Curve>
             <mssgle:Curve

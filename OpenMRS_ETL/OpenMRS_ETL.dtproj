@@ -405,13 +405,13 @@
             <SSIS:PackageMetaData SSIS:Name="ProcesarDimTipoEncuentro.dtsx">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">{99133A3C-CB10-4F28-886B-A3DC680EFE4C}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">ProcesarDimTipoEncuentro</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{A147A506-27D6-46F6-8525-F39CAC884F87}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{35E07BB8-45F8-403B-8C61-9CCE38BF822B}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

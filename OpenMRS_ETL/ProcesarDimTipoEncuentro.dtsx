@@ -1,0 +1,740 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/9/2026 9:19:09 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JUANRIVERAPC"
+  DTS:CreatorName="JUANRIVERAPC\jcriv"
+  DTS:DTSID="{99133A3C-CB10-4F28-886B-A3DC680EFE4C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="21514"
+  DTS:ObjectName="ProcesarDimTipoEncuentro"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{35E07BB8-45F8-403B-8C61-9CCE38BF822B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar DimTipoEncuentro"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AA438F7F-FD98-4F8F-A29C-8E30C124B315}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar DimTipoEncuentro"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; (C) 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimTipoEncuentro&#xA;dbcc checkident('DimTipoEncuentro',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Cargar DimTipoEncuentro"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{38A08A41-4F77-4A58-BA4A-221081722E66}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cargar DimTipoEncuentro"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Cargar DimTipoEncuentro\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input].Columns[nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="nombre"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombre]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="1024"
+                      cachedName="descripcion"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[descripcion]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input].Columns[estaRetirado]"
+                      cachedDataType="bool"
+                      cachedName="estaRetirado"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]"
+                      name="Copy of nombre"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombre]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of descripcion]"
+                      name="Copy of descripcion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[descripcion]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
+                      name="Copy of estaRetirado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimTipoEncuentro\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimTipoEncuentro]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted at the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load. Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion. A value of 0 specifies that one commit will be issued at the end of data insertion. Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[encounterTypeId]"
+                      cachedDataType="i4"
+                      cachedName="encounterTypeId"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EncounterTypeId]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[encounterTypeId]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaCreacion"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fechaRetiro]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaRetiro"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaRetiro]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fechaProceso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaProceso"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaProceso]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of nombre"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of descripcion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="Copy of descripcion"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Descripcion]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of descripcion]" />
+                    <inputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of estaRetirado]"
+                      cachedDataType="bool"
+                      cachedName="Copy of estaRetirado"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TipoEncuentroKey]"
+                      dataType="i4"
+                      name="TipoEncuentroKey" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EncounterTypeId]"
+                      dataType="i4"
+                      name="EncounterTypeId" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
+                      dataType="bool"
+                      name="EstaRetirado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="FechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="FechaRetiro" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="FechaProceso" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume data from SQL Server, OLE DB, ODBC, or Oracle by using the corresponding .NET Framework data provider.;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consume data from SQL Server, OLE DB, ODBC, or Oracle by using the corresponding .NET Framework data provider."
+              name="Origen de ADO NET"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+et.encounter_type_id encounterTypeId,
+UPPER(et.name) nombre,
+IFNULL(UPPER(et.description), 'N/A') descripcion,
+et.retired estaRetirado,
+et.date_created fechaCreacion,
+et.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM encounter_type et
+ORDER BY et.encounter_type_id ASC</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether implicit string conversion is allowed for external non-string columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode for retrieving external column information."
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[encounterTypeId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[encounterTypeId]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[encounterTypeId]"
+                      name="encounterTypeId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[nombre]"
+                      length="255"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombre]"
+                      name="nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[descripcion]"
+                      length="1024"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[descripcion]"
+                      name="descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
+                      name="estaRetirado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]"
+                      name="fechaCreacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaRetiro]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]"
+                      name="fechaRetiro"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[encounterTypeId]"
+                      dataType="i4"
+                      name="encounterTypeId" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[nombre]"
+                      dataType="wstr"
+                      length="255"
+                      name="nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[descripcion]"
+                      dataType="wstr"
+                      length="1024"
+                      name="descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
+                      dataType="bool"
+                      name="estaRetirado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="fechaRetiro" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="fechaProceso" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[encounterTypeId]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[encounterTypeId]"
+                      name="encounterTypeId" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[nombre]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[nombre]"
+                      name="nombre" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[descripcion]"
+                      dataType="wstr"
+                      length="1024"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[descripcion]"
+                      name="descripcion" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
+                      dataType="bool"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
+                      name="estaRetirado" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaCreacion]"
+                      name="fechaCreacion" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaRetiro]"
+                      name="fechaRetiro" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Cargar DimTipoEncuentro.Paths[Salida de origen de ADO NET]"
+              endId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input]"
+              name="Salida de origen de ADO NET"
+              startId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
+            <path
+              refId="Package\Cargar DimTipoEncuentro.Paths[Data Conversion Output]"
+              endId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restriccion]"
+      DTS:CreationName=""
+      DTS:DTSID="{A8AA8230-8497-41C4-8A40-B1D7C13CFAA3}"
+      DTS:From="Package\Limpiar DimTipoEncuentro"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restriccion"
+      DTS:To="Package\Cargar DimTipoEncuentro" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<Objects
+  Version="8">
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Limpiar DimTipoEncuentro"
+          TopLeft="315,66" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Cargar DimTipoEncuentro"
+          TopLeft="315,157" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restriccion]"
+          TopLeft="407.5,108">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Cargar DimTipoEncuentro">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Cargar DimTipoEncuentro\Origen de ADO NET"
+          TopLeft="375,52" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Cargar DimTipoEncuentro\Data Conversion"
+          TopLeft="390,216" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Cargar DimTipoEncuentro\OLE DB Destination"
+          TopLeft="380,349" />
+        <EdgeLayout
+          Id="Package\Cargar DimTipoEncuentro.Paths[Salida de origen de ADO NET]"
+          TopLeft="465,94">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,122"
+              Start="0,0"
+              End="0,114.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,114.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimTipoEncuentro.Paths[Data Conversion Output]"
+          TopLeft="465,258">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,91"
+              Start="0,0"
+              End="0,83.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,83.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimTipoEncuentro\Origen de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimTipoEncuentro\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

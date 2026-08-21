@@ -36,6 +36,8 @@
           <SSIS:Package SSIS:Name="ProcesarDimTipoVisita.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimDiagnosticosInicial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimPacienteInicial.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="ProcesarDimProveedor.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="ProcesarDimTipoEncuentro.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="ConexionMariaDB.conmgr" />
@@ -376,6 +378,40 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{4FAEE8C4-0FD7-41BC-81E2-2C587BA8136F}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="ProcesarDimProveedor.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{2A26AA3E-C451-4465-91D1-BC72B296CDE3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">ProcesarDimProveedor</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">10</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{1B92E17C-C50F-4665-B4F3-9C1C20D7006F}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="ProcesarDimTipoEncuentro.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{99133A3C-CB10-4F28-886B-A3DC680EFE4C}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">ProcesarDimTipoEncuentro</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{35E07BB8-45F8-403B-8C61-9CCE38BF822B}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

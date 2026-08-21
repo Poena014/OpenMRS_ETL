@@ -1,0 +1,782 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/9/2026 9:18:26 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JUANRIVERAPC"
+  DTS:CreatorName="JUANRIVERAPC\jcriv"
+  DTS:DTSID="{2A26AA3E-C451-4465-91D1-BC72B296CDE3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="21514"
+  DTS:ObjectName="ProcesarDimProveedor"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{1B92E17C-C50F-4665-B4F3-9C1C20D7006F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar DimProveedor"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7EBB2C2B-560E-4237-8DA0-C5D34DAFF181}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar DimProveedor"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; (C) 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimProveedor&#xA;dbcc checkident('DimProveedor',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Cargar DimProveedor"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F322261D-BA5B-4A42-9B15-4148298C2D96}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cargar DimProveedor"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Cargar DimProveedor\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input].Columns[nombreCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="nombreCompleto"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input].Columns[identificador]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="identificador"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[identificador]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input].Columns[estaRetirado]"
+                      cachedDataType="bool"
+                      cachedName="estaRetirado"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]"
+                      name="Copy of nombreCompleto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of identificador]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of identificador]"
+                      name="Copy of identificador"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[identificador]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
+                      name="Copy of estaRetirado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProveedor\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimProveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar DimProveedor\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[providerId]"
+                      cachedDataType="i4"
+                      cachedName="providerId"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProviderId]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[providerId]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[personId]"
+                      cachedDataType="i4"
+                      cachedName="personId"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PersonId]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[personId]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaCreacion"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fechaRetiro]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaRetiro"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaRetiro]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fechaProceso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaProceso"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaProceso]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of nombreCompleto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of nombreCompleto"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreCompleto]"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of identificador]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of identificador"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Identificador]"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of identificador]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of estaRetirado]"
+                      cachedDataType="bool"
+                      cachedName="Copy of estaRetirado"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
+                      lineageId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProveedorKey]"
+                      dataType="i4"
+                      name="ProveedorKey" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProviderId]"
+                      dataType="i4"
+                      name="ProviderId" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PersonId]"
+                      dataType="i4"
+                      name="PersonId" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreCompleto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NombreCompleto" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Identificador]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Identificador" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
+                      dataType="bool"
+                      name="EstaRetirado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="FechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="FechaRetiro" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="FechaProceso" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProveedor\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProveedor\Origen de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Origen de ADO NET"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+p.provider_id providerId,
+p.person_id personId,
+UPPER(
+	COALESCE(
+		NULLIF(TRIM(p.name), ''),
+		NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),
+		'N/A'
+	)
+) nombreCompleto,
+IFNULL(p.identifier, 'N/A') identificador,
+p.retired estaRetirado,
+p.date_created fechaCreacion,
+p.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM provider p
+LEFT JOIN person_name pn ON p.person_id = pn.person_id
+	AND pn.voided = 0
+	AND pn.preferred = 1
+ORDER BY p.provider_id ASC</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar DimProveedor\Origen de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[providerId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[providerId]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[providerId]"
+                      name="providerId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[personId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[personId]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[personId]"
+                      name="personId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[nombreCompleto]"
+                      length="255"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]"
+                      name="nombreCompleto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[identificador]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[identificador]"
+                      length="255"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[identificador]"
+                      name="identificador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
+                      name="estaRetirado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]"
+                      name="fechaCreacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaRetiro]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]"
+                      name="fechaRetiro"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[providerId]"
+                      dataType="i4"
+                      name="providerId" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[personId]"
+                      dataType="i4"
+                      name="personId" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[nombreCompleto]"
+                      dataType="wstr"
+                      length="255"
+                      name="nombreCompleto" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[identificador]"
+                      dataType="wstr"
+                      length="255"
+                      name="identificador" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
+                      dataType="bool"
+                      name="estaRetirado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="fechaRetiro" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="fechaProceso" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[providerId]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[providerId]"
+                      name="providerId" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[personId]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[personId]"
+                      name="personId" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[nombreCompleto]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[nombreCompleto]"
+                      name="nombreCompleto" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[identificador]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[identificador]"
+                      name="identificador" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
+                      dataType="bool"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
+                      name="estaRetirado" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaCreacion]"
+                      name="fechaCreacion" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaRetiro]"
+                      name="fechaRetiro" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Cargar DimProveedor.Paths[Data Conversion Output]"
+              endId="Package\Cargar DimProveedor\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Cargar DimProveedor\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Cargar DimProveedor.Paths[Salida de origen de ADO NET]"
+              endId="Package\Cargar DimProveedor\Data Conversion.Inputs[Data Conversion Input]"
+              name="Salida de origen de ADO NET"
+              startId="Package\Cargar DimProveedor\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restriccion]"
+      DTS:CreationName=""
+      DTS:DTSID="{EC415473-3D2B-440F-A948-064BB93889DB}"
+      DTS:From="Package\Limpiar DimProveedor"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restriccion"
+      DTS:To="Package\Cargar DimProveedor" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Limpiar DimProveedor"
+          TopLeft="315,66" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Cargar DimProveedor"
+          TopLeft="315,157" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restriccion]"
+          TopLeft="407.5,108">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Cargar DimProveedor">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166.69090909091,41.8909090909091"
+          Id="Package\Cargar DimProveedor\Origen de ADO NET"
+          TopLeft="748.000049228473,117.000007700176" />
+        <NodeLayout
+          Size="164.945454545455,41.8909090909091"
+          Id="Package\Cargar DimProveedor\OLE DB Destination"
+          TopLeft="747.000049162659,294.000019349159" />
+        <NodeLayout
+          Size="150.981818181819,41.8909090909091"
+          Id="Package\Cargar DimProveedor\Data Conversion"
+          TopLeft="761.000050084048,211.000013886641" />
+        <EdgeLayout
+          Id="Package\Cargar DimProveedor.Paths[Salida de origen de ADO NET]"
+          TopLeft="833.918231474442,158.890916791085">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.1090970955567"
+              Start="0,0"
+              End="0,44.6090970955567">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.6090970955567" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimProveedor.Paths[Data Conversion Output]"
+          TopLeft="832.981867805172,252.89092297755">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.1090963716085"
+              Start="0,0"
+              End="0,33.6090963716085">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.6090963716085" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimProveedor\Origen de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimProveedor\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

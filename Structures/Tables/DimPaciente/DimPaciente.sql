@@ -10,9 +10,7 @@ CREATE TABLE DimPaciente(
 	Apellidos VARCHAR(255) NOT NULL,
 	Sexo VARCHAR(1) NOT NULL,
 	FechaNacimiento DATE NOT NULL,
-	FechaIngreso DATETIME NOT NULL,
-	FechaBaja DATETIME NULL,
-	FechaProceso DATETIME NOT NULL
+	FechaIngreso DATETIME NOT NULL
 )
 
 CREATE INDEX primary_ind ON DimPaciente (PacienteKey)

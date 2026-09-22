@@ -16,7 +16,7 @@
       <SSIS:Property
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Value"></SSIS:Property>
+        SSIS:Name="Value">Data Source=DESKTOP-SEU29NB\SERVER1;Initial Catalog=OpenmrsETL;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>
@@ -37,7 +37,7 @@
       <SSIS:Property
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Value"></SSIS:Property>
+        SSIS:Name="Value">server=localhost;user id=openmrs;password=RVQh1TaLk3MsIctr9iY7Zb2P;database=openmrs;compress=False;logging=False;</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>

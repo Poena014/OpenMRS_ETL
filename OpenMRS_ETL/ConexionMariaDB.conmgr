@@ -6,7 +6,11 @@
   <DTS:PropertyExpression
     DTS:Name="ConnectionString">@[$Project::ConexionMariaDB_CS]</DTS:PropertyExpression>
   <DTS:ObjectData>
-    <DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="server=localhost;user id=openmrs;database=openmrs;compress=False;logging=False;">
+      <DTS:Password
+        DTS:Name="password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1RF4OcKXwkCM8UE5lGI5mgAAAAACAAAAAAAQZgAAAAEAACAAAAD6t3eGPDIAA2ci6xTc/ob+W/uN8hrQdYgxFpLiYJuQwwAAAAAOgAAAAAIAACAAAAA/qxz8MdaL16Ahe75wVlqBUvbFFH0OYccTf9WxvkrKY5AAAAD9IoLfxXB2iBVuiv2HQVH+6XWBChgRKLJxhZLaYcTpS5d5K68CzYq4VrzxeyliiXW6I9au9es9V51MOarXI6WJ5vzeL6CX/i4EqauDu1M9pOSh1AQiCsbOUD+vdfG+mgxphzK+hEOw2Yumpb5af4DuawDV+5EgbQwREjYoF448Cr6z16Os2V6j+b61s6DfNxlAAAAA2ZW9jMvT9MFLCTgvDssZjKJdlLdNRo5eJSKdvNLsHmSVckW5JDaLrG1XMv/PjtJoia+QIIGElbLd1YyzyGyGyA==</DTS:Password>
     </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>

@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-SEU29NB</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoS8m0sJtm0OYSAQda+xtSAAAAAACAAAAAAAQZgAAAAEAACAAAABvdeq/Rxew60c5k1pviJvsIpDLJ8Da0fu2ohHmxvjaDgAAAAAOgAAAAAIAACAAAAABY782AEBNWSsuU9D4qVp5MIItQOJ67fwt+TVmoW08ZJAAAADRmzf0dSe8k1efdiW7JYqrKNCDTiJaQUF2YqJEvT82QRyz1vHdKaE8NNYwJ2bme0ULr8ueHTtnyLDNAecoy1vgOrWxTsrtpBj1UuSyABm3D7j93FMfLVp9wtaXbJW13hRILr8AYqfBlx8v/Ar++g/URAlLrataewFoY2iiTR3f+naOtp4bo8Tj5Tn30wqjRdBAAAAAy11f2FumqYtSMqIlUy/vq4zrIRj+jsRS8DTa5+MQpi1iObHGYW0XnPkqtSvCLLawWBeVWN+k6e+HbWcXEymsRA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1RF4OcKXwkCM8UE5lGI5mgAAAAACAAAAAAAQZgAAAAEAACAAAACGkOaYwWqqzQXzlTnusR+aBZZmxgjl5GrgNemwMSSzCAAAAAAOgAAAAAIAACAAAAARDwVsqQnjtI6DV1uwxv+rWMc68Yy8wJlLofIb243rTJAAAADMHhlUZ6IA8wcNA4tfpZ6V7LKGkXeR0QnC0W4mr+oHayXJzIvM8PrfDGI/wRk3Xt1ut7uaVjT9HQJEaUP0nm7MxDbPo66NdTmUTI03e014pp64KH+wqFRzccYcounlxUNPlVdqRyXJFOjdWWxFj/k1f7zF2oF6ws8A2VmDmeqXs0BzoUA/7DY188qLhgfudINAAAAAW4zSY/w+rLhpTOjQdUV75H9s0gnaY90yQ/AT5kh5RutXtS4IWS22/9z1lFqxMCQzYs9mpUuWdKJMII9TAVqs2w==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -34,10 +34,10 @@
           <SSIS:Package SSIS:Name="ProcesarDimUbicacionInicial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ETLCargaInicial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimTipoVisita.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="ProcesarDimDiagnosticosInicial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimPacienteInicial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimProveedor.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimTipoEncuentro.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="ProcesarDimEnfermedadInicial.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="ConexionMariaDB.conmgr" />
@@ -351,23 +351,6 @@
               </SSIS:Properties>
               <SSIS:Parameters />
             </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="ProcesarDimDiagnosticosInicial.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{B3269438-7AE9-46DF-8E24-FED9C878138C}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">ProcesarDimCondicionClinica</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">54</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{0AC91682-C77F-4789-8EE7-FE09567C4447}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="ProcesarDimPacienteInicial.dtsx">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">{71CB40DB-D5E4-4024-B0F5-A3806017B341}</SSIS:Property>
@@ -412,6 +395,23 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{35E07BB8-45F8-403B-8C61-9CCE38BF822B}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="ProcesarDimEnfermedadInicial.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{E1805CF8-57FD-4E7F-BE9C-E6BCF9073253}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">ProcesarDimEnfermedadInicial</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">56</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{A9802693-685C-42F5-B7A9-52C8617E3988}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

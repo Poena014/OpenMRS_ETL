@@ -60,19 +60,34 @@ CREATE TABLE FactDiagnosticos(
 	Seguimiento BIT
 )
 
-CREATE UNIQUE NONCLUSTERED INDEX pk_DimEnfermedad
+ALTER TABLE DimEnfermedad 
+ADD CONSTRAINT PK_Enfermedad  PRIMARY KEY (EnfermedadKey);
+
+ALTER TABLE DimPaciente 
+ADD CONSTRAINT PK_Paciente  PRIMARY KEY (PacienteKey);
+
+ALTER TABLE DimUbicacion 
+ADD CONSTRAINT PK_Ubicacion PRIMARY KEY (UbicacionKey);
+
+ALTER TABLE DimTiempo 
+ADD CONSTRAINT PK_Tiempo  PRIMARY KEY (TiempoKey);
+
+ALTER TABLE FactDiagnosticos 
+ADD CONSTRAINT PK_Diagnosticos PRIMARY KEY (DiagnosticoKey);
+
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimEnfermedad
 ON DimEnfermedad (EnfermedadKey);
 
-CREATE UNIQUE NONCLUSTERED INDEX pk_DimPaciente
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimPaciente
 ON DimPaciente (PacienteKey);
 
-CREATE UNIQUE NONCLUSTERED INDEX pk_DimUbicacion
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimUbicacion
 ON DimUbicacion (UbicacionKey);
 
-CREATE UNIQUE NONCLUSTERED INDEX pk_DimTiempo
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimTiempo
 ON DimTiempo (TiempoKey);
 
-CREATE UNIQUE NONCLUSTERED INDEX pk_FactDiagnosticos
+CREATE UNIQUE NONCLUSTERED INDEX ind_FactDiagnosticos
 ON FactDiagnosticos (DiagnosticoKey);
 
 ALTER TABLE FactDiagnosticos

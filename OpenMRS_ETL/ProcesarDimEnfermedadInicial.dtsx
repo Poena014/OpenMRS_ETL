@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimEnfermedadInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="57"
-  DTS:VersionGUID="{DEB5CDFD-A680-4445-9A88-90E3F6A2F568}">
+  DTS:VersionBuild="60"
+  DTS:VersionGUID="{CC1EC326-59B5-4F18-B357-A8D9DBD0B07A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -61,33 +61,22 @@
                   name="Entrada de conversión de datos">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[conceptId]"
+                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[EnfermedadId]"
                       cachedDataType="i4"
-                      cachedName="conceptId"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]" />
+                      cachedName="EnfermedadId"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NombreCompleto]"
+                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Nombre]"
                       cachedDataType="wstr"
                       cachedLength="255"
-                      cachedName="NombreCompleto"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]" />
+                      cachedName="Nombre"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[Nombre]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NombreCorto]"
+                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[tipoEnfermedad]"
                       cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="NombreCorto"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[claseConcepto]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="claseConcepto"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[cantidad]"
-                      cachedDataType="i8"
-                      cachedName="cantidad"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]" />
+                      cachedLength="39"
+                      cachedName="tipoEnfermedad"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[tipoEnfermedad]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -100,19 +89,19 @@
                   synchronousInputId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of conceptId]"
+                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of conceptId]"
-                      name="Copy of conceptId"
+                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]"
+                      name="Copy of EnfermedadId"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]}</property>
+                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -120,21 +109,21 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCompleto]"
+                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCompleto]"
-                      name="Copy of NombreCompleto"
+                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]"
+                      name="Copy of Nombre"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]}</property>
+                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[Nombre]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -142,63 +131,21 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCorto]"
+                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of tipoEnfermedad]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCorto]"
-                      name="Copy of NombreCorto"
+                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of tipoEnfermedad]"
+                      name="Copy of tipoEnfermedad"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of claseConcepto]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of claseConcepto]"
-                      name="Copy of claseConcepto"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of cantidad]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of cantidad]"
-                      name="Copy of cantidad"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]}</property>
+                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[tipoEnfermedad]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -233,201 +180,11 @@
               </outputs>
             </component>
             <component
-              refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
-              componentClassID="Microsoft.ManagedComponentHost"
-              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
-              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
-              name="Leer Datos Enfermedades Mariadb"
-              usesDispositions="true"
-              version="4">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
-c.concept_id conceptId,
-cn.name NombreCompleto,
-IFNULL(c.short_name,'N/A') NombreCorto,
-cc.name claseConcepto,
-IFNULL(COUNT(1),0) cantidad
-FROM visit vt
-JOIN encounter e ON vt.visit_id =e.visit_id and vt.location_id =e.location_id 
-JOIN encounter_diagnosis ed ON e.encounter_id =ed.encounter_id 
-JOIN concept c ON ed.diagnosis_coded  =c.concept_id 
-JOIN concept_name cn ON c.concept_id = cn.concept_name_id AND UPPER(cn.locale) = UPPER('es')
-JOIN concept_class cc ON c.class_id =cc.concept_class_id 
-WHERE e.date_created BETWEEN '20260101' AND '20260331'
-GROUP BY  c.concept_id</property>
-                <property
-                  dataType="System.Int32"
-                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                  name="CommandTimeout">30</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
-                  name="AllowImplicitStringConversion">true</property>
-                <property
-                  dataType="System.String"
-                  description="Nombre de la tabla de la base de datos de origen."
-                  expressionType="Notify"
-                  name="TableOrViewName"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Especificar el modo de recuperar información de columnas externas"
-                  name="AccessMode"
-                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
-                <property
-                  dataType="System.String"
-                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Connections[IDbConnection]"
-                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
-                  description="Administrador de conexiones administrado"
-                  name="IDbConnection" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET]"
-                  name="Salida de origen de ADO NET">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[conceptId]"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]"
-                      name="conceptId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCompleto]"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]"
-                      name="NombreCompleto"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCorto]"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]"
-                      name="NombreCorto"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[claseConcepto]"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]"
-                      name="claseConcepto"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]"
-                      dataType="i8"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[cantidad]"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]"
-                      name="cantidad"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[conceptId]"
-                      dataType="i4"
-                      name="conceptId" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCompleto]"
-                      dataType="wstr"
-                      length="255"
-                      name="NombreCompleto" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCorto]"
-                      dataType="wstr"
-                      length="255"
-                      name="NombreCorto" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[claseConcepto]"
-                      dataType="wstr"
-                      length="255"
-                      name="claseConcepto" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[cantidad]"
-                      dataType="i8"
-                      name="cantidad" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET]"
-                  isErrorOut="true"
-                  name="Salida de error de origen de ADO NET">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[conceptId]"
-                      dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[conceptId]"
-                      name="conceptId" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCompleto]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCompleto]"
-                      name="NombreCompleto" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCorto]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCorto]"
-                      name="NombreCorto" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[claseConcepto]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[claseConcepto]"
-                      name="claseConcepto" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[cantidad]"
-                      dataType="i8"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[cantidad]"
-                      name="cantidad" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer"
+              refId="Package\LLenar DimEnfermedad\Destino de OLE DB"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
               description="Destino de OLE DB"
-              name="Llenar Datos Enfermedades SQLServer"
+              name="Destino de OLE DB"
               usesDispositions="true"
               version="4">
               <properties>
@@ -472,15 +229,15 @@ GROUP BY  c.concept_id</property>
                 <property
                   dataType="System.String"
                   description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadMaxInsertCommitSize">1000</property>
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Connections[OleDbConnection]"
+                  refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Connections[OleDbConnection]"
                   connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
                   connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
@@ -488,90 +245,272 @@ GROUP BY  c.concept_id</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB]"
+                  refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
                   errorOrTruncationOperation="Insertar"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of conceptId]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of EnfermedadId]"
                       cachedDataType="i4"
-                      cachedName="Copy of conceptId"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadId]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of conceptId]" />
+                      cachedName="Copy of EnfermedadId"
+                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadId]"
+                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of claseConcepto]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Nombre]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
-                      cachedName="Copy of claseConcepto"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoEnfermedad]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of claseConcepto]" />
+                      cachedName="Copy of Nombre"
+                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
+                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of cantidad]"
-                      cachedDataType="i4"
-                      cachedName="Copy of cantidad"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PorcentajeMortalidad]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of cantidad]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of NombreCompleto]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of tipoEnfermedad]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
-                      cachedName="Copy of NombreCompleto"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCompleto]" />
+                      cachedName="Copy of tipoEnfermedad"
+                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoEnfermedad]"
+                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of tipoEnfermedad]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadKey]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadKey]"
                       dataType="i4"
                       name="EnfermedadKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadId]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadId]"
                       dataType="i4"
                       name="EnfermedadId" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
                       codePage="1252"
                       dataType="str"
                       length="200"
                       name="Nombre" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoEnfermedad]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoEnfermedad]"
                       codePage="1252"
                       dataType="str"
                       length="200"
                       name="tipoEnfermedad" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PorcentajeMortalidad]"
-                      dataType="numeric"
-                      name="PorcentajeMortalidad"
-                      precision="18"
-                      scale="2" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB]"
+                  refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Salida de error de destino de OLE DB"
-                  synchronousInputId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB]">
+                  synchronousInputId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\LLenar DimEnfermedad\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      refId="Package\LLenar DimEnfermedad\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\LLenar DimEnfermedad\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Leer Datos Enfermedades Mariadb"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+    c.concept_id AS EnfermedadId,
+    COALESCE(
+        (SELECT cn.name FROM concept_name cn
+          WHERE cn.concept_id = c.concept_id
+            AND cn.locale = 'es' AND cn.voided = 0
+            AND cn.concept_name_type = 'FULLY_SPECIFIED'
+          LIMIT 1),
+        (SELECT cn2.name FROM concept_name cn2
+          WHERE cn2.concept_id = c.concept_id
+            AND cn2.locale = 'en' AND cn2.voided = 0
+            AND cn2.concept_name_type = 'FULLY_SPECIFIED'
+          LIMIT 1)
+    ) AS Nombre,
+    COALESCE(
+        CASE LEFT(icd.icd10, 1)
+            WHEN 'A' THEN 'Infecciosas y parasitarias'
+            WHEN 'B' THEN 'Infecciosas y parasitarias'
+            WHEN 'C' THEN 'Tumores'
+            WHEN 'D' THEN 'Tumores / Enfermedades de la sangre'
+            WHEN 'E' THEN 'Endocrinas, nutricionales y metabólicas'
+            WHEN 'F' THEN 'Mentales y del comportamiento'
+            WHEN 'G' THEN 'Del sistema nervioso'
+            WHEN 'H' THEN 'Ojo y oído'
+            WHEN 'I' THEN 'Circulatorias'
+            WHEN 'J' THEN 'Respiratorias'
+            WHEN 'K' THEN 'Digestivas'
+            WHEN 'L' THEN 'Piel'
+            WHEN 'M' THEN 'Musculoesqueléticas'
+            WHEN 'N' THEN 'Genitourinarias'
+            WHEN 'O' THEN 'Embarazo y parto'
+            WHEN 'P' THEN 'Perinatales'
+            WHEN 'Q' THEN 'Malformaciones congénitas'
+            WHEN 'R' THEN 'Síntomas y hallazgos anormales'
+            WHEN 'S' THEN 'Traumatismos'
+            WHEN 'T' THEN 'Traumatismos / Intoxicaciones'
+            WHEN 'Z' THEN 'Factores de salud'
+            ELSE NULL
+        END,
+        'Sin categoría'
+    ) AS tipoEnfermedad
+FROM concept c
+LEFT JOIN (
+    SELECT m.concept_id, MIN(t.code) AS icd10
+    FROM concept_reference_map m
+    JOIN concept_reference_term t
+        ON t.concept_reference_term_id = m.concept_reference_term_id
+       AND t.retired = 0
+    JOIN concept_reference_source s
+        ON s.concept_source_id = t.concept_source_id
+       AND s.name = 'ICD-10-WHO'
+    GROUP BY m.concept_id
+) icd ON icd.concept_id = c.concept_id
+WHERE c.retired = 0
+  AND c.concept_id IN (
+      SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0
+  );</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Connections[IDbConnection]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[EnfermedadId]"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]"
+                      name="EnfermedadId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
+                      length="255"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[tipoEnfermedad]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[tipoEnfermedad]"
+                      length="39"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[tipoEnfermedad]"
+                      name="tipoEnfermedad"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[EnfermedadId]"
+                      dataType="i4"
+                      name="EnfermedadId" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
+                      dataType="wstr"
+                      length="255"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[tipoEnfermedad]"
+                      dataType="wstr"
+                      length="39"
+                      name="tipoEnfermedad" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[EnfermedadId]"
+                      dataType="i4"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[EnfermedadId]"
+                      name="EnfermedadId" />
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[tipoEnfermedad]"
+                      dataType="wstr"
+                      length="39"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[tipoEnfermedad]"
+                      name="tipoEnfermedad" />
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -583,7 +522,7 @@ GROUP BY  c.concept_id</property>
           <paths>
             <path
               refId="Package\LLenar DimEnfermedad.Paths[Salida de conversión de datos]"
-              endId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB]"
+              endId="Package\LLenar DimEnfermedad\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
               name="Salida de conversión de datos"
               startId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos]" />
             <path
@@ -619,13 +558,13 @@ GROUP BY  c.concept_id</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="196,42"
-          Id="Package\LLenar DimEnfermedad"
-          TopLeft="372,275" />
-        <NodeLayout
           Size="198,42"
           Id="Package\Limpiar DimEnfermedad"
           TopLeft="373,129" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\LLenar DimEnfermedad"
+          TopLeft="372,275" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="471,171">
@@ -657,31 +596,27 @@ GROUP BY  c.concept_id</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="273,42"
-          Id="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer"
-          TopLeft="332,402" />
+          Size="250,42"
+          Id="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
+          TopLeft="330,117" />
         <NodeLayout
           Size="180,42"
           Id="Package\LLenar DimEnfermedad\Conversión de datos"
-          TopLeft="383,249" />
-        <NodeLayout
-          Size="250,42"
-          Id="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
-          TopLeft="353,117" />
+          TopLeft="365,279" />
         <EdgeLayout
-          Id="Package\LLenar DimEnfermedad.Paths[Salida de conversión de datos]"
-          TopLeft="470.75,291">
+          Id="Package\LLenar DimEnfermedad.Paths[Salida de origen de ADO NET]"
+          TopLeft="455,159">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,111"
+              EndConnector="0,120"
               Start="0,0"
-              End="0,103.5">
+              End="0,112.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,103.5" />
+                    End="0,112.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -690,20 +625,24 @@ GROUP BY  c.concept_id</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="175,42"
+          Id="Package\LLenar DimEnfermedad\Destino de OLE DB"
+          TopLeft="370,441" />
         <EdgeLayout
-          Id="Package\LLenar DimEnfermedad.Paths[Salida de origen de ADO NET]"
-          TopLeft="475.5,159">
+          Id="Package\LLenar DimEnfermedad.Paths[Salida de conversión de datos]"
+          TopLeft="456.25,321">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,90"
+              EndConnector="0,120"
               Start="0,0"
-              End="0,82.5">
+              End="0,112.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,82.5" />
+                    End="0,112.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -716,7 +655,15 @@ GROUP BY  c.concept_id</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer">
+    design-time-name="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar DimEnfermedad\Destino de OLE DB">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -725,14 +672,6 @@ GROUP BY  c.concept_id</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

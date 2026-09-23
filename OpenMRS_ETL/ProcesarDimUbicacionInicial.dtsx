@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimUbicacionInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="48"
-  DTS:VersionGUID="{5AC0E22A-5396-4742-85D2-47D1993CFCCF}">
+  DTS:VersionBuild="52"
+  DTS:VersionGUID="{50EABF5B-1E78-4CD6-829E-29084788933E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -62,15 +62,10 @@
                   <inputColumns>
                     <inputColumn
                       refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[direccionId]"
-                      cachedDataType="i4"
+                      cachedDataType="wstr"
+                      cachedLength="1078"
                       cachedName="direccionId"
                       lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]" />
-                    <inputColumn
-                      refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[direccionCompleta]"
-                      cachedDataType="wstr"
-                      cachedLength="872"
-                      cachedName="direccionCompleta"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]" />
                     <inputColumn
                       refId="Package\Llenar DimUbicacion\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[ciudad]"
                       cachedDataType="wstr"
@@ -108,9 +103,11 @@
                   <outputColumns>
                     <outputColumn
                       refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]"
-                      dataType="i4"
+                      codePage="1252"
+                      dataType="str"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
+                      length="1078"
                       lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]"
                       name="Copy of direccionId"
                       truncationRowDisposition="FailComponent">
@@ -120,28 +117,6 @@
                           dataType="System.Int32"
                           description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionCompleta]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      length="500"
-                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionCompleta]"
-                      name="Copy of direccionCompleta"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
@@ -278,8 +253,7 @@
                   expressionType="Notify"
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select DISTINCT 
-pa.person_address_id direccionId,
-UPPER(CONCAT(IFNULL(pa.address1,''),' // ',IFNULL(pa.city_village,'N/Ciudad'),' ',IFNULL(pa.state_province,'N/Departamento'),' ',IFNULL(pa.country,'N/PAIS'),' ',IFNULL(pa.postal_code,'N/POSTAL'))) direccionCompleta,
+UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)) direccionId,
 UPPER(IFNULL(pa.city_village,'N/CIUDAD')) ciudad,
 UPPER(IFNULL(pa.state_province,'N/DEPARTAMENTO')) departamento ,
 UPPER(IFNULL(pa.country,'N/PAIS')) pais,
@@ -325,22 +299,13 @@ join person_address pa on p.person_id =pa.person_id</property>
                   <outputColumns>
                     <outputColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionId]"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]"
-                      name="direccionId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionCompleta]"
-                      length="872"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionCompleta]"
-                      name="direccionCompleta"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionId]"
+                      length="1078"
+                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[direccionId]"
+                      name="direccionId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].Columns[ciudad]"
@@ -387,13 +352,9 @@ join person_address pa on p.person_id =pa.person_id</property>
                     isUsed="True">
                     <externalMetadataColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionId]"
-                      dataType="i4"
-                      name="direccionId" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[direccionCompleta]"
                       dataType="wstr"
-                      length="872"
-                      name="direccionCompleta" />
+                      length="1078"
+                      name="direccionId" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[ciudad]"
                       dataType="wstr"
@@ -423,15 +384,10 @@ join person_address pa on p.person_id =pa.person_id</property>
                   <outputColumns>
                     <outputColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionId]"
-                      dataType="i4"
+                      dataType="wstr"
+                      length="1078"
                       lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionId]"
                       name="direccionId" />
-                    <outputColumn
-                      refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionCompleta]"
-                      dataType="wstr"
-                      length="872"
-                      lineageId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[direccionCompleta]"
-                      name="direccionCompleta" />
                     <outputColumn
                       refId="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ciudad]"
                       dataType="wstr"
@@ -511,7 +467,7 @@ join person_address pa on p.person_id =pa.person_id</property>
                   dataType="System.Int32"
                   description="Especifica el modo utilizado para obtener acceso a la base de datos."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">3</property>
                 <property
                   dataType="System.Boolean"
                   description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
@@ -523,7 +479,7 @@ join person_address pa on p.person_id =pa.person_id</property>
                 <property
                   dataType="System.String"
                   description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadOptions"></property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
@@ -545,12 +501,6 @@ join person_address pa on p.person_id =pa.person_id</property>
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
-                    <inputColumn
-                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of direccionId]"
-                      cachedDataType="i4"
-                      cachedName="Copy of direccionId"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionId]"
-                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]" />
                     <inputColumn
                       refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of pais]"
                       cachedCodepage="1252"
@@ -584,13 +534,13 @@ join person_address pa on p.person_id =pa.person_id</property>
                       externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoPostal]"
                       lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of codigoPostal]" />
                     <inputColumn
-                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of direccionCompleta]"
+                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of direccionId]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="500"
-                      cachedName="Copy of direccionCompleta"
-                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionCompleta]"
-                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionCompleta]" />
+                      cachedLength="1078"
+                      cachedName="Copy of direccionId"
+                      externalMetadataColumnId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionId]"
+                      lineageId="Package\Llenar DimUbicacion\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of direccionId]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -600,7 +550,9 @@ join person_address pa on p.person_id =pa.person_id</property>
                       name="UbicacionKey" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionId]"
-                      dataType="i4"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
                       name="DireccionId" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Pais]"
@@ -626,12 +578,6 @@ join person_address pa on p.person_id =pa.person_id</property>
                       dataType="str"
                       length="10"
                       name="CodigoPostal" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DireccionCompleta]"
-                      codePage="1252"
-                      dataType="str"
-                      length="500"
-                      name="DireccionCompleta" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -738,31 +684,31 @@ join person_address pa on p.person_id =pa.person_id</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="270,42"
-          Id="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer"
-          TopLeft="359,372" />
-        <NodeLayout
           Size="227,42"
           Id="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
-          TopLeft="382,124" />
+          TopLeft="352,107" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer"
+          TopLeft="333,388" />
         <NodeLayout
           Size="180,42"
           Id="Package\Llenar DimUbicacion\Conversión de datos"
-          TopLeft="398,246" />
+          TopLeft="372,243" />
         <EdgeLayout
           Id="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
-          TopLeft="491.75,166">
+          TopLeft="463.75,149">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,80"
+              EndConnector="0,94"
               Start="0,0"
-              End="0,72.5">
+              End="0,86.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,72.5" />
+                    End="0,86.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -773,18 +719,18 @@ join person_address pa on p.person_id =pa.person_id</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Llenar DimUbicacion.Paths[Salida de conversión de datos]"
-          TopLeft="491,288">
+          TopLeft="465,285">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,84"
+              EndConnector="0,103"
               Start="0,0"
-              End="0,76.5">
+              End="0,95.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,76.5" />
+                    End="0,95.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -797,6 +743,14 @@ join person_address pa on p.person_id =pa.person_id</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer">
     <Properties>
       <Property>
@@ -806,14 +760,6 @@ join person_address pa on p.person_id =pa.person_id</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimPAciente2"
   DTS:PackageType="5"
-  DTS:VersionBuild="67"
-  DTS:VersionGUID="{4FAEE8C4-0FD7-41BC-81E2-2C587BA8136F}">
+  DTS:VersionBuild="69"
+  DTS:VersionGUID="{8B834813-3DE3-42FC-AA62-27FA5251B25C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -599,11 +599,11 @@ ORDER BY a.person_id asc</property>
                 <property
                   dataType="System.String"
                   description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  name="FastLoadMaxInsertCommitSize">1000</property>
               </properties>
               <connections>
                 <connection
@@ -663,18 +663,6 @@ ORDER BY a.person_id asc</property>
                       cachedName="Copy of fechaIngreso"
                       externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
                       lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaIngreso]" />
-                    <inputColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaBaja]"
-                      cachedDataType="dbTime"
-                      cachedName="Copy of fechaBaja"
-                      externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
-                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaBaja]" />
-                    <inputColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaProceso]"
-                      cachedDataType="dbTime"
-                      cachedName="Copy of fechaProceso"
-                      externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
-                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaProceso]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -713,14 +701,6 @@ ORDER BY a.person_id asc</property>
                       refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
                       dataType="dbTimeStamp"
                       name="FechaIngreso" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
-                      dataType="dbTimeStamp"
-                      name="FechaBaja" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
-                      dataType="dbTimeStamp"
-                      name="FechaProceso" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -789,13 +769,13 @@ ORDER BY a.person_id asc</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="175,42"
-          Id="Package\Llenar DimPaciente"
-          TopLeft="333,293" />
-        <NodeLayout
           Size="181,42"
           Id="Package\Limpiar DimPaciente"
           TopLeft="337,123" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Llenar DimPaciente"
+          TopLeft="333,293" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="424,165">

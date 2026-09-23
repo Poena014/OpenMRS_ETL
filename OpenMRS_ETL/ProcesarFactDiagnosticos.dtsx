@@ -11,37 +11,37 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactDiagnosticos"
   DTS:PackageType="5"
-  DTS:VersionBuild="58"
-  DTS:VersionGUID="{F24E9F71-C179-4A7F-866C-17E467AF4123}">
+  DTS:VersionBuild="82"
+  DTS:VersionGUID="{D2634978-87CC-440C-903B-BBA318970043}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Limpiar DimEnfermedad"
+      DTS:refId="Package\Limpiar FactDiagnosticos"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
       DTS:DTSID="{FB41433B-16C9-486D-9E77-D7D6891CA13F}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Limpiar DimEnfermedad"
+      DTS:ObjectName="Limpiar FactDiagnosticos"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
-          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimEnfermedad&#xA;dbcc checkident('DimEnfermedad',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from FactDiagnosticos" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\LLenar DimEnfermedad"
+      DTS:refId="Package\LLenar FactDiagnosticos"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Fact1"
       DTS:DTSID="{DAA7E459-D788-4F49-8675-E36B06BF8B72}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="LLenar DimEnfermedad"
+      DTS:ObjectName="LLenar FactDiagnosticos"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -49,182 +49,144 @@
           version="1">
           <components>
             <component
-              refId="Package\LLenar DimEnfermedad\Conversión de datos"
-              componentClassID="Microsoft.DataConvert"
-              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
-              description="Conversión de datos"
-              name="Conversión de datos"
-              usesDispositions="true">
+              refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Buscar Enfermedad"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEnfermedad]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEnfermedad]) [refTable]
+where [refTable].[EnfermedadId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="EnfermedadKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EnfermedadId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Nombre" dataType="DT_STR" length="200" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="tipoEnfermedad" dataType="DT_STR" length="200" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
               <inputs>
                 <input
-                  refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos]"
-                  name="Entrada de conversión de datos">
+                  refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[conceptId]"
+                      refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Inputs[Entrada de búsqueda].Columns[EnfermedadKey]"
                       cachedDataType="i4"
-                      cachedName="conceptId"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NombreCompleto]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="NombreCompleto"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NombreCorto]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="NombreCorto"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[claseConcepto]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="claseConcepto"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]" />
-                    <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[cantidad]"
-                      cachedDataType="i8"
-                      cachedName="cantidad"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]" />
+                      cachedName="Copy of EnfermedadId"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]"
+                      name="EnfermedadKey"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">EnfermedadId</property>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">EnfermedadKey</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="IgnoreFailure"
                   exclusionGroup="1"
-                  name="Salida de conversión de datos"
-                  synchronousInputId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of conceptId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of conceptId]"
-                      name="Copy of conceptId"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCompleto]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCompleto]"
-                      name="Copy of NombreCompleto"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCorto]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCorto]"
-                      name="Copy of NombreCorto"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of claseConcepto]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of claseConcepto]"
-                      name="Copy of claseConcepto"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of cantidad]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of cantidad]"
-                      name="Copy of cantidad"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Inputs[Entrada de búsqueda]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de error de búsqueda]"
                   exclusionGroup="1"
                   isErrorOut="true"
-                  name="Salida de error de conversión de datos"
-                  synchronousInputId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Inputs[Entrada de búsqueda]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      refId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -233,11 +195,797 @@
               </outputs>
             </component>
             <component
-              refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
+              refId="Package\LLenar FactDiagnosticos\Buscar Paciente"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Buscar Paciente"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimPaciente]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimPaciente]) [refTable]
+where [refTable].[PacienteId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PacienteKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PacienteId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Nombres" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Apellidos" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Sexo" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="FechaNacimiento" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FechaIngreso" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\LLenar FactDiagnosticos\59:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Inputs[Entrada de búsqueda].Columns[PacienteId]"
+                      cachedDataType="i4"
+                      cachedName="PacienteId"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[PacienteId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">PacienteId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Paciente.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[PacienteKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[PacienteKey]"
+                      name="PacienteKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">PacienteKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Paciente.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Paciente.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LLenar FactDiagnosticos\Buscar Tiempo"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Buscar Tiempo"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimTiempo]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimTiempo]) [refTable]
+where [refTable].[Fecha] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TiempoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Dia" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Mes" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Anio" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TiempoKey]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda].Columns[Copy of TiempoKey]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of TiempoKey"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TiempoKey]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">Fecha</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TiempoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TiempoKey]"
+                      name="TiempoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">TiempoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Buscar Ubicacion"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimUbicacion]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimUbicacion]) [refTable]
+where [refTable].[DireccionId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="UbicacionKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DireccionId" dataType="DT_STR" length="1000" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Pais" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Ciudad" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Departamento" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="CodigoPostal" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of UbicacionId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda].Columns[Copy of UbicacionId]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1000"
+                      cachedName="Copy of UbicacionId"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of UbicacionId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">DireccionId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda].Columns[UbicacionKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda].Columns[UbicacionKey]"
+                      name="UbicacionKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">UbicacionKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LLenar FactDiagnosticos\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[DiagnosticoKey]"
+                      cachedDataType="i4"
+                      cachedName="DiagnosticoKey"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[DiagnosticoKey]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[EnfermedadId]"
+                      cachedDataType="i4"
+                      cachedName="EnfermedadId"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[PacienteId]"
+                      cachedDataType="i4"
+                      cachedName="PacienteId"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[PacienteId]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[UbicacionId]"
+                      cachedDataType="wstr"
+                      cachedLength="1078"
+                      cachedName="UbicacionId"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[UbicacionId]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[TiempoKey]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TiempoKey"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[edadSuceso]"
+                      cachedDataType="i8"
+                      cachedName="edadSuceso"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[edadSuceso]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[temperatura]"
+                      cachedDataType="r8"
+                      cachedName="temperatura"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[temperatura]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[peso]"
+                      cachedDataType="r8"
+                      cachedName="peso"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[peso]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[altura]"
+                      cachedDataType="r8"
+                      cachedName="altura"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[altura]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[veces_previas]"
+                      cachedDataType="i8"
+                      cachedName="veces_previas"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[veces_previas]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of DiagnosticoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of DiagnosticoKey]"
+                      name="Copy of DiagnosticoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[DiagnosticoKey]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]"
+                      name="Copy of EnfermedadId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of PacienteId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of PacienteId]"
+                      name="Copy of PacienteId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[PacienteId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of UbicacionId]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="1000"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of UbicacionId]"
+                      name="Copy of UbicacionId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[UbicacionId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TiempoKey]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TiempoKey]"
+                      name="Copy of TiempoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of edadSuceso]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of edadSuceso]"
+                      name="Copy of edadSuceso"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[edadSuceso]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of temperatura]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of temperatura]"
+                      name="Copy of temperatura"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[temperatura]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of peso]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of peso]"
+                      name="Copy of peso"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[peso]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of altura]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of altura]"
+                      name="Copy of altura"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[altura]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of veces_previas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of veces_previas]"
+                      name="Copy of veces_previas"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[veces_previas]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
               description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
-              name="Leer Datos Enfermedades Mariadb"
+              name="Leer Datos FactDiagnosticos Mariadb"
               usesDispositions="true"
               version="4">
               <properties>
@@ -246,20 +994,43 @@
                   description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
-c.concept_id conceptId,
-cn.name NombreCompleto,
-IFNULL(c.short_name,'N/A') NombreCorto,
-cc.name claseConcepto,
-IFNULL(COUNT(1),0) cantidad
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+COALESCE(vt.visit_id, 0) AS DiagnosticoKey,
+COALESCE(d.diagnosis_coded, 0) AS EnfermedadId,
+COALESCE(vt.patient_id, 0) AS PacienteId,
+COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
+COALESCE(CAST(vt.date_started AS DATE), '1900-01-01') AS TiempoKey,
+COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, vt.date_started), 0) AS edadSuceso,
+COALESCE(vit.temperatura, 0) AS temperatura,
+COALESCE(vit.peso, 0) AS peso,
+COALESCE(vit.altura, 0) AS altura,
+(SELECT COUNT(*)
+ FROM encounter_diagnosis ed2
+ JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
+ JOIN visit v2 ON v2.visit_id = e2.visit_id
+ WHERE ed2.voided = 0 AND e2.voided = 0
+   AND v2.patient_id = vt.patient_id
+   AND ed2.diagnosis_coded = d.diagnosis_coded
+   AND v2.date_started &lt;= vt.date_started) AS veces_previas
 FROM visit vt
-JOIN encounter e ON vt.visit_id =e.visit_id and vt.location_id =e.location_id 
-JOIN encounter_diagnosis ed ON e.encounter_id =ed.encounter_id 
-JOIN concept c ON ed.diagnosis_coded  =c.concept_id 
-JOIN concept_name cn ON c.concept_id = cn.concept_name_id AND UPPER(cn.locale) = UPPER('es')
-JOIN concept_class cc ON c.class_id =cc.concept_class_id 
-WHERE e.date_created BETWEEN '20260101' AND '20260331'
-GROUP BY  c.concept_id</property>
+JOIN person p ON p.person_id = vt.patient_id
+LEFT JOIN person_address pa
+    ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1
+LEFT JOIN (
+    SELECT e.visit_id,
+           MAX(o_temp.value_numeric)  AS temperatura,
+           MAX(o_peso.value_numeric)  AS peso,
+           MAX(o_talla.value_numeric) AS altura
+    FROM encounter e
+    LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0
+    LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0
+    LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0
+    WHERE e.encounter_type = 5 AND e.voided = 0
+    GROUP BY e.visit_id
+) vit ON vit.visit_id = vt.visit_id
+LEFT JOIN encounter d_enc ON d_enc.visit_id = vt.visit_id AND d_enc.encounter_type = 3 AND d_enc.voided = 0
+LEFT JOIN encounter_diagnosis d ON d.encounter_id = d_enc.encounter_id AND d.voided = 0
+ORDER BY vt.visit_id;</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
@@ -285,7 +1056,7 @@ GROUP BY  c.concept_id</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Connections[IDbConnection]"
+                  refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Connections[IDbConnection]"
                   connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
                   connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
                   description="Administrador de conexiones administrado"
@@ -293,128 +1064,215 @@ GROUP BY  c.concept_id</property>
               </connections>
               <outputs>
                 <output
-                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET]"
+                  refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET]"
                   name="Salida de origen de ADO NET">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[DiagnosticoKey]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[conceptId]"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[conceptId]"
-                      name="conceptId"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[DiagnosticoKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[DiagnosticoKey]"
+                      name="DiagnosticoKey"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[EnfermedadId]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[EnfermedadId]"
+                      name="EnfermedadId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[PacienteId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[PacienteId]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[PacienteId]"
+                      name="PacienteId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[UbicacionId]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCompleto]"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCompleto]"
-                      name="NombreCompleto"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[UbicacionId]"
+                      length="1078"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[UbicacionId]"
+                      name="UbicacionId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCorto]"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[NombreCorto]"
-                      name="NombreCorto"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[TiempoKey]"
+                      length="10"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]"
+                      name="TiempoKey"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[claseConcepto]"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[claseConcepto]"
-                      name="claseConcepto"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[edadSuceso]"
                       dataType="i8"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[cantidad]"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].Columns[cantidad]"
-                      name="cantidad"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[edadSuceso]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[edadSuceso]"
+                      name="edadSuceso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[temperatura]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[temperatura]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[temperatura]"
+                      name="temperatura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[peso]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[peso]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[peso]"
+                      name="peso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[altura]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[altura]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[altura]"
+                      name="altura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[veces_previas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[veces_previas]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[veces_previas]"
+                      name="veces_previas"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[conceptId]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[DiagnosticoKey]"
                       dataType="i4"
-                      name="conceptId" />
+                      name="DiagnosticoKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCompleto]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[EnfermedadId]"
+                      dataType="i4"
+                      name="EnfermedadId" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[PacienteId]"
+                      dataType="i4"
+                      name="PacienteId" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[UbicacionId]"
                       dataType="wstr"
-                      length="255"
-                      name="NombreCompleto" />
+                      length="1078"
+                      name="UbicacionId" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreCorto]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[TiempoKey]"
                       dataType="wstr"
-                      length="255"
-                      name="NombreCorto" />
+                      length="10"
+                      name="TiempoKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[claseConcepto]"
-                      dataType="wstr"
-                      length="255"
-                      name="claseConcepto" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[cantidad]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[edadSuceso]"
                       dataType="i8"
-                      name="cantidad" />
+                      name="edadSuceso" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[temperatura]"
+                      dataType="r8"
+                      name="temperatura" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[peso]"
+                      dataType="r8"
+                      name="peso" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[altura]"
+                      dataType="r8"
+                      name="altura" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[veces_previas]"
+                      dataType="i8"
+                      name="veces_previas" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET]"
+                  refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET]"
                   isErrorOut="true"
                   name="Salida de error de origen de ADO NET">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[conceptId]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[DiagnosticoKey]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[conceptId]"
-                      name="conceptId" />
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[DiagnosticoKey]"
+                      name="DiagnosticoKey" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCompleto]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[EnfermedadId]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[EnfermedadId]"
+                      name="EnfermedadId" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[PacienteId]"
+                      dataType="i4"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[PacienteId]"
+                      name="PacienteId" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[UbicacionId]"
                       dataType="wstr"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCompleto]"
-                      name="NombreCompleto" />
+                      length="1078"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[UbicacionId]"
+                      name="UbicacionId" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCorto]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[TiempoKey]"
                       dataType="wstr"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[NombreCorto]"
-                      name="NombreCorto" />
+                      length="10"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[TiempoKey]"
+                      name="TiempoKey" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[claseConcepto]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[claseConcepto]"
-                      name="claseConcepto" />
-                    <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[cantidad]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[edadSuceso]"
                       dataType="i8"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[cantidad]"
-                      name="cantidad" />
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[edadSuceso]"
+                      name="edadSuceso" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[temperatura]"
+                      dataType="r8"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[temperatura]"
+                      name="temperatura" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[peso]"
+                      dataType="r8"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[peso]"
+                      name="peso" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[altura]"
+                      dataType="r8"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[altura]"
+                      name="altura" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[veces_previas]"
+                      dataType="i8"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[veces_previas]"
+                      name="veces_previas" />
+                    <outputColumn
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -423,11 +1281,11 @@ GROUP BY  c.concept_id</property>
               </outputs>
             </component>
             <component
-              refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer"
+              refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
               description="Destino de OLE DB"
-              name="Llenar Datos Enfermedades SQLServer"
+              name="Llenar Datos Diagnosticos SQLServer"
               usesDispositions="true"
               version="4">
               <properties>
@@ -438,7 +1296,7 @@ GROUP BY  c.concept_id</property>
                 <property
                   dataType="System.String"
                   description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                  name="OpenRowset">[dbo].[DimEnfermedad]</property>
+                  name="OpenRowset">[dbo].[FactDiagnosticos]</property>
                 <property
                   dataType="System.String"
                   description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
@@ -480,7 +1338,7 @@ GROUP BY  c.concept_id</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Connections[OleDbConnection]"
+                  refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Connections[OleDbConnection]"
                   connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
                   connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
@@ -488,90 +1346,134 @@ GROUP BY  c.concept_id</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB]"
+                  refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB]"
                   errorOrTruncationOperation="Insertar"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of conceptId]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of DiagnosticoKey]"
                       cachedDataType="i4"
-                      cachedName="Copy of conceptId"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadId]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of conceptId]" />
+                      cachedName="Copy of DiagnosticoKey"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of DiagnosticoKey]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of claseConcepto]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="255"
-                      cachedName="Copy of claseConcepto"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoEnfermedad]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of claseConcepto]" />
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of temperatura]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of temperatura"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Temperatura]"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of temperatura]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of cantidad]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of peso]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of peso"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Peso]"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of peso]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of edadSuceso]"
+                      cachedDataType="i8"
+                      cachedName="Copy of edadSuceso"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EdadSuceso]"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of edadSuceso]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of veces_previas]"
+                      cachedDataType="i8"
+                      cachedName="Copy of veces_previas"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EsRepetido]"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of veces_previas]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[UbicacionKey]"
                       cachedDataType="i4"
-                      cachedName="Copy of cantidad"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PorcentajeMortalidad]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of cantidad]" />
+                      cachedName="UbicacionKey"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[UbicacionKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda].Columns[UbicacionKey]" />
                     <inputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of NombreCompleto]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="255"
-                      cachedName="Copy of NombreCompleto"
-                      externalMetadataColumnId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
-                      lineageId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of NombreCompleto]" />
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[TiempoKey]"
+                      cachedDataType="i4"
+                      cachedName="TiempoKey"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[TiempoKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TiempoKey]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of EnfermedadId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of EnfermedadId"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EnfermedadId]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[PacienteKey]"
+                      cachedDataType="i4"
+                      cachedName="PacienteKey"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[PacienteKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadKey]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadKey]"
                       dataType="i4"
                       name="EnfermedadKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EnfermedadId]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoKey]"
                       dataType="i4"
-                      name="EnfermedadId" />
+                      name="DiagnosticoKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
-                      codePage="1252"
-                      dataType="str"
-                      length="200"
-                      name="Nombre" />
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
+                      dataType="i4"
+                      name="PacienteKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoEnfermedad]"
-                      codePage="1252"
-                      dataType="str"
-                      length="200"
-                      name="tipoEnfermedad" />
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[UbicacionKey]"
+                      dataType="i4"
+                      name="UbicacionKey" />
                     <externalMetadataColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PorcentajeMortalidad]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[TiempoKey]"
+                      dataType="i4"
+                      name="TiempoKey" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Temperatura]"
                       dataType="numeric"
-                      name="PorcentajeMortalidad"
+                      name="Temperatura"
                       precision="18"
                       scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Peso]"
+                      dataType="numeric"
+                      name="Peso"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EdadSuceso]"
+                      dataType="i4"
+                      name="EdadSuceso" />
+                    <externalMetadataColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[EsRepetido]"
+                      dataType="i4"
+                      name="EsRepetido" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB]"
+                  refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Outputs[Salida de error de destino de OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Salida de error de destino de OLE DB"
-                  synchronousInputId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB]">
+                  synchronousInputId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -582,15 +1484,35 @@ GROUP BY  c.concept_id</property>
           </components>
           <paths>
             <path
-              refId="Package\LLenar DimEnfermedad.Paths[Salida de conversión de datos]"
-              endId="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer.Inputs[Entrada de destino de OLE DB]"
+              refId="Package\LLenar FactDiagnosticos.Paths[Salida de conversión de datos]"
+              endId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Inputs[Entrada de búsqueda]"
               name="Salida de conversión de datos"
-              startId="Package\LLenar DimEnfermedad\Conversión de datos.Outputs[Salida de conversión de datos]" />
+              startId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos]" />
             <path
-              refId="Package\LLenar DimEnfermedad.Paths[Salida de origen de ADO NET]"
-              endId="Package\LLenar DimEnfermedad\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              refId="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda]"
+              endId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda1]"
+              endId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda2]"
+              endId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda3]"
+              endId="Package\LLenar FactDiagnosticos\Buscar Paciente.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\LLenar FactDiagnosticos\Buscar Enfermedad.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\LLenar FactDiagnosticos.Paths[Salida de origen de ADO NET]"
+              endId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos]"
               name="Salida de origen de ADO NET"
-              startId="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb.Outputs[Salida de origen de ADO NET]" />
+              startId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -601,10 +1523,10 @@ GROUP BY  c.concept_id</property>
       DTS:refId="Package.PrecedenceConstraints[Restricción]"
       DTS:CreationName=""
       DTS:DTSID="{B130C9D8-98C4-4801-BC46-18AAD757269E}"
-      DTS:From="Package\Limpiar DimEnfermedad"
+      DTS:From="Package\Limpiar FactDiagnosticos"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"
-      DTS:To="Package\LLenar DimEnfermedad" />
+      DTS:To="Package\LLenar FactDiagnosticos" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
@@ -619,16 +1541,16 @@ GROUP BY  c.concept_id</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="198,42"
-          Id="Package\Limpiar DimEnfermedad"
+          Size="203,42"
+          Id="Package\Limpiar FactDiagnosticos"
           TopLeft="373,129" />
         <NodeLayout
-          Size="196,42"
-          Id="Package\LLenar DimEnfermedad"
+          Size="201,42"
+          Id="Package\LLenar FactDiagnosticos"
           TopLeft="372,275" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="471,171">
+          TopLeft="473.5,171">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -652,36 +1574,36 @@ GROUP BY  c.concept_id</property>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\LLenar DimEnfermedad">
+    design-time-name="Package\LLenar FactDiagnosticos">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="273,42"
-          Id="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer"
-          TopLeft="332,402" />
+          Size="263,42"
+          Id="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb"
+          TopLeft="7,89" />
         <NodeLayout
           Size="180,42"
-          Id="Package\LLenar DimEnfermedad\Conversión de datos"
-          TopLeft="383,249" />
+          Id="Package\LLenar FactDiagnosticos\Conversión de datos"
+          TopLeft="48,185" />
         <NodeLayout
-          Size="250,42"
-          Id="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
-          TopLeft="353,117" />
+          Size="265,42"
+          Id="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer"
+          TopLeft="428,593" />
         <EdgeLayout
-          Id="Package\LLenar DimEnfermedad.Paths[Salida de conversión de datos]"
-          TopLeft="470.75,291">
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de origen de ADO NET]"
+          TopLeft="138.25,131">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,111"
+              EndConnector="0,54"
               Start="0,0"
-              End="0,103.5">
+              End="0,46.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,103.5" />
+                    End="0,46.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -690,33 +1612,201 @@ GROUP BY  c.concept_id</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="176,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Enfermedad"
+          TopLeft="138,265" />
         <EdgeLayout
-          Id="Package\LLenar DimEnfermedad.Paths[Salida de origen de ADO NET]"
-          TopLeft="475.5,159">
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de conversión de datos]"
+          TopLeft="138,227">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,90"
+              EndConnector="88,38"
               Start="0,0"
-              End="0,82.5">
+              End="88,30.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,82.5" />
+                    End="0,15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15"
+                    Point2="0,19"
+                    Point3="4,19" />
+                  <mssgle:LineSegment
+                    End="84,19" />
+                  <mssgle:CubicBezierSegment
+                    Point1="84,19"
+                    Point2="88,19"
+                    Point3="88,23" />
+                  <mssgle:LineSegment
+                    End="88,30.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="159,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Paciente"
+          TopLeft="256,342" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Ubicacion"
+          TopLeft="359,426" />
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="335.5,384">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="106,42"
+              Start="0,0"
+              End="106,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17"
+                    Point2="0,21"
+                    Point3="4,21" />
+                  <mssgle:LineSegment
+                    End="102,21" />
+                  <mssgle:CubicBezierSegment
+                    Point1="102,21"
+                    Point2="106,21"
+                    Point3="106,25" />
+                  <mssgle:LineSegment
+                    End="106,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-46.8190234375,26,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="153,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Tiempo"
+          TopLeft="482,504" />
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="441.5,468">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117,36"
+              Start="0,0"
+              End="117,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="4,18" />
+                  <mssgle:LineSegment
+                    End="113,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113,18"
+                    Point2="117,18"
+                    Point3="117,22" />
+                  <mssgle:LineSegment
+                    End="117,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-41.3190234375,23,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda2]"
+          TopLeft="559.5,546">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-108.50701171875,11.75,217.0140234375,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda3]"
+          TopLeft="226,307">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="109.5,35"
+              Start="0,0"
+              End="109.5,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.5"
+                    Point2="0,17.5"
+                    Point3="4,17.5" />
+                  <mssgle:LineSegment
+                    End="105.5,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="105.5,17.5"
+                    Point2="109.5,17.5"
+                    Point3="109.5,21.5" />
+                  <mssgle:LineSegment
+                    End="109.5,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-45.0690234375,22.5,199.638046875,12.1953125"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar DimEnfermedad\Llenar Datos Enfermedades SQLServer">
+    design-time-name="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -729,8 +1819,92 @@ GROUP BY  c.concept_id</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb">
+    design-time-name="Package\LLenar FactDiagnosticos\Buscar Enfermedad">
     <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEnfermedad]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar FactDiagnosticos\Buscar Paciente">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimPaciente]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar FactDiagnosticos\Buscar Ubicacion">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimUbicacion]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar FactDiagnosticos\Buscar Tiempo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimTiempo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>

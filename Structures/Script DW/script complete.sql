@@ -14,9 +14,8 @@ GO
 CREATE TABLE DimEnfermedad(
 	EnfermedadKey INT IDENTITY(1,1),
 	EnfermedadId INT,
-	Nombre VARCHAR(200),
-	tipoEnfermedad VARCHAR(200),
-	PorcentajeMortalidad Decimal(18,2)
+	Nombre VARCHAR(255),
+	tipoEnfermedad VARCHAR(255)
 )
 
 CREATE TABLE DimPaciente(
@@ -29,36 +28,42 @@ CREATE TABLE DimPaciente(
 	FechaIngreso DATETIME NOT NULL
 )
 
+--DROP TABLE DimUbicacion
+
 CREATE TABLE DimUbicacion(
 	UbicacionKey INT IDENTITY(1,1),
-	DireccionId INT NOT NULL,
+	DireccionId VARCHAR(1000) NOT NULL,
 	Pais Varchar(100) NOT NULL,
 	Ciudad VARCHAR(100) NOT NULL,
 	Departamento VARCHAR(100) NOT NULL,
-	Municipio VARCHAR(200) NOT NULL,
 	CodigoPostal VARCHAR(10) NULL
 )
 
+
 CREATE TABLE DimTiempo(
-	TiempoKey INT IDENTITY(1,1),
+	TiempoKey INT ,
 	Fecha DATETIME NOT NULL,
 	Dia TINYINT NOT NULL,
 	Mes TINYINT NOT NULL,
 	Anio SMALLINT NOT NULL
 )
 
+--DROP TABLE FactDiagnosticos
 
 CREATE TABLE FactDiagnosticos(
-	DiagnosticoKey INT IDENTITY(1,1),
+	DiagnosticoKey INT NOT NULL,
 	EnfermedadKey INT NOT NULL,
 	PacienteKey INT NOT NULL,
 	UbicacionKey INT NOT NULL,
 	TiempoKey INT NOT NULL,
 	Temperatura DECIMAL(18,2),
 	Peso DECIMAL(18,2),
-	Edad INT,
-	Seguimiento BIT
+	Altura DECIMAL(18,2),
+	EdadSuceso INT,
+	EsRepetido INT
 )
+
+--SELECT * FROM FactDiagnosticos
 
 ALTER TABLE DimEnfermedad 
 ADD CONSTRAINT PK_Enfermedad  PRIMARY KEY (EnfermedadKey);

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimUbicacionInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="52"
-  DTS:VersionGUID="{50EABF5B-1E78-4CD6-829E-29084788933E}">
+  DTS:VersionBuild="57"
+  DTS:VersionGUID="{E64399F8-8D17-4769-8B34-6638450331C7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -622,15 +622,40 @@ join person_address pa on p.person_id =pa.person_id</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Llenar PorDefecto"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{579967CC-BB07-4983-B4E6-1D2E9D9B969E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Llenar PorDefecto"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;SET IDENTITY_INSERT DimUbicacion ON;&#xA;GO&#xA;&#xA;INSERT INTO DimUbicacion(UbicacionKey, DireccionId, Pais,Ciudad, Departamento, CodigoPostal)&#xA;VALUES (0,'','NO HAY','NO HAY','NO HAY','0000');&#xA;GO&#xA;&#xA;INSERT INTO DimUbicacion(UbicacionKey, DireccionId, Pais,Ciudad, Departamento, CodigoPostal)&#xA;VALUES (0,' ','NO HAY','NO HAY','NO HAY','0000');&#xA;GO&#xA;&#xA;SET IDENTITY_INSERT DimUbicacion OFF;&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Restricción]"
       DTS:CreationName=""
-      DTS:DTSID="{2DF99DFE-CBB0-4677-9F4E-759CF019FB4D}"
+      DTS:DTSID="{13BE60CA-76CC-48D2-BF32-1C6FAE202E2A}"
       DTS:From="Package\Limpiar DimUbicacion"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"
+      DTS:To="Package\Llenar PorDefecto" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{2623F496-6AA4-476C-A303-085BCDF3C2FF}"
+      DTS:From="Package\Llenar PorDefecto"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
       DTS:To="Package\Llenar DimUbicacion" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
@@ -644,7 +669,7 @@ join person_address pa on p.person_id =pa.person_id</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186,42"
           Id="Package\Limpiar DimUbicacion"
@@ -652,21 +677,47 @@ join person_address pa on p.person_id =pa.person_id</property>
         <NodeLayout
           Size="181,42"
           Id="Package\Llenar DimUbicacion"
-          TopLeft="376,249" />
+          TopLeft="378,322" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Llenar PorDefecto"
+          TopLeft="382,222" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="467.25,177">
+          TopLeft="467,177">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,72"
+              EndConnector="0,45"
               Start="0,0"
-              End="0,64.5">
+              End="0,37.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,64.5" />
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="467.25,264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -684,10 +735,6 @@ join person_address pa on p.person_id =pa.person_id</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="227,42"
-          Id="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
-          TopLeft="352,107" />
-        <NodeLayout
           Size="270,42"
           Id="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer"
           TopLeft="333,388" />
@@ -695,28 +742,10 @@ join person_address pa on p.person_id =pa.person_id</property>
           Size="180,42"
           Id="Package\Llenar DimUbicacion\Conversión de datos"
           TopLeft="372,243" />
-        <EdgeLayout
-          Id="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
-          TopLeft="463.75,149">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,94"
-              Start="0,0"
-              End="0,86.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,86.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="227,42"
+          Id="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb"
+          TopLeft="352,107" />
         <EdgeLayout
           Id="Package\Llenar DimUbicacion.Paths[Salida de conversión de datos]"
           TopLeft="465,285">
@@ -739,17 +768,31 @@ join person_address pa on p.person_id =pa.person_id</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar DimUbicacion.Paths[Salida de origen de ADO NET]"
+          TopLeft="463.75,149">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,94"
+              Start="0,0"
+              End="0,86.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,86.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar DimUbicacion\Llenar Datos DimUbicacion SQLServer">
     <Properties>
@@ -760,6 +803,14 @@ join person_address pa on p.person_id =pa.person_id</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimUbicacion\Leer Datos Ubicacion Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

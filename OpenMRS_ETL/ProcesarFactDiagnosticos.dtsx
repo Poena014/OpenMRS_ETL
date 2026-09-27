@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactDiagnosticos"
   DTS:PackageType="5"
-  DTS:VersionBuild="82"
-  DTS:VersionGUID="{D2634978-87CC-440C-903B-BBA318970043}">
+  DTS:VersionBuild="90"
+  DTS:VersionGUID="{49F7273B-6C92-491D-A02E-E36CE698FDA1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -251,7 +251,7 @@ where [refTable].[PacienteId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\LLenar FactDiagnosticos\59:invalid};</property>
+                  name="ParameterMap">#{Package\LLenar FactDiagnosticos\229:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -388,7 +388,7 @@ where [refTable].[Fecha] = ?</property>
                   dataType="System.Int32"
                   description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
@@ -456,7 +456,6 @@ where [refTable].[Fecha] = ?</property>
                 <output
                   refId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda]"
                   errorOrTruncationOperation="Búsqueda"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Salida de entradas coincidentes de búsqueda"
                   synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Inputs[Entrada de búsqueda]">
@@ -546,7 +545,7 @@ where [refTable].[DireccionId] = ?</property>
                   dataType="System.Int32"
                   description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
@@ -616,7 +615,6 @@ where [refTable].[DireccionId] = ?</property>
                 <output
                   refId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda]"
                   errorOrTruncationOperation="Búsqueda"
-                  errorRowDisposition="IgnoreFailure"
                   exclusionGroup="1"
                   name="Salida de entradas coincidentes de búsqueda"
                   synchronousInputId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Inputs[Entrada de búsqueda]">
@@ -627,7 +625,7 @@ where [refTable].[DireccionId] = ?</property>
                       errorOrTruncationOperation="Copiar columna"
                       lineageId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda].Columns[UbicacionKey]"
                       name="UbicacionKey"
-                      truncationRowDisposition="FailComponent">
+                      truncationRowDisposition="RedirectRow">
                       <properties>
                         <property
                           dataType="System.String"
@@ -705,8 +703,7 @@ where [refTable].[DireccionId] = ?</property>
                       lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[UbicacionId]" />
                     <inputColumn
                       refId="Package\LLenar FactDiagnosticos\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[TiempoKey]"
-                      cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedDataType="dbTimeStamp"
                       cachedName="TiempoKey"
                       lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]" />
                     <inputColumn
@@ -999,7 +996,7 @@ COALESCE(vt.visit_id, 0) AS DiagnosticoKey,
 COALESCE(d.diagnosis_coded, 0) AS EnfermedadId,
 COALESCE(vt.patient_id, 0) AS PacienteId,
 COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
-COALESCE(CAST(vt.date_started AS DATE), '1900-01-01') AS TiempoKey,
+CAST(DATE(vt.date_started) AS DATETIME) AS TiempoKey,
 COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, vt.date_started), 0) AS edadSuceso,
 COALESCE(vit.temperatura, 0) AS temperatura,
 COALESCE(vit.peso, 0) AS peso,
@@ -1106,11 +1103,10 @@ ORDER BY vt.visit_id;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]"
-                      dataType="wstr"
+                      dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[TiempoKey]"
-                      length="10"
                       lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[TiempoKey]"
                       name="TiempoKey"
                       truncationRowDisposition="FailComponent" />
@@ -1181,8 +1177,7 @@ ORDER BY vt.visit_id;</property>
                       name="UbicacionId" />
                     <externalMetadataColumn
                       refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[TiempoKey]"
-                      dataType="wstr"
-                      length="10"
+                      dataType="dbTimeStamp"
                       name="TiempoKey" />
                     <externalMetadataColumn
                       refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[edadSuceso]"
@@ -1234,8 +1229,7 @@ ORDER BY vt.visit_id;</property>
                       name="UbicacionId" />
                     <outputColumn
                       refId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[TiempoKey]"
-                      dataType="wstr"
-                      length="10"
+                      dataType="dbTimeStamp"
                       lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[TiempoKey]"
                       name="TiempoKey" />
                     <outputColumn
@@ -1393,12 +1387,6 @@ ORDER BY vt.visit_id;</property>
                       externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[UbicacionKey]"
                       lineageId="Package\LLenar FactDiagnosticos\Buscar Ubicacion.Outputs[Salida de entradas coincidentes de búsqueda].Columns[UbicacionKey]" />
                     <inputColumn
-                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[TiempoKey]"
-                      cachedDataType="i4"
-                      cachedName="TiempoKey"
-                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[TiempoKey]"
-                      lineageId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TiempoKey]" />
-                    <inputColumn
                       refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of EnfermedadId]"
                       cachedDataType="i4"
                       cachedName="Copy of EnfermedadId"
@@ -1410,6 +1398,12 @@ ORDER BY vt.visit_id;</property>
                       cachedName="PacienteKey"
                       externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
                       lineageId="Package\LLenar FactDiagnosticos\Buscar Paciente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[PacienteKey]" />
+                    <inputColumn
+                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[TiempoKey]"
+                      cachedDataType="i4"
+                      cachedName="TiempoKey"
+                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[TiempoKey]"
+                      lineageId="Package\LLenar FactDiagnosticos\Buscar Tiempo.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TiempoKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1579,13 +1573,29 @@ ORDER BY vt.visit_id;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="263,42"
-          Id="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb"
-          TopLeft="7,89" />
+          Size="153,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Tiempo"
+          TopLeft="482,504" />
         <NodeLayout
           Size="180,42"
           Id="Package\LLenar FactDiagnosticos\Conversión de datos"
           TopLeft="48,185" />
+        <NodeLayout
+          Size="263,42"
+          Id="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb"
+          TopLeft="7,89" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Paciente"
+          TopLeft="256,342" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Ubicacion"
+          TopLeft="359,426" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Enfermedad"
+          TopLeft="138,265" />
         <NodeLayout
           Size="265,42"
           Id="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer"
@@ -1610,152 +1620,6 @@ ORDER BY vt.visit_id;</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="176,42"
-          Id="Package\LLenar FactDiagnosticos\Buscar Enfermedad"
-          TopLeft="138,265" />
-        <EdgeLayout
-          Id="Package\LLenar FactDiagnosticos.Paths[Salida de conversión de datos]"
-          TopLeft="138,227">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="88,38"
-              Start="0,0"
-              End="88,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,15" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,15"
-                    Point2="0,19"
-                    Point3="4,19" />
-                  <mssgle:LineSegment
-                    End="84,19" />
-                  <mssgle:CubicBezierSegment
-                    Point1="84,19"
-                    Point2="88,19"
-                    Point3="88,23" />
-                  <mssgle:LineSegment
-                    End="88,30.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="159,42"
-          Id="Package\LLenar FactDiagnosticos\Buscar Paciente"
-          TopLeft="256,342" />
-        <NodeLayout
-          Size="165,42"
-          Id="Package\LLenar FactDiagnosticos\Buscar Ubicacion"
-          TopLeft="359,426" />
-        <EdgeLayout
-          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda]"
-          TopLeft="335.5,384">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="106,42"
-              Start="0,0"
-              End="106,34.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,17" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,17"
-                    Point2="0,21"
-                    Point3="4,21" />
-                  <mssgle:LineSegment
-                    End="102,21" />
-                  <mssgle:CubicBezierSegment
-                    Point1="102,21"
-                    Point2="106,21"
-                    Point3="106,25" />
-                  <mssgle:LineSegment
-                    End="106,34.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-46.8190234375,26,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="153,42"
-          Id="Package\LLenar FactDiagnosticos\Buscar Tiempo"
-          TopLeft="482,504" />
-        <EdgeLayout
-          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda1]"
-          TopLeft="441.5,468">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="117,36"
-              Start="0,0"
-              End="117,28.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,14" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,14"
-                    Point2="0,18"
-                    Point3="4,18" />
-                  <mssgle:LineSegment
-                    End="113,18" />
-                  <mssgle:CubicBezierSegment
-                    Point1="113,18"
-                    Point2="117,18"
-                    Point3="117,22" />
-                  <mssgle:LineSegment
-                    End="117,28.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-41.3190234375,23,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda2]"
-          TopLeft="559.5,546">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,47"
-              Start="0,0"
-              End="0,39.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,39.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-108.50701171875,11.75,217.0140234375,16"
-              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1794,32 +1658,141 @@ ORDER BY vt.visit_id;</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda2]"
+          TopLeft="559.5,546">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-108.50701171875,11.75,217.0140234375,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="441.5,468">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117,36"
+              Start="0,0"
+              End="117,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="4,18" />
+                  <mssgle:LineSegment
+                    End="113,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113,18"
+                    Point2="117,18"
+                    Point3="117,22" />
+                  <mssgle:LineSegment
+                    End="117,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-41.3190234375,23,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="335.5,384">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="106,42"
+              Start="0,0"
+              End="106,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17"
+                    Point2="0,21"
+                    Point3="4,21" />
+                  <mssgle:LineSegment
+                    End="102,21" />
+                  <mssgle:CubicBezierSegment
+                    Point1="102,21"
+                    Point2="106,21"
+                    Point3="106,25" />
+                  <mssgle:LineSegment
+                    End="106,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-46.8190234375,26,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LLenar FactDiagnosticos.Paths[Salida de conversión de datos]"
+          TopLeft="138,227">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="88,38"
+              Start="0,0"
+              End="88,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15"
+                    Point2="0,19"
+                    Point3="4,19" />
+                  <mssgle:LineSegment
+                    End="84,19" />
+                  <mssgle:CubicBezierSegment
+                    Point1="84,19"
+                    Point2="88,19"
+                    Point3="88,23" />
+                  <mssgle:LineSegment
+                    End="88,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\LLenar FactDiagnosticos\Buscar Enfermedad">
+    design-time-name="Package\LLenar FactDiagnosticos\Buscar Tiempo">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
@@ -1829,13 +1802,21 @@ ORDER BY vt.visit_id;</property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[DimEnfermedad]</Value>
+          type="q3:string">[dbo].[DimTiempo]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q4:int">0</Value>
       </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb">
+    <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>
@@ -1847,7 +1828,7 @@ ORDER BY vt.visit_id;</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1857,7 +1838,7 @@ ORDER BY vt.visit_id;</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1888,25 +1869,38 @@ ORDER BY vt.visit_id;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar FactDiagnosticos\Buscar Tiempo">
+    design-time-name="Package\LLenar FactDiagnosticos\Buscar Enfermedad">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[DimTiempo]</Value>
+          type="q3:string">[dbo].[DimEnfermedad]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

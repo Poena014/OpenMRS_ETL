@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimTiempoInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{21A75F7D-C78A-468C-A692-F0CA8FD0D701}">
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{F9EA6941-8483-4E46-82D7-A50899579BCE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -48,7 +48,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
-          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;DECLARE @FechaInicio DATE ='2023-01-01'&#xA;DECLARE @FechaFin DATE=GETDATE()&#xA;DECLARE @FechaActual DATE = @FechaInicio&#xA;&#xA;DECLARE @TiempoKey INT&#xA;DECLARE @Dia INT&#xA;DECLARE @Mes INT&#xA;DECLARE @Anio INT&#xA;&#xA;WHILE @FechaActual&lt;=@FechaFin&#xA;BEGIN&#xA;&#x9;SET @TiempoKey = CONVERT(INT, CONVERT(VARCHAR(8), @FechaActual, 112))&#xA;&#x9;SET @Dia=DAY(@FechaActual)&#xA;&#x9;SET @Mes=MONTH(@FechaActual)&#xA;&#x9;SET @Anio=YEAR(@FechaActual)&#xA;&#xA;&#x9;INSERT INTO DimTiempo (TiempoKey,Fecha, Dia,Mes,Anio)&#xA;&#x9;VALUES (@TiempoKey,@FechaActual, @Dia,@Mes, @Anio)&#xA;&#xA;&#x9;SET @FechaActual=DATEADD(DAY,1,@FechaActual)&#xA;&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;DECLARE @FechaInicio DATE ='2020-01-01'&#xA;DECLARE @FechaFin DATE=GETDATE()&#xA;DECLARE @FechaActual DATE = @FechaInicio&#xA;&#xA;DECLARE @TiempoKey INT&#xA;DECLARE @Dia INT&#xA;DECLARE @Mes INT&#xA;DECLARE @Anio INT&#xA;&#xA;WHILE @FechaActual&lt;=@FechaFin&#xA;BEGIN&#xA;&#x9;SET @TiempoKey = CONVERT(INT, CONVERT(VARCHAR(8), @FechaActual, 112))&#xA;&#x9;SET @Dia=DAY(@FechaActual)&#xA;&#x9;SET @Mes=MONTH(@FechaActual)&#xA;&#x9;SET @Anio=YEAR(@FechaActual)&#xA;&#xA;&#x9;INSERT INTO DimTiempo (TiempoKey,Fecha, Dia,Mes,Anio)&#xA;&#x9;VALUES (@TiempoKey,@FechaActual, @Dia,@Mes, @Anio)&#xA;&#xA;&#x9;SET @FechaActual=DATEADD(DAY,1,@FechaActual)&#xA;&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>

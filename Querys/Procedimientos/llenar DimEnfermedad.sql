@@ -1,3 +1,13 @@
+SET IDENTITY_INSERT DimEnfermedad ON;
+GO
+
+INSERT INTO DimEnfermedad (EnfermedadKey, EnfermedadId,Nombre,tipoEnfermedad)
+VALUES (0,0,'Ninguno','Sin categoría');
+GO
+
+SET IDENTITY_INSERT DimEnfermedad OFF;
+GO
+
 SELECT
     c.concept_id AS EnfermedadId,
     COALESCE(

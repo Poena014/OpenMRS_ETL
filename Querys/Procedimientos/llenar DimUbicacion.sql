@@ -1,3 +1,14 @@
+SET IDENTITY_INSERT NombreTabla ON;
+GO
+
+INSERT INTO DimUbicaciones (UbicacionKey, DireccionId, Pais,Ciudad, Departamento, CodigoPostal)
+VALUES (0,'NO HAY','NO HAY','NO HAY','NO HAY','0000');
+GO
+
+SET IDENTITY_INSERT NombreTabla OFF;
+GO
+
+
 select DISTINCT 
 UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)) direccionId,
 UPPER(IFNULL(pa.city_village,'N/CIUDAD')) ciudad,

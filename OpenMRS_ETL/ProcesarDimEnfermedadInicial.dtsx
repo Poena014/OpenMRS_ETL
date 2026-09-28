@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimEnfermedadInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="65"
-  DTS:VersionGUID="{7897443E-22F6-4774-974C-D18A5AED1990}">
+  DTS:VersionBuild="66"
+  DTS:VersionGUID="{15650CC0-70D3-4B7C-A505-2D3E3B65796F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -665,25 +665,25 @@ WHERE c.concept_id IN (
         <NodeLayout
           Size="180,42"
           Id="Package\LLenar DimEnfermedad\Conversión de datos"
-          TopLeft="365,279" />
+          TopLeft="358,272" />
         <NodeLayout
           Size="217,42"
           Id="Package\LLenar DimEnfermedad\Llenar DimEnfermedad SQL"
-          TopLeft="332,450" />
+          TopLeft="342,433" />
         <EdgeLayout
           Id="Package\LLenar DimEnfermedad.Paths[Salida de origen de ADO NET]"
-          TopLeft="455,159">
+          TopLeft="451.5,159">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,120"
+              EndConnector="0,113"
               Start="0,0"
-              End="0,112.5">
+              End="0,105.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,112.5" />
+                    End="0,105.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -694,30 +694,18 @@ WHERE c.concept_id IN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package\LLenar DimEnfermedad.Paths[Salida de conversión de datos]"
-          TopLeft="455,321">
+          TopLeft="449.25,314">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-14.5,129"
+              EndConnector="0,119"
               Start="0,0"
-              End="-14.5,121.5">
+              End="0,111.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,60.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,60.5"
-                    Point2="0,64.5"
-                    Point3="-4,64.5" />
-                  <mssgle:LineSegment
-                    End="-10.5,64.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-10.5,64.5"
-                    Point2="-14.5,64.5"
-                    Point3="-14.5,68.5" />
-                  <mssgle:LineSegment
-                    End="-14.5,121.5" />
+                    End="0,111.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

@@ -1,39 +1,22 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="8/9/2026 9:19:09 PM"
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="JUANRIVERAPC"
   DTS:CreatorName="JUANRIVERAPC\jcriv"
-  DTS:DTSID="{99133A3C-CB10-4F28-886B-A3DC680EFE4C}"
+  DTS:DTSID="{568BE95A-CC16-4810-881A-452E4FF5D649}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="21514"
-  DTS:ObjectName="ProcesarDimTipoEncuentro"
+  DTS:ObjectName="ProcesarDimTipoEncuentroInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{35E07BB8-45F8-403B-8C61-9CCE38BF822B}">
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{B245770C-9470-4407-BFB7-DCDF400689D5}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
-    <DTS:Executable
-      DTS:refId="Package\Limpiar DimTipoEncuentro"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{AA438F7F-FD98-4F8F-A29C-8E30C124B315}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Limpiar DimTipoEncuentro"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; (C) 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
-          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimTipoEncuentro&#xA;dbcc checkident('DimTipoEncuentro',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Cargar DimTipoEncuentro"
       DTS:CreationName="Microsoft.Pipeline"
@@ -586,17 +569,34 @@ ORDER BY et.encounter_type_id ASC</property>
           </components>
           <paths>
             <path
-              refId="Package\Cargar DimTipoEncuentro.Paths[Salida de origen de ADO NET]"
-              endId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input]"
-              name="Salida de origen de ADO NET"
-              startId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
-            <path
               refId="Package\Cargar DimTipoEncuentro.Paths[Data Conversion Output]"
               endId="Package\Cargar DimTipoEncuentro\OLE DB Destination.Inputs[OLE DB Destination Input]"
               name="Data Conversion Output"
               startId="Package\Cargar DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Cargar DimTipoEncuentro.Paths[Salida de origen de ADO NET]"
+              endId="Package\Cargar DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input]"
+              name="Salida de origen de ADO NET"
+              startId="Package\Cargar DimTipoEncuentro\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
           </paths>
         </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar DimTipoEncuentro"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AA438F7F-FD98-4F8F-A29C-8E30C124B315}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar DimTipoEncuentro"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; (C) 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimTipoEncuentro&#xA;dbcc checkident('DimTipoEncuentro',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -611,8 +611,12 @@ ORDER BY et.encounter_type_id ASC</property>
       DTS:To="Package\Cargar DimTipoEncuentro" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
 <Objects
   Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
@@ -620,12 +624,12 @@ ORDER BY et.encounter_type_id ASC</property>
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="185,42"
-          Id="Package\Limpiar DimTipoEncuentro"
-          TopLeft="315,66" />
-        <NodeLayout
-          Size="185,42"
           Id="Package\Cargar DimTipoEncuentro"
           TopLeft="315,157" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Limpiar DimTipoEncuentro"
+          TopLeft="315,66" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restriccion]"
           TopLeft="407.5,108">
@@ -716,14 +720,6 @@ ORDER BY et.encounter_type_id ASC</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Cargar DimTipoEncuentro\Origen de ADO NET">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Cargar DimTipoEncuentro\OLE DB Destination">
     <Properties>
       <Property>
@@ -733,6 +729,14 @@ ORDER BY et.encounter_type_id ASC</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimTipoEncuentro\Origen de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

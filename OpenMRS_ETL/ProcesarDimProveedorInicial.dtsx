@@ -5,35 +5,18 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="JUANRIVERAPC"
   DTS:CreatorName="JUANRIVERAPC\jcriv"
-  DTS:DTSID="{2A26AA3E-C451-4465-91D1-BC72B296CDE3}"
+  DTS:DTSID="{C8BF2ED9-693F-45B2-804E-551A732EED7E}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="21514"
-  DTS:ObjectName="ProcesarDimProveedor"
+  DTS:ObjectName="ProcesarDimProveedorInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{1B92E17C-C50F-4665-B4F3-9C1C20D7006F}">
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{16904890-EEBE-4327-AA77-C1EF2BFB064B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
-    <DTS:Executable
-      DTS:refId="Package\Limpiar DimProveedor"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{7EBB2C2B-560E-4237-8DA0-C5D34DAFF181}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Limpiar DimProveedor"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; (C) 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
-          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimProveedor&#xA;dbcc checkident('DimProveedor',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Cargar DimProveedor"
       DTS:CreationName="Microsoft.Pipeline"
@@ -637,6 +620,23 @@ ORDER BY p.provider_id ASC</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar DimProveedor"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7EBB2C2B-560E-4237-8DA0-C5D34DAFF181}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar DimProveedor"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; (C) 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from DimProveedor&#xA;dbcc checkident('DimProveedor',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -662,12 +662,12 @@ ORDER BY p.provider_id ASC</property>
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="185,42"
-          Id="Package\Limpiar DimProveedor"
-          TopLeft="315,66" />
-        <NodeLayout
-          Size="185,42"
           Id="Package\Cargar DimProveedor"
           TopLeft="315,157" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Limpiar DimProveedor"
+          TopLeft="315,66" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restriccion]"
           TopLeft="407.5,108">
@@ -758,14 +758,6 @@ ORDER BY p.provider_id ASC</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Cargar DimProveedor\Origen de ADO NET">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Cargar DimProveedor\OLE DB Destination">
     <Properties>
       <Property>
@@ -775,6 +767,14 @@ ORDER BY p.provider_id ASC</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimProveedor\Origen de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

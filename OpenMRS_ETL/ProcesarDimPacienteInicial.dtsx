@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimPAciente2"
   DTS:PackageType="5"
-  DTS:VersionBuild="67"
-  DTS:VersionGUID="{4FAEE8C4-0FD7-41BC-81E2-2C587BA8136F}">
+  DTS:VersionBuild="80"
+  DTS:VersionGUID="{C67877C3-3BBA-4C7D-BE63-CF8599790BA9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -85,7 +85,8 @@
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[sexo]" />
                     <inputColumn
                       refId="Package\Llenar DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaNacimiento]"
-                      cachedDataType="dbTimeStamp"
+                      cachedDataType="wstr"
+                      cachedLength="10"
                       cachedName="fechaNacimiento"
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]" />
                     <inputColumn
@@ -93,11 +94,6 @@
                       cachedDataType="dbTimeStamp"
                       cachedName="fechaIngreso"
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]" />
-                    <inputColumn
-                      refId="Package\Llenar DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaBaja]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="fechaBaja"
-                      lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]" />
                     <inputColumn
                       refId="Package\Llenar DimPaciente\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[fechaProceso]"
                       cachedDataType="dbTimeStamp"
@@ -202,9 +198,10 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaNacimiento]"
-                      dataType="dbDate"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
+                      length="50"
                       lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaNacimiento]"
                       name="Copy of fechaNacimiento"
                       truncationRowDisposition="FailComponent">
@@ -222,7 +219,7 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaIngreso]"
-                      dataType="dbTime"
+                      dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaIngreso]"
@@ -241,28 +238,8 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaBaja]"
-                      dataType="dbTime"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaBaja]"
-                      name="Copy of fechaBaja"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
-                          name="SourceInputColumnLineageID">#{Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
                       refId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaProceso]"
-                      dataType="dbTime"
+                      dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaProceso]"
@@ -321,18 +298,18 @@
                   description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select a.person_id,
-UPPER(CONCAT(IFNULL(pn.given_name,'') , ' ',IFNULL(pn.middle_name,''))) nombres,
-UPPER(CONCAT(IFNULL(pn.family_name,'') , ' ',IFNULL(pn.family_name2,''))) apellidos,
-a.gender sexo,
-a.birthdate fechaNacimiento,
-a.date_created fechaIngreso,
-a.date_voided  fechaBaja,
-NOW() fechaProceso
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select
+COALESCE(a.person_id, 0) AS person_id,
+UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.given_name,''), ' ', IFNULL(pn.middle_name,'')), ''), 'N/NOMBRES')) AS nombres,
+UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.family_name,''), ' ', IFNULL(pn.family_name2,'')), ''), 'N/APELLIDOS')) AS apellidos,
+UPPER(IFNULL(NULLIF(a.gender,''), 'N')) AS sexo,
+IFNULL(a.birthdate, '1900-01-01') AS fechaNacimiento,
+IFNULL(a.date_created, NOW()) AS fechaIngreso,
+NOW() AS fechaProceso
 from person a
-JOIN person_address pa ON a.person_id =pa.person_id 
-JOIN person_name pn ON a.person_id=pn.person_id
-ORDER BY a.person_id asc</property>
+left join person_name pn
+  on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1
+order by a.person_id asc;</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
@@ -410,10 +387,11 @@ ORDER BY a.person_id asc</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
+                      length="10"
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaNacimiento]"
                       name="fechaNacimiento"
                       truncationRowDisposition="FailComponent" />
@@ -425,15 +403,6 @@ ORDER BY a.person_id asc</property>
                       externalMetadataColumnId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaIngreso]"
                       name="fechaIngreso"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
-                      lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaBaja]"
-                      name="fechaBaja"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
@@ -468,16 +437,13 @@ ORDER BY a.person_id asc</property>
                       name="sexo" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
+                      dataType="wstr"
+                      length="10"
                       name="fechaNacimiento" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaIngreso]"
                       dataType="dbTimeStamp"
                       name="fechaIngreso" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      name="fechaBaja" />
                     <externalMetadataColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
                       dataType="dbTimeStamp"
@@ -514,7 +480,8 @@ ORDER BY a.person_id asc</property>
                       name="sexo" />
                     <outputColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
-                      dataType="dbTimeStamp"
+                      dataType="wstr"
+                      length="10"
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaNacimiento]"
                       name="fechaNacimiento" />
                     <outputColumn
@@ -522,11 +489,6 @@ ORDER BY a.person_id asc</property>
                       dataType="dbTimeStamp"
                       lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaIngreso]"
                       name="fechaIngreso" />
-                    <outputColumn
-                      refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaBaja]"
-                      name="fechaBaja" />
                     <outputColumn
                       refId="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
                       dataType="dbTimeStamp"
@@ -599,11 +561,11 @@ ORDER BY a.person_id asc</property>
                 <property
                   dataType="System.String"
                   description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
-                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  name="FastLoadMaxInsertCommitSize">1000</property>
               </properties>
               <connections>
                 <connection
@@ -652,29 +614,18 @@ ORDER BY a.person_id asc</property>
                       externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[Sexo]"
                       lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of sexo]" />
                     <inputColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaNacimiento]"
-                      cachedDataType="dbDate"
-                      cachedName="Copy of fechaNacimiento"
-                      externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaNacimiento]"
-                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaNacimiento]" />
-                    <inputColumn
                       refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaIngreso]"
-                      cachedDataType="dbTime"
+                      cachedDataType="dbTimeStamp"
                       cachedName="Copy of fechaIngreso"
                       externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
                       lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaIngreso]" />
                     <inputColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaBaja]"
-                      cachedDataType="dbTime"
-                      cachedName="Copy of fechaBaja"
-                      externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
-                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaBaja]" />
-                    <inputColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaProceso]"
-                      cachedDataType="dbTime"
-                      cachedName="Copy of fechaProceso"
-                      externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
-                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaProceso]" />
+                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of fechaNacimiento]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of fechaNacimiento"
+                      externalMetadataColumnId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaNacimiento]"
+                      lineageId="Package\Llenar DimPaciente\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of fechaNacimiento]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -713,14 +664,6 @@ ORDER BY a.person_id asc</property>
                       refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaIngreso]"
                       dataType="dbTimeStamp"
                       name="FechaIngreso" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaBaja]"
-                      dataType="dbTimeStamp"
-                      name="FechaBaja" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProceso]"
-                      dataType="dbTimeStamp"
-                      name="FechaProceso" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -765,15 +708,40 @@ ORDER BY a.person_id asc</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Llenar PorDefecto"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{7EFC9375-667C-4815-AD0A-361F54315518}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Llenar PorDefecto"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="USE OpenmrsETL&#xA;GO&#xA;&#xA;SET IDENTITY_INSERT DimPaciente ON;&#xA;GO&#xA;&#xA;INSERT INTO DimPaciente(PacienteKey ,PacienteId ,Nombres ,Apellidos ,Sexo ,FechaNacimiento,FechaIngreso)&#xA;VALUES (0,0,'N/A','N/A','','1900-01-01','1900-01-01')&#xA;GO&#xA;&#xA;SET IDENTITY_INSERT DimPaciente OFF;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Restricción]"
       DTS:CreationName=""
-      DTS:DTSID="{08AE5269-4A2D-45C9-84B1-A658B6627F43}"
+      DTS:DTSID="{8BCB74A5-FA71-4E85-8C43-8EDC2AEEA7E5}"
       DTS:From="Package\Limpiar DimPaciente"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"
+      DTS:To="Package\Llenar PorDefecto" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A0E92F3D-F9FE-4225-A908-59C16C915B12}"
+      DTS:From="Package\Llenar PorDefecto"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
       DTS:To="Package\Llenar DimPaciente" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
@@ -787,29 +755,55 @@ ORDER BY a.person_id asc</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Limpiar DimPaciente"
+          TopLeft="337,123" />
         <NodeLayout
           Size="175,42"
           Id="Package\Llenar DimPaciente"
           TopLeft="333,293" />
         <NodeLayout
-          Size="181,42"
-          Id="Package\Limpiar DimPaciente"
-          TopLeft="337,123" />
+          Size="168,42"
+          Id="Package\Llenar PorDefecto"
+          TopLeft="337,205" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="424,165">
+          TopLeft="424.25,165">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,128"
+              EndConnector="0,40"
               Start="0,0"
-              End="0,120.5">
+              End="0,32.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,120.5" />
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="420.75,247">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -837,21 +831,21 @@ ORDER BY a.person_id asc</property>
         <NodeLayout
           Size="180,42"
           Id="Package\Llenar DimPaciente\Conversión de datos"
-          TopLeft="369,234" />
+          TopLeft="378,255" />
         <EdgeLayout
           Id="Package\Llenar DimPaciente.Paths[Salida de origen de ADO NET]"
-          TopLeft="462.75,159">
+          TopLeft="467.25,159">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,75"
+              EndConnector="0,96"
               Start="0,0"
-              End="0,67.5">
+              End="0,88.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,67.5" />
+                    End="0,88.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -862,30 +856,18 @@ ORDER BY a.person_id asc</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Llenar DimPaciente.Paths[Salida de conversión de datos]"
-          TopLeft="459,276">
+          TopLeft="468.5,297">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="10,122"
+              EndConnector="0,101"
               Start="0,0"
-              End="10,114.5">
+              End="0,93.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,57" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,57"
-                    Point2="0,61"
-                    Point3="4,61" />
-                  <mssgle:LineSegment
-                    End="6,61" />
-                  <mssgle:CubicBezierSegment
-                    Point1="6,61"
-                    Point2="10,61"
-                    Point3="10,65" />
-                  <mssgle:LineSegment
-                    End="10,114.5" />
+                    End="0,93.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

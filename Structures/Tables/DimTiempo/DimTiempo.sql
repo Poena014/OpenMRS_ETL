@@ -4,9 +4,16 @@ go
 DROP TABLE IF EXISTS DimTiempo
 
 CREATE TABLE DimTiempo(
-	TiempoKey INT Primary Key,
+	TiempoKey INT IDENTITY(1,1),
 	Fecha DATETIME NOT NULL,
 	Dia TINYINT NOT NULL,
 	Mes TINYINT NOT NULL,
 	Anio SMALLINT NOT NULL
 )
+
+
+ALTER TABLE DimTiempo 
+ADD CONSTRAINT PK_Tiempo  PRIMARY KEY (TiempoKey);
+
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimTiempo
+ON DimTiempo (TiempoKey);

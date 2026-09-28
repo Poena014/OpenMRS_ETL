@@ -10,5 +10,8 @@ CREATE TABLE DimTipoVisita(
 	Descripcion VARCHAR(100) NOT NULL
 )
 
-CREATE INDEX primary_ind ON DimTipoVisita (TipoVisitaKey)
-GO
+ALTER TABLE DimTipoVisita
+ADD CONSTRAINT PK_TipoVisita PRIMARY KEY (TipoVisitaKey);
+
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimTipoVisita
+ON DimTipoVisita (TipoVisitaKey)

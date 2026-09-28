@@ -11,26 +11,111 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{C26FEF3C-F99F-45A0-83F2-500C1C5FC0DC}">
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{35DF9239-2259-4DE4-A261-B724594FAD50}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Diagnosticos Inicial"
+      DTS:refId="Package\Endermedad Inicial"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Tarea Ejecutar paquete"
       DTS:DTSID="{037c7b85-0009-4a27-9227-4418aeb1f138}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Diagnosticos Inicial"
+      DTS:ObjectName="Endermedad Inicial"
       DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
-          <PackageName>ProcesarDimDiagnosticosInicial.dtsx</PackageName>
+          <PackageName>ProcesarDimEnfermedadInicial.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\FactDiagnosticos Inicial"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{47D57417-18DC-4518-BF33-4E1F4EA7522E}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FactDiagnosticos Inicial"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ProcesarFactDiagnosticosInicial.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\FactMedicamentos Inicial"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{CC428D7C-69CA-4F7D-A931-DFB5D0D65250}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FactMedicamentos Inicial"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ProcesarFactMedicamentosInicial.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpiar FactTables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{5AA36121-6D33-47C5-9E74-81EF42258D98}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpiar FactTables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="use OpenmrsETL&#xA;GO&#xA;&#xA;delete from FactMedicamentos&#xA;&#xA;delete from FactDiagnosticos&#xA;&#xA;dbcc checkident('FactMedicamentos',RESEED,0)&#xA;&#xA;dbcc checkident('FactDiagnosticos',RESEED,0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Locales Inicial"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{33ED32FF-05C7-4862-80B0-52AA2F7D2706}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Locales Inicial"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ProcesarDimLocalInicial.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Medicamentos Inicial"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{C0A21CEE-186D-4240-82EF-A025C19F293D}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Medicamentos Inicial"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ProcesarDimMedicamentoInicial.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -52,6 +137,23 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Proveedores Inicial"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{054E5650-BBC3-4B25-B29E-F0CA64B95C77}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Proveedores Inicial"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ProcesarDimProveedorInicial.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Tiempo Inicial"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Tarea Ejecutar paquete"
@@ -69,19 +171,36 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\TipoVisitaInicial"
+      DTS:refId="Package\TipoEncuentro Inicial"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Tarea Ejecutar paquete"
-      DTS:DTSID="{47D57417-18DC-4518-BF33-4E1F4EA7522E}"
+      DTS:DTSID="{A57CC47B-941F-476F-9364-4DA8E6EE1E1F}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="TipoVisitaInicial"
+      DTS:ObjectName="TipoEncuentro Inicial"
       DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
-          <PackageName>ProcesarDimTipoVisita.dtsx</PackageName>
+          <PackageName>ProcesarDimTipoEncuentroInicial.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TipoVisita Inicial"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{57AE0EE5-55CC-46F6-BFE5-37A443182DA8}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TipoVisita Inicial"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ProcesarDimTipoVisitaInical.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -119,12 +238,20 @@
       DTS:From="Package\Pacientes Inicial"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción 1"
-      DTS:To="Package\Diagnosticos Inicial" />
+      DTS:To="Package\Endermedad Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{314861DD-7C32-4A1B-8B40-A19EA6E56DA6}"
+      DTS:From="Package\Limpiar FactTables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 10"
+      DTS:To="Package\Tiempo Inicial" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
       DTS:CreationName=""
       DTS:DTSID="{48712AB3-6F64-41B0-88CC-7E9E6A98D16A}"
-      DTS:From="Package\Diagnosticos Inicial"
+      DTS:From="Package\Endermedad Inicial"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción 2"
       DTS:To="Package\UbicacionesInicial" />
@@ -135,7 +262,55 @@
       DTS:From="Package\UbicacionesInicial"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción 3"
-      DTS:To="Package\TipoVisitaInicial" />
+      DTS:To="Package\FactDiagnosticos Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{91CC7692-DD05-4973-87B5-51F1F2DA9B06}"
+      DTS:From="Package\FactDiagnosticos Inicial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 4"
+      DTS:To="Package\Medicamentos Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{CB81E5F1-B61F-4DB1-9400-CE86F04296EB}"
+      DTS:From="Package\Medicamentos Inicial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 5"
+      DTS:To="Package\Locales Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{0E59F457-DCE7-4E77-B285-2F06E2E0C0B9}"
+      DTS:From="Package\Locales Inicial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 6"
+      DTS:To="Package\Proveedores Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{022BEC25-F1D9-4563-9535-CBBF92552F3E}"
+      DTS:From="Package\Proveedores Inicial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 7"
+      DTS:To="Package\TipoVisita Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{DC6FAD3D-0FDF-4D50-9E07-138F6ECF1A1E}"
+      DTS:From="Package\TipoVisita Inicial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 8"
+      DTS:To="Package\TipoEncuentro Inicial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{4B882C04-1B09-43CE-B4AA-28B9DF0A9F89}"
+      DTS:From="Package\TipoEncuentro Inicial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 9"
+      DTS:To="Package\FactMedicamentos Inicial" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
@@ -148,41 +323,41 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="194,42"
-          Id="Package\Diagnosticos Inicial"
-          TopLeft="527.777777777778,330.888888888889" />
+          Size="173,42"
+          Id="Package\Endermedad Inicial"
+          TopLeft="283.777777777778,157.888888888889" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\FactDiagnosticos Inicial"
+          TopLeft="284,296" />
         <NodeLayout
           Size="159,42"
           Id="Package\Pacientes Inicial"
-          TopLeft="545,244" />
+          TopLeft="290,77" />
         <NodeLayout
           Size="147,42"
           Id="Package\Tiempo Inicial"
-          TopLeft="551.111111111111,151.111111111111" />
-        <NodeLayout
-          Size="156,42"
-          Id="Package\TipoVisitaInicial"
-          TopLeft="541,509" />
+          TopLeft="513.111111111111,74.111111111111" />
         <NodeLayout
           Size="167,42"
           Id="Package\UbicacionesInicial"
-          TopLeft="534.444444444444,422.888888888889" />
+          TopLeft="303.444444444444,224.888888888889" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="624.555555555555,193.111111111111">
+          TopLeft="513.111111111111,96.5555555555555">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,50.888888888889"
+              EndConnector="-64.111111111111,0"
               Start="0,0"
-              End="0,43.388888888889">
+              End="-56.611111111111,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,43.388888888889" />
+                    End="-56.611111111111,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -193,18 +368,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 1]"
-          TopLeft="624.638888888889,286">
+          TopLeft="369.888888888889,119">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44.888888888889"
+              EndConnector="0,38.888888888889"
               Start="0,0"
-              End="0,37.388888888889">
+              End="0,31.388888888889">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,37.388888888889" />
+                    End="0,31.388888888889" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -215,18 +390,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 2]"
-          TopLeft="621.361111111111,372.888888888889">
+          TopLeft="370.277777777778,199.888888888889">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,50"
+              EndConnector="16.6666666666659,25"
               Start="0,0"
-              End="0,42.5">
+              End="16.6666666666659,17.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,42.5" />
+                    End="0,8.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.5"
+                    Point2="0,12.5"
+                    Point3="4,12.5" />
+                  <mssgle:LineSegment
+                    End="12.6666666666659,12.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.6666666666659,12.5"
+                    Point2="16.6666666666659,12.5"
+                    Point3="16.6666666666659,16.5" />
+                  <mssgle:LineSegment
+                    End="16.6666666666659,17.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -237,18 +424,212 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 3]"
-          TopLeft="618.472222222222,464.888888888889">
+          TopLeft="384.222222222222,266.888888888889">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44.111111111111"
+              EndConnector="0,29.111111111111"
               Start="0,0"
-              End="0,36.611111111111">
+              End="0,21.611111111111">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.611111111111" />
+                    End="0,21.611111111111" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Medicamentos Inicial"
+          TopLeft="290,361" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 4]"
+          TopLeft="381.25,338">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23"
+              Start="0,0"
+              End="0,15.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Locales Inicial"
+          TopLeft="299,444" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 5]"
+          TopLeft="381,403">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-8,41"
+              Start="0,0"
+              End="-8,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5"
+                    Point2="0,20.5"
+                    Point3="-4,20.5" />
+                  <mssgle:LineSegment
+                    End="-4,20.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-4,20.5"
+                    Point2="-8,20.5"
+                    Point3="-8,24.5" />
+                  <mssgle:LineSegment
+                    End="-8,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Proveedores Inicial"
+          TopLeft="518,450" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 6]"
+          TopLeft="447,468">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71,0"
+              Start="0,0"
+              End="63.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="63.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="159,42"
+          Id="Package\TipoVisita Inicial"
+          TopLeft="523,352" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\FactMedicamentos Inicial"
+          TopLeft="501,182" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\TipoEncuentro Inicial"
+          TopLeft="512,282" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 8]"
+          TopLeft="602.75,352">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-28"
+              Start="0,0"
+              End="0,-20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 9]"
+          TopLeft="602.75,282">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-58"
+              Start="0,0"
+              End="0,-50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 7]"
+          TopLeft="603.5,450">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-56"
+              Start="0,0"
+              End="0,-48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Limpiar FactTables"
+          TopLeft="741,77" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 10]"
+          TopLeft="741,96.5555555555555">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-80.888888888889,0"
+              Start="0,0"
+              End="-73.388888888889,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-73.388888888889,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

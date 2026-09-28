@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="LAPTOP-5LK7TE4B"
   DTS:CreatorName="LAPTOP-5LK7TE4B\Laptop HP"
-  DTS:DTSID="{3AF0BC87-8CDF-4694-8435-63AD0CB6D560}"
+  DTS:DTSID="{E09E8BED-5294-4ED8-B969-C756E6584367}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="22538"
-  DTS:ObjectName="ProcesarDimTipoVisita"
+  DTS:ObjectName="ProcesarDimTipoVisitaInical"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{F57A5F1E-43B9-4D2E-8994-7CD22B75339B}">
+  DTS:VersionBuild="38"
+  DTS:VersionGUID="{F6B15944-C1F7-4DC7-91AD-08D0EB8444D8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />

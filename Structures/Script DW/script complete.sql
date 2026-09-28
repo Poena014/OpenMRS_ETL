@@ -17,6 +17,8 @@ CREATE TABLE DimEnfermedad(
 	Nombre VARCHAR(255),
 	tipoEnfermedad VARCHAR(255)
 )
+GO
+
 
 CREATE TABLE DimPaciente(
 	PacienteKey INT IDENTITY(1,1),
@@ -27,26 +29,31 @@ CREATE TABLE DimPaciente(
 	FechaNacimiento DATE NOT NULL,
 	FechaIngreso DATETIME NOT NULL
 )
+GO
+
 
 --DROP TABLE DimUbicacion
 
 CREATE TABLE DimUbicacion(
 	UbicacionKey INT IDENTITY(1,1),
-	DireccionId VARCHAR(1000) NOT NULL,
-	Pais Varchar(100) NOT NULL,
-	Ciudad VARCHAR(100) NOT NULL,
-	Departamento VARCHAR(100) NOT NULL,
-	CodigoPostal VARCHAR(10) NULL
+	DireccionId VARCHAR(1200) NOT NULL,
+	Pais Varchar(255) NOT NULL,
+	Ciudad VARCHAR(255) NOT NULL,
+	Departamento VARCHAR(255) NOT NULL,
+	CodigoPostal VARCHAR(20) NULL
 )
+GO
 
 
 CREATE TABLE DimTiempo(
-	TiempoKey INT ,
+	TiempoKey INT NOT NULL,
 	Fecha DATETIME NOT NULL,
 	Dia TINYINT NOT NULL,
 	Mes TINYINT NOT NULL,
 	Anio SMALLINT NOT NULL
 )
+GO
+
 
 --DROP TABLE FactDiagnosticos
 
@@ -62,6 +69,8 @@ CREATE TABLE FactDiagnosticos(
 	EdadSuceso INT,
 	EsRepetido INT
 )
+GO
+
 
 --SELECT * FROM FactDiagnosticos
 

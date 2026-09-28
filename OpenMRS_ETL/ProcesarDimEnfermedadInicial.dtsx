@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimEnfermedadInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="63"
-  DTS:VersionGUID="{FFC1CBD1-D500-449B-A4CB-51857D227493}">
+  DTS:VersionBuild="65"
+  DTS:VersionGUID="{7897443E-22F6-4774-974C-D18A5AED1990}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -205,7 +205,8 @@
           WHERE cn2.concept_id = c.concept_id
             AND cn2.locale = 'en' AND cn2.voided = 0
             AND cn2.concept_name_type = 'FULLY_SPECIFIED'
-          LIMIT 1)
+          LIMIT 1),
+        'N/NOMBRE'
     ) AS Nombre,
     COALESCE(
         CASE LEFT(icd.icd10, 1)
@@ -246,10 +247,9 @@ LEFT JOIN (
        AND s.name = 'ICD-10-WHO'
     GROUP BY m.concept_id
 ) icd ON icd.concept_id = c.concept_id
-WHERE c.retired = 0
-  AND c.concept_id IN (
-      SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0
-  );</property>
+WHERE c.concept_id IN (
+    SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0
+);</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
@@ -659,17 +659,17 @@ WHERE c.retired = 0
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="217,42"
-          Id="Package\LLenar DimEnfermedad\Llenar DimEnfermedad SQL"
-          TopLeft="332,450" />
+          Size="250,42"
+          Id="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
+          TopLeft="330,117" />
         <NodeLayout
           Size="180,42"
           Id="Package\LLenar DimEnfermedad\Conversión de datos"
           TopLeft="365,279" />
         <NodeLayout
-          Size="250,42"
-          Id="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb"
-          TopLeft="330,117" />
+          Size="217,42"
+          Id="Package\LLenar DimEnfermedad\Llenar DimEnfermedad SQL"
+          TopLeft="332,450" />
         <EdgeLayout
           Id="Package\LLenar DimEnfermedad.Paths[Salida de origen de ADO NET]"
           TopLeft="455,159">
@@ -730,6 +730,14 @@ WHERE c.retired = 0
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\LLenar DimEnfermedad\Llenar DimEnfermedad SQL">
     <Properties>
       <Property>
@@ -739,14 +747,6 @@ WHERE c.retired = 0
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\LLenar DimEnfermedad\Leer Datos Enfermedades Mariadb">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

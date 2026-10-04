@@ -108,6 +108,15 @@ CREATE TABLE DimTipoVisita(
 )
 GO
 
+CREATE TABLE DimSignoVital(
+	SignoVitalKey INT IDENTITY(1,1),
+	SignoVitalId INT NOT NULL,
+	Nombre VARCHAR(255) NOT NULL,
+	Unidad VARCHAR(50),
+	EstaRetirado BIT DEFAULT 0
+)
+GO
+
 --DROP TABLE FactDiagnosticos
 
 CREATE TABLE FactDiagnosticos(
@@ -136,6 +145,20 @@ CREATE TABLE FactMedicamentos(
 	Dosis DECIMAL(10,2),
 	Cantidad INT,
 	NumRefills INT,
+	EdadSuceso INT
+)
+GO
+
+
+CREATE TABLE FactVitales(
+	VitalKey INT IDENTITY(1,1),
+	SignoVitalKey INT NOT NULL,
+	PacienteKey INT NOT NULL,
+	ProveedorKey INT NOT NULL,
+	UbicacionKey INT NOT NULL,
+	LocalKey INT NOT NULL,
+	TiempoKey INT NOT NULL,
+	Valor DECIMAL(18,2),
 	EdadSuceso INT
 )
 GO
@@ -175,6 +198,9 @@ ADD CONSTRAINT PK_Proveedor PRIMARY KEY (ProveedorKey);
 ALTER TABLE DimTipoVisita
 ADD CONSTRAINT PK_TipoVisita PRIMARY KEY (TipoVisitaKey);
 
+ALTER TABLE DimSignoVital
+ADD CONSTRAINT PK_SignoVital PRIMARY KEY (SignoVitalKey);
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX ind_DimTipoVisita
 ON DimTipoVisita (TipoVisitaKey)
@@ -205,6 +231,10 @@ ON DimTiempo (TiempoKey);
 
 CREATE UNIQUE NONCLUSTERED INDEX ind_FactDiagnosticos
 ON FactDiagnosticos (DiagnosticoKey);
+
+CREATE UNIQUE NONCLUSTERED INDEX ind_DimSignoVital
+ON DimSignoVital (SignoVitalKey);
+GO
 
 ALTER TABLE FactDiagnosticos
 ADD CONSTRAINT FK_DimEnfermedad_Diagnosticos
@@ -263,4 +293,43 @@ GO
 ALTER TABLE FactMedicamentos
 ADD CONSTRAINT FK_DimTipoVisita_Medicamentos
 FOREIGN KEY (TipoVisitaKey) REFERENCES DimTipoVisita(TipoVisitaKey);
+GO
+
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT PK_Vitales PRIMARY KEY (VitalKey);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX ind_FactVitales
+ON FactVitales (VitalKey);
+GO
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT FK_DimSignoVital_Vitales
+FOREIGN KEY (SignoVitalKey) REFERENCES DimSignoVital(SignoVitalKey);
+GO
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT FK_DimPaciente_Vitales
+FOREIGN KEY (PacienteKey) REFERENCES DimPaciente(PacienteKey);
+GO
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT FK_DimProveedor_Vitales
+FOREIGN KEY (ProveedorKey) REFERENCES DimProveedor(ProveedorKey);
+GO
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT FK_DimUbicacion_Vitales
+FOREIGN KEY (UbicacionKey) REFERENCES DimUbicacion(UbicacionKey);
+GO
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT FK_DimLocal_Vitales
+FOREIGN KEY (LocalKey) REFERENCES DimLocal(LocalKey);
+GO
+
+ALTER TABLE FactVitales
+ADD CONSTRAINT FK_DimTiempo_Vitales
+FOREIGN KEY (TiempoKey) REFERENCES DimTiempo(TiempoKey);
 GO

@@ -76,7 +76,7 @@ CREATE TABLE DimLocal(
 GO
 
 CREATE TABLE DimTipoEncuentro(
-	TipoEncuentroKey INT Primary Key IDENTITY(1,1),
+	TipoEncuentroKey INT IDENTITY(1,1),
 	EncounterTypeId INT NOT NULL,
 	Nombre VARCHAR(50) NOT NULL,
 	Descripcion VARCHAR(500) NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE DimTipoEncuentro(
 GO
 
 CREATE TABLE DimProveedor(
-	ProveedorKey INT Primary Key IDENTITY(1,1),
+	ProveedorKey INT IDENTITY(1,1),
 	ProviderId INT NOT NULL,
 	PersonId INT NULL,
 	NombreCompleto VARCHAR(255) NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE DimProveedor(
 GO
 
 CREATE TABLE DimTipoVisita(
-	TipoVisitaKey INT Primary Key IDENTITY(1,1),
+	TipoVisitaKey INT IDENTITY(1,1),
 	TipoVisitaId INT NOT NULL,
 	Nombre VARCHAR(100) NOT NULL,
 	Descripcion VARCHAR(100) NOT NULL
@@ -190,7 +190,7 @@ ALTER TABLE DimLocal
 ADD CONSTRAINT PK_Local PRIMARY KEY (LocalKey);
 
 ALTER TABLE DimTipoEncuentro 
-ADD CONSTRAINT PK_TipoEncuentro PRIMARY KEY (EncounterTypeKey);
+ADD CONSTRAINT PK_TipoEncuentro PRIMARY KEY (TipoEncuentroKey);
 
 ALTER TABLE DimProveedor 
 ADD CONSTRAINT PK_Proveedor PRIMARY KEY (ProveedorKey);

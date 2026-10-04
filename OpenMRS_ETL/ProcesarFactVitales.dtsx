@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactVitales"
   DTS:PackageType="5"
-  DTS:VersionBuild="121"
-  DTS:VersionGUID="{B721B9DD-6974-40CF-A4CE-BB9C16BC64F6}">
+  DTS:VersionBuild="122"
+  DTS:VersionGUID="{94B78A89-FBD3-4BDA-84AF-C1EF04A27721}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />

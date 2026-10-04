@@ -1,6 +1,8 @@
 use OpenmrsETL
 GO
 
+DROP TABLE IF EXISTS FactVitales
+
 CREATE TABLE FactVitales(
 	VitalKey INT IDENTITY(1,1),
 	SignoVitalKey INT NOT NULL,
@@ -9,8 +11,6 @@ CREATE TABLE FactVitales(
 	UbicacionKey INT NOT NULL,
 	LocalKey INT NOT NULL,
 	TiempoKey INT NOT NULL,
-	TipoVisitaKey INT NOT NULL,
-	TipoEncuentroKey INT NOT NULL,
 	Valor DECIMAL(18,2),
 	EdadSuceso INT
 )
@@ -52,14 +52,4 @@ GO
 ALTER TABLE FactVitales
 ADD CONSTRAINT FK_DimTiempo_Vitales
 FOREIGN KEY (TiempoKey) REFERENCES DimTiempo(TiempoKey);
-GO
-
-ALTER TABLE FactVitales
-ADD CONSTRAINT FK_DimTipoVisita_Vitales
-FOREIGN KEY (TipoVisitaKey) REFERENCES DimTipoVisita(TipoVisitaKey);
-GO
-
-ALTER TABLE FactVitales
-ADD CONSTRAINT FK_DimTipoEncuentro_Vitales
-FOREIGN KEY (TipoEncuentroKey) REFERENCES DimTipoEncuentro(TipoEncuentroKey);
 GO

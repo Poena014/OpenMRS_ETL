@@ -6,8 +6,6 @@ SELECT
   UPPER(IFNULL(NULLIF(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country), ''), 'N/A')) AS UbicacionId,
   COALESCE(e.location_id, v.location_id, 0) AS LocalId,
   CAST(DATE(IFNULL(o.obs_datetime, '1900-01-01')) AS DATETIME) AS TiempoKey,
-  COALESCE(v.visit_type_id, 0) AS TipoVisitaId,
-  COALESCE(e.encounter_type, 0) AS TipoEncuentroId,
   o.value_numeric AS Valor,
   COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, o.obs_datetime), 0) AS EdadSuceso
 FROM obs o

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimPAciente2"
   DTS:PackageType="5"
-  DTS:VersionBuild="80"
-  DTS:VersionGUID="{C67877C3-3BBA-4C7D-BE63-CF8599790BA9}">
+  DTS:VersionBuild="82"
+  DTS:VersionGUID="{C5D8B892-7ECA-4626-8B69-2044A2B3E32C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -825,13 +825,13 @@ order by a.person_id asc;</property>
           Id="Package\Llenar DimPaciente\Llenar Datos Paciente SQLServer"
           TopLeft="347,398" />
         <NodeLayout
-          Size="221,42"
-          Id="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb"
-          TopLeft="356,117" />
-        <NodeLayout
           Size="180,42"
           Id="Package\Llenar DimPaciente\Conversión de datos"
           TopLeft="378,255" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Llenar DimPaciente\Leer Datos Paciente Mariadb"
+          TopLeft="356,117" />
         <EdgeLayout
           Id="Package\Llenar DimPaciente.Paths[Salida de origen de ADO NET]"
           TopLeft="467.25,159">

@@ -11,20 +11,20 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactMedicamentosInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="112"
-  DTS:VersionGUID="{74D8271D-F72C-43BD-ACC6-96B5DD1AAB3D}">
+  DTS:VersionBuild="113"
+  DTS:VersionGUID="{C3A96F91-FA01-4FC5-A2C1-9973911D4746}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Limpiar FactDiagnosticos"
+      DTS:refId="Package\Limpiar FactMedicamentos"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
       DTS:DTSID="{E06E24AC-5000-4BE9-B551-C3635CCB8367}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Limpiar FactDiagnosticos"
+      DTS:ObjectName="Limpiar FactMedicamentos"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
       DTS:ThreadHint="0">
       <DTS:Variables />
@@ -2063,7 +2063,7 @@ ORDER BY o.order_id;</property>
       DTS:refId="Package.PrecedenceConstraints[Restricción]"
       DTS:CreationName=""
       DTS:DTSID="{A6DECDE2-668D-4B7E-B97A-C50204441978}"
-      DTS:From="Package\Limpiar FactDiagnosticos"
+      DTS:From="Package\Limpiar FactMedicamentos"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"
       DTS:To="Package\Llenar FactMedicamentos" />
@@ -2081,8 +2081,8 @@ ORDER BY o.order_id;</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="203,42"
-          Id="Package\Limpiar FactDiagnosticos"
+          Size="211,42"
+          Id="Package\Limpiar FactMedicamentos"
           TopLeft="373,129" />
         <NodeLayout
           Size="206,42"
@@ -2090,7 +2090,7 @@ ORDER BY o.order_id;</property>
           TopLeft="371,263" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="474.25,171">
+          TopLeft="476.25,171">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2119,13 +2119,45 @@ ORDER BY o.order_id;</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="180,42"
+          Id="Package\Llenar FactMedicamentos\Conversión de datos"
+          TopLeft="137,214" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Llenar FactMedicamentos\Buscar Proveedor"
+          TopLeft="659,525" />
+        <NodeLayout
           Size="260,42"
           Id="Package\Llenar FactMedicamentos\Obtener FactMedicamentos MariaDB"
           TopLeft="266,122" />
         <NodeLayout
-          Size="180,42"
-          Id="Package\Llenar FactMedicamentos\Conversión de datos"
-          TopLeft="137,214" />
+          Size="158,42"
+          Id="Package\Llenar FactMedicamentos\Búsqueda Local"
+          TopLeft="514,475" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Llenar FactMedicamentos\Buscar Ubicacion"
+          TopLeft="280,340" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Llenar FactMedicamentos\Buscar Paciente"
+          TopLeft="371,417" />
+        <NodeLayout
+          Size="266,42"
+          Id="Package\Llenar FactMedicamentos\Llenar FactMedicamentos SQL Server"
+          TopLeft="1106,504" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Llenar FactMedicamentos\Buscar TipoVisita"
+          TopLeft="772,584" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Llenar FactMedicamentos\Buscar Medicamento"
+          TopLeft="175,282" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Llenar FactMedicamentos\Busqueda Tiempo"
+          TopLeft="886,636" />
         <EdgeLayout
           Id="Package\Llenar FactMedicamentos.Paths[Salida de origen de ADO NET]"
           TopLeft="396,164">
@@ -2157,197 +2189,71 @@ ORDER BY o.order_id;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="182,42"
-          Id="Package\Llenar FactMedicamentos\Buscar Medicamento"
-          TopLeft="175,282" />
         <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de conversión de datos]"
-          TopLeft="227,256">
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda6]"
+          TopLeft="672,496">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="39,26"
+              EndConnector="70.5,29"
               Start="0,0"
-              End="39,18.5">
+              End="70.5,21.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,9" />
+                    End="66.5,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,9"
-                    Point2="0,13"
-                    Point3="4,13" />
+                    Point1="66.5,0"
+                    Point2="70.5,0"
+                    Point3="70.5,4" />
                   <mssgle:LineSegment
-                    End="35,13" />
-                  <mssgle:CubicBezierSegment
-                    Point1="35,13"
-                    Point2="39,13"
-                    Point3="39,17" />
-                  <mssgle:LineSegment
-                    End="39,18.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="165,42"
-          Id="Package\Llenar FactMedicamentos\Buscar Ubicacion"
-          TopLeft="280,340" />
-        <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda]"
-          TopLeft="357,303">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="5.5,37"
-              Start="0,0"
-              End="5.5,29.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="1.5,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="1.5,0"
-                    Point2="5.5,0"
-                    Point3="5.5,4" />
-                  <mssgle:LineSegment
-                    End="5.5,29.5" />
+                    End="70.5,21.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-94.3190234375,-18.1953125,199.638046875,12.1953125"
+              BoundingBox="-29.3190234375,-18.1953125,199.638046875,12.1953125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="159,42"
-          Id="Package\Llenar FactMedicamentos\Buscar Paciente"
-          TopLeft="371,417" />
         <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda1]"
-          TopLeft="362.5,382">
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda5]"
+          TopLeft="530,438">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="88,35"
+              EndConnector="63,37"
               Start="0,0"
-              End="88,27.5">
+              End="63,29.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.5" />
+                    End="59,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13.5"
-                    Point2="0,17.5"
-                    Point3="4,17.5" />
+                    Point1="59,0"
+                    Point2="63,0"
+                    Point3="63,4" />
                   <mssgle:LineSegment
-                    End="84,17.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="84,17.5"
-                    Point2="88,17.5"
-                    Point3="88,21.5" />
-                  <mssgle:LineSegment
-                    End="88,27.5" />
+                    End="63,29.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-55.8190234375,22.5,199.638046875,12.1953125"
+              BoundingBox="-36.8190234375,-18.1953125,199.638046875,12.1953125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="167,42"
-          Id="Package\Llenar FactMedicamentos\Buscar Proveedor"
-          TopLeft="659,525" />
-        <NodeLayout
-          Size="165,42"
-          Id="Package\Llenar FactMedicamentos\Buscar TipoVisita"
-          TopLeft="772,584" />
-        <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda2]"
-          TopLeft="826,546">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="28.5,38"
-              Start="0,0"
-              End="28.5,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="24.5,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="24.5,0"
-                    Point2="28.5,0"
-                    Point3="28.5,4" />
-                  <mssgle:LineSegment
-                    End="28.5,30.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-71.3190234375,-18.1953125,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="168,42"
-          Id="Package\Llenar FactMedicamentos\Busqueda Tiempo"
-          TopLeft="886,636" />
-        <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda3]"
-          TopLeft="937,605">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="33,31"
-              Start="0,0"
-              End="33,23.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="29,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="29,0"
-                    Point2="33,0"
-                    Point3="33,4" />
-                  <mssgle:LineSegment
-                    End="33,23.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-66.8190234375,-18.1953125,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="266,42"
-          Id="Package\Llenar FactMedicamentos\Llenar FactMedicamentos SQL Server"
-          TopLeft="1106,504" />
         <EdgeLayout
           Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda4]"
           TopLeft="996.666666666667,636">
@@ -2384,73 +2290,194 @@ ORDER BY o.order_id;</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="158,42"
-          Id="Package\Llenar FactMedicamentos\Búsqueda Local"
-          TopLeft="514,475" />
         <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda5]"
-          TopLeft="530,438">
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda3]"
+          TopLeft="937,605">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="63,37"
+              EndConnector="33,31"
               Start="0,0"
-              End="63,29.5">
+              End="33,23.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="59,0" />
+                    End="29,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="59,0"
-                    Point2="63,0"
-                    Point3="63,4" />
+                    Point1="29,0"
+                    Point2="33,0"
+                    Point3="33,4" />
                   <mssgle:LineSegment
-                    End="63,29.5" />
+                    End="33,23.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-36.8190234375,-18.1953125,199.638046875,12.1953125"
+              BoundingBox="-66.8190234375,-18.1953125,199.638046875,12.1953125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda6]"
-          TopLeft="672,496">
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda2]"
+          TopLeft="826,546">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="70.5,29"
+              EndConnector="28.5,38"
               Start="0,0"
-              End="70.5,21.5">
+              End="28.5,30.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="66.5,0" />
+                    End="24.5,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="66.5,0"
-                    Point2="70.5,0"
-                    Point3="70.5,4" />
+                    Point1="24.5,0"
+                    Point2="28.5,0"
+                    Point3="28.5,4" />
                   <mssgle:LineSegment
-                    End="70.5,21.5" />
+                    End="28.5,30.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-29.3190234375,-18.1953125,199.638046875,12.1953125"
+              BoundingBox="-71.3190234375,-18.1953125,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="362.5,382">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="88,35"
+              Start="0,0"
+              End="88,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.5"
+                    Point2="0,17.5"
+                    Point3="4,17.5" />
+                  <mssgle:LineSegment
+                    End="84,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="84,17.5"
+                    Point2="88,17.5"
+                    Point3="88,21.5" />
+                  <mssgle:LineSegment
+                    End="88,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.8190234375,22.5,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="357,303">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="5.5,37"
+              Start="0,0"
+              End="5.5,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="1.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="1.5,0"
+                    Point2="5.5,0"
+                    Point3="5.5,4" />
+                  <mssgle:LineSegment
+                    End="5.5,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-94.3190234375,-18.1953125,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar FactMedicamentos.Paths[Salida de conversión de datos]"
+          TopLeft="227,256">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="39,26"
+              Start="0,0"
+              End="39,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9"
+                    Point2="0,13"
+                    Point3="4,13" />
+                  <mssgle:LineSegment
+                    End="35,13" />
+                  <mssgle:CubicBezierSegment
+                    Point1="35,13"
+                    Point2="39,13"
+                    Point3="39,17" />
+                  <mssgle:LineSegment
+                    End="39,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar FactMedicamentos\Buscar Proveedor">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProveedor]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar FactMedicamentos\Obtener FactMedicamentos MariaDB">
     <Properties>
@@ -2460,22 +2487,22 @@ ORDER BY o.order_id;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Llenar FactMedicamentos\Buscar Medicamento">
+    design-time-name="Package\Llenar FactMedicamentos\Búsqueda Local">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[DimMedicamento]</Value>
+          type="q3:string">[dbo].[DimLocal]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2488,7 +2515,7 @@ ORDER BY o.order_id;</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2498,7 +2525,7 @@ ORDER BY o.order_id;</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2511,7 +2538,7 @@ ORDER BY o.order_id;</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2521,76 +2548,7 @@ ORDER BY o.order_id;</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar FactMedicamentos\Buscar Proveedor">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimProveedor]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar FactMedicamentos\Buscar TipoVisita">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimTipoVisita]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar FactMedicamentos\Busqueda Tiempo">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimTiempo]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2611,22 +2569,68 @@ ORDER BY o.order_id;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Llenar FactMedicamentos\Búsqueda Local">
+    design-time-name="Package\Llenar FactMedicamentos\Buscar TipoVisita">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[DimLocal]</Value>
+          type="q3:string">[dbo].[DimTipoVisita]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar FactMedicamentos\Buscar Medicamento">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimMedicamento]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar FactMedicamentos\Busqueda Tiempo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimTiempo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

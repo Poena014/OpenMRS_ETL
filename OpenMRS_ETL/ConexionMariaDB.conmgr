@@ -7,10 +7,10 @@
     DTS:Name="ConnectionString">@[$Project::ConexionMariaDB_CS]</DTS:PropertyExpression>
   <DTS:ObjectData>
     <DTS:ConnectionManager
-      DTS:ConnectionString="server=localhost;user id=openmrs;database=openmrs;compress=False;logging=False;">
+      DTS:ConnectionString="Server=localhost;User ID=openmrs;Port=3306;Database=openmrs;Connection Timeout=60;Default Command Timeout=600;">
       <DTS:Password
-        DTS:Name="password"
-        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1RF4OcKXwkCM8UE5lGI5mgAAAAACAAAAAAAQZgAAAAEAACAAAAD6t3eGPDIAA2ci6xTc/ob+W/uN8hrQdYgxFpLiYJuQwwAAAAAOgAAAAAIAACAAAAA/qxz8MdaL16Ahe75wVlqBUvbFFH0OYccTf9WxvkrKY5AAAAD9IoLfxXB2iBVuiv2HQVH+6XWBChgRKLJxhZLaYcTpS5d5K68CzYq4VrzxeyliiXW6I9au9es9V51MOarXI6WJ5vzeL6CX/i4EqauDu1M9pOSh1AQiCsbOUD+vdfG+mgxphzK+hEOw2Yumpb5af4DuawDV+5EgbQwREjYoF448Cr6z16Os2V6j+b61s6DfNxlAAAAA2ZW9jMvT9MFLCTgvDssZjKJdlLdNRo5eJSKdvNLsHmSVckW5JDaLrG1XMv/PjtJoia+QIIGElbLd1YyzyGyGyA==</DTS:Password>
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1RF4OcKXwkCM8UE5lGI5mgAAAAACAAAAAAAQZgAAAAEAACAAAAAJjkaNQYFKgue1EbfH+B/UG7VdRwlBHI005MWwxSgZ9QAAAAAOgAAAAAIAACAAAACyrUcYZSEJEzsNYN8YMcj7oU8pTeDyKiNWqupQYflyT5AAAADMHOZor4hKbpPmQGI+QgfTL1kOXTA4YDJ4ne2cC/k43zhwdR8be0NKyu5s5ftB2uvgBZEJnuklnCy335ln2VUQkvGZ4MJqENHV+4noGOKpcE8+VeZBVCAoDcTHtzs1/uAXSQpZBujOWvsb2rIMekOwfTmg2BXq2LIinWHEoUEwcgxVvssYyEaskOZE5HAohsdAAAAAA5IwYrQntPTyMZVeUZNsXe0hQdqp/OVfgFpgqjL2Lm0WLbhN+Jc53ixpqk0yycdmpEvodQdwVvtoUa7m+N7oyg==</DTS:Password>
     </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>

@@ -1,4 +1,4 @@
-use openmrs
+USE OpenmrsETL
 GO
 
 SELECT

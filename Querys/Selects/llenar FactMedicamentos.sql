@@ -1,3 +1,6 @@
+USE OpenmrsETL
+GO
+
 SELECT
   COALESCE(o.order_id, 0) AS PedidoId,
   COALESCE(do.drug_inventory_id, 0) AS MedicamentoId,

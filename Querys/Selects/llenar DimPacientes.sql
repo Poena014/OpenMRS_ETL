@@ -1,6 +1,5 @@
-use openmrs
+USE OpenmrsETL
 GO
-
 --VERSION3
 select
 COALESCE(a.person_id, 0) AS person_id,

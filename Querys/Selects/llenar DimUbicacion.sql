@@ -1,3 +1,6 @@
+USE OpenmrsETL
+GO
+
 SET IDENTITY_INSERT NombreTabla ON;
 GO
 

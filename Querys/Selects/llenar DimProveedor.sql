@@ -1,6 +1,5 @@
-use openmrs
+USE OpenmrsETL
 GO
-
 SELECT
 p.provider_id providerId,
 p.person_id personId,

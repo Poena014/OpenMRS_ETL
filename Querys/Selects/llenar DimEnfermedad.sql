@@ -1,3 +1,6 @@
+USE OpenmrsETL
+GO
+
 SET IDENTITY_INSERT DimEnfermedad ON;
 GO
 

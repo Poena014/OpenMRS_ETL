@@ -1,3 +1,6 @@
+USE OpenmrsETL
+GO
+
 SELECT
   COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,
   COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,

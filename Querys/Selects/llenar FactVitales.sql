@@ -1,3 +1,6 @@
+USE OpenmrsETL
+GO
+
 SELECT
   o.obs_id AS VitalId,
   COALESCE(o.concept_id, 0) AS SignoVitalId,

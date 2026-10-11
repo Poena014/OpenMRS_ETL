@@ -37,7 +37,7 @@
       <SSIS:Property
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Value">server=localhost;user id=openmrs;password=RVQh1TaLk3MsIctr9iY7Zb2P;database=openmrs;compress=False;logging=False;</SSIS:Property>
+        SSIS:Name="Value">Server=localhost;Port=3306;User ID=openmrs;Password=RVQh1TaLk3MsIctr9iY7Zb2P;Database=openmrs;Connection Timeout=120;Default Command Timeout=600;</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>

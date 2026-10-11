@@ -1,0 +1,8 @@
+use OpenmrsETL
+GO
+
+CREATE TABLE Parametros(
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Valor VARCHAR(500) NOT NULL
+)

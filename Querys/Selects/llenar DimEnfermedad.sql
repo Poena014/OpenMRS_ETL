@@ -126,11 +126,14 @@ WHERE c.retired = 0
   AND c.concept_id IN (
       SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0
   )
-  AND (c.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() OR c.concept_id IN (
+  AND (c.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+  OR c.date_created BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE()
+  OR c.concept_id IN (
     SELECT m.concept_id
     FROM concept_reference_map m
     JOIN concept_reference_term t ON t.concept_reference_term_id = m.concept_reference_term_id
-    WHERE t.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE()
+    WHERE c.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE()
+    OR c.date_created BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE()
   ))
   ;"
 

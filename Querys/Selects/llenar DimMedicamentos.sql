@@ -57,5 +57,9 @@ JOIN concept c ON c.concept_id = d.concept_id
 WHERE d.drug_id IN (
     SELECT DISTINCT do.drug_inventory_id FROM drug_order do
 )
-AND (d.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() OR c.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() )
+AND (d.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+    OR c.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+    OR d.date_created BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+    OR c.date_created BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+)
 ;"

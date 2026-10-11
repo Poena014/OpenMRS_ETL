@@ -33,5 +33,7 @@ UPPER(IFNULL(pa.postal_code,'N/POSTAL')) codigoPostal
 from obs o 
 join person p on o.person_id =p.person_id 
 join person_address pa on p.person_id =pa.person_id 
-WHERE (p.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() OR pa.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() )
+WHERE (p.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() OR pa.date_changed BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+	OR p.date_created BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() OR pa.date_created BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
+)
 ;"

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimMedicamentoDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="97"
-  DTS:VersionGUID="{D4E0449F-7BB9-4BAE-9B27-98F0C00F8CC6}">
+  DTS:VersionBuild="98"
+  DTS:VersionGUID="{AEBD480A-7114-41A2-98CA-C0CA8DB2ADCA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -20,7 +20,7 @@
       DTS:CreationName=""
       DTS:DTSID="{88B35B03-440B-4C9A-8F85-F969F4A3FA16}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;SELECT&#xA;    d.drug_id AS MedicamentoId,&#xA;    COALESCE(&#xA;        (SELECT cn.name FROM concept_name cn&#xA;          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0&#xA;            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        (SELECT cn2.name FROM concept_name cn2&#xA;          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0&#xA;            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        'N/NOMBRE'&#xA;    ) AS Nombre,&#xA;    COALESCE(d.strength, 'N/DOSIS') AS Fortaleza,&#xA;    COALESCE(d.concept_id, 0) AS ConceptoId,&#xA;    COALESCE(d.retired, 0) AS EstaRetirado&#xA;FROM drug d&#xA;JOIN concept c ON c.concept_id = d.concept_id&#xA;WHERE d.drug_id IN (&#xA;    SELECT DISTINCT do.drug_inventory_id FROM drug_order do&#xA;)&#xA;AND (d.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() )&#xA;;&quot;"
+      DTS:Expression="&quot;SELECT&#xA;    d.drug_id AS MedicamentoId,&#xA;    COALESCE(&#xA;        (SELECT cn.name FROM concept_name cn&#xA;          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0&#xA;            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        (SELECT cn2.name FROM concept_name cn2&#xA;          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0&#xA;            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        'N/NOMBRE'&#xA;    ) AS Nombre,&#xA;    COALESCE(d.strength, 'N/DOSIS') AS Fortaleza,&#xA;    COALESCE(d.concept_id, 0) AS ConceptoId,&#xA;    COALESCE(d.retired, 0) AS EstaRetirado&#xA;FROM drug d&#xA;JOIN concept c ON c.concept_id = d.concept_id&#xA;WHERE d.drug_id IN (&#xA;    SELECT DISTINCT do.drug_inventory_id FROM drug_order do&#xA;)&#xA;AND (d.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;    OR c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;    OR d.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;    OR c.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;)&#xA;;&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaMedicamentoDiferencial">
@@ -44,7 +44,11 @@ JOIN concept c ON c.concept_id = d.concept_id
 WHERE d.drug_id IN (
     SELECT DISTINCT do.drug_inventory_id FROM drug_order do
 )
-AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN '2026-10-01' AND CURDATE() )
+AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+    OR c.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+    OR d.date_created BETWEEN '2026-10-01' AND CURDATE() 
+    OR c.date_created BETWEEN '2026-10-01' AND CURDATE() 
+)
 ;</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
@@ -782,7 +786,11 @@ JOIN concept c ON c.concept_id = d.concept_id
 WHERE d.drug_id IN (
     SELECT DISTINCT do.drug_inventory_id FROM drug_order do
 )
-AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN '2026-10-01' AND CURDATE() )
+AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+    OR c.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+    OR d.date_created BETWEEN '2026-10-01' AND CURDATE() 
+    OR c.date_created BETWEEN '2026-10-01' AND CURDATE() 
+)
 ;</property>
                 <property
                   dataType="System.Int32"
@@ -1057,17 +1065,17 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
           Id="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental"
           TopLeft="586,403" />
         <NodeLayout
-          Size="254,42"
-          Id="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental"
-          TopLeft="176,396" />
+          Size="198,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
+          TopLeft="377,268" />
         <NodeLayout
           Size="319,42"
           Id="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental"
           TopLeft="309,89" />
         <NodeLayout
-          Size="198,42"
-          Id="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
-          TopLeft="377,268" />
+          Size="254,42"
+          Id="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental"
+          TopLeft="176,396" />
         <NodeLayout
           Size="180,42"
           Id="Package\Llenar DimMedicamentoIncremental\Conversión de datos"
@@ -1192,20 +1200,12 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1215,8 +1215,16 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental">
+    <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>

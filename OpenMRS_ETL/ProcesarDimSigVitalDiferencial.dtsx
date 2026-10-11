@@ -1,0 +1,356 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/30/2026 9:17:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-SEU29NB"
+  DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
+  DTS:DTSID="{C5DF00E4-9553-4DE9-9580-38877A793EF9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="ProcesarDimSigVitalDiferencial"
+  DTS:PackageType="5"
+  DTS:VersionBuild="91"
+  DTS:VersionGUID="{F87DC22C-A0B3-4172-8DA2-7683180E8F1E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9ADCA409-86A2-4CFB-8924-F514475D3E32}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT&#xA;    c.concept_id AS SignoVitalId,&#xA;    COALESCE(&#xA;        (SELECT cn.name FROM concept_name cn&#xA;          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0&#xA;            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        (SELECT cn2.name FROM concept_name cn2&#xA;          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0&#xA;            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        'N/NOMBRE'&#xA;    ) AS Nombre,&#xA;    IFNULL(cnu.units, 'N/UNIDAD') AS Unidad,&#xA;    COALESCE(c.retired, 0) AS EstaRetirado&#xA;FROM concept c&#xA;JOIN concept_numeric cnu ON cnu.concept_id = c.concept_id&#xA;WHERE c.concept_id IN (&#xA;    SELECT DISTINCT o.concept_id FROM obs o&#xA;    WHERE o.voided = 0 AND o.concept_id IN (4165, 4167, 4168, 4169, 4171, 4173)&#xA;)&#xA;AND (c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR c.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() ) &#xA;;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ConsultaSigVitalesDiferencial">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT
+    c.concept_id AS SignoVitalId,
+    COALESCE(
+        (SELECT cn.name FROM concept_name cn
+          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0
+            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        (SELECT cn2.name FROM concept_name cn2
+          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0
+            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        'N/NOMBRE'
+    ) AS Nombre,
+    IFNULL(cnu.units, 'N/UNIDAD') AS Unidad,
+    COALESCE(c.retired, 0) AS EstaRetirado
+FROM concept c
+JOIN concept_numeric cnu ON cnu.concept_id = c.concept_id
+WHERE c.concept_id IN (
+    SELECT DISTINCT o.concept_id FROM obs o
+    WHERE o.voided = 0 AND o.concept_id IN (4165, 4167, 4168, 4169, 4171, 4173)
+)
+AND (c.date_changed BETWEEN '2026-10-02' AND CURDATE() OR c.date_created BETWEEN '2026-10-02' AND CURDATE() ) 
+;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A4EED0A7-FBED-4955-8F60-DBA29963FE33}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FechaUltimaEjecucion">
+      <DTS:VariableValue
+        DTS:DataType="8">2026-10-02</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Llenar Incremental DimSigVitales"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{54580DDF-B33B-4CFC-BA51-DCAAC1F5F3A8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Llenar Incremental DimSigVitales"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="[Obtener DimSigVitales Incremental].[SqlCommand]">@[User::ConsultaSigVitalesDiferencial]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Obtener DimSigVitales Incremental"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+    c.concept_id AS SignoVitalId,
+    COALESCE(
+        (SELECT cn.name FROM concept_name cn
+          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0
+            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        (SELECT cn2.name FROM concept_name cn2
+          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0
+            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        'N/NOMBRE'
+    ) AS Nombre,
+    IFNULL(cnu.units, 'N/UNIDAD') AS Unidad,
+    COALESCE(c.retired, 0) AS EstaRetirado
+FROM concept c
+JOIN concept_numeric cnu ON cnu.concept_id = c.concept_id
+WHERE c.concept_id IN (
+    SELECT DISTINCT o.concept_id FROM obs o
+    WHERE o.voided = 0 AND o.concept_id IN (4165, 4167, 4168, 4169, 4171, 4173)
+)
+AND (c.date_changed BETWEEN '2026-10-02' AND CURDATE() OR c.date_created BETWEEN '2026-10-02' AND CURDATE() ) 
+;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Connections[IDbConnection]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[SignoVitalId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[SignoVitalId]"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[SignoVitalId]"
+                      name="SignoVitalId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
+                      length="255"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[Unidad]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Unidad]"
+                      length="50"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[Unidad]"
+                      name="Unidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaRetirado]"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]"
+                      name="EstaRetirado"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[SignoVitalId]"
+                      dataType="i4"
+                      name="SignoVitalId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
+                      dataType="wstr"
+                      length="255"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Unidad]"
+                      dataType="wstr"
+                      length="50"
+                      name="Unidad" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaRetirado]"
+                      dataType="i4"
+                      name="EstaRetirado" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[SignoVitalId]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[SignoVitalId]"
+                      name="SignoVitalId" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Unidad]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Unidad]"
+                      name="Unidad" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[EstaRetirado]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[EstaRetirado]"
+                      name="EstaRetirado" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtener Fecha de Ultima Ejecucion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{2380e9bc-e8dc-47f8-ba06-8c7ac6136d91}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtener Fecha de Ultima Ejecucion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="SELECT TOP 1 Valor as FechaUltimaEjecucion FROM dbo.Parametros&#xA;WHERE Nombre='FechaUltimaEjecucion'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="FechaUltimaEjecucion"
+            SQLTask:DtsVariableName="User::FechaUltimaEjecucion" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{A8153E58-E7FF-48E8-8CCD-EB6AD4BE2F72}"
+      DTS:From="Package\Obtener Fecha de Ultima Ejecucion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Llenar Incremental DimSigVitales" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Obtener Fecha de Ultima Ejecucion"
+          TopLeft="364,160" />
+        <NodeLayout
+          Size="242,42"
+          Id="Package\Llenar Incremental DimSigVitales"
+          TopLeft="362,310" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="486.5,202">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,108"
+              Start="0,0"
+              End="0,100.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,100.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Llenar Incremental DimSigVitales">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="251,42"
+          Id="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental"
+          TopLeft="338,61" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimEnfermedadDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="82"
-  DTS:VersionGUID="{A068B7BC-FA59-4440-B0C1-A4435E511CE1}">
+  DTS:VersionBuild="83"
+  DTS:VersionGUID="{71D3635C-25E0-4DF0-A63C-34BF6F6E34A1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -20,7 +20,7 @@
       DTS:CreationName=""
       DTS:DTSID="{FFD8C9D7-06CD-44F0-9261-2D8F5F6F7E38}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;SELECT&#xA;    c.concept_id AS EnfermedadId,&#xA;&#x9;COALESCE(n.nombre_es, n.nombre_en) AS Nombre,&#xA;    COALESCE(&#xA;        CASE LEFT(icd.icd10, 1)&#xA;            WHEN 'A' THEN 'Infecciosas y parasitarias'&#xA;            WHEN 'B' THEN 'Infecciosas y parasitarias'&#xA;            WHEN 'C' THEN 'Tumores'&#xA;            WHEN 'D' THEN 'Tumores / Enfermedades de la sangre'&#xA;            WHEN 'E' THEN 'Endocrinas, nutricionales y metabólicas'&#xA;            WHEN 'F' THEN 'Mentales y del comportamiento'&#xA;            WHEN 'G' THEN 'Del sistema nervioso'&#xA;            WHEN 'H' THEN 'Ojo y oído'&#xA;            WHEN 'I' THEN 'Circulatorias'&#xA;            WHEN 'J' THEN 'Respiratorias'&#xA;            WHEN 'K' THEN 'Digestivas'&#xA;            WHEN 'L' THEN 'Piel'&#xA;            WHEN 'M' THEN 'Musculoesqueléticas'&#xA;            WHEN 'N' THEN 'Genitourinarias'&#xA;            WHEN 'O' THEN 'Embarazo y parto'&#xA;            WHEN 'P' THEN 'Perinatales'&#xA;            WHEN 'Q' THEN 'Malformaciones congénitas'&#xA;            WHEN 'R' THEN 'Síntomas y hallazgos anormales'&#xA;            WHEN 'S' THEN 'Traumatismos'&#xA;            WHEN 'T' THEN 'Traumatismos / Intoxicaciones'&#xA;            WHEN 'Z' THEN 'Factores de salud'&#xA;            ELSE NULL&#xA;        END,&#xA;        'Sin categoría'&#xA;    ) AS tipoEnfermedad&#xA;FROM concept c&#xA;LEFT JOIN (&#xA;    SELECT m.concept_id, MIN(t.code) AS icd10&#xA;    FROM concept_reference_map m&#xA;    JOIN concept_reference_term t&#xA;        ON t.concept_reference_term_id = m.concept_reference_term_id&#xA;       AND t.retired = 0&#xA;    JOIN concept_reference_source s&#xA;        ON s.concept_source_id = t.concept_source_id&#xA;       AND s.name = 'ICD-10-WHO'&#xA;    GROUP BY m.concept_id&#xA;) icd ON icd.concept_id = c.concept_id&#xA;LEFT JOIN (&#xA;    SELECT concept_id,&#xA;           MAX(CASE WHEN locale = 'es' THEN name END) AS nombre_es,&#xA;           MAX(CASE WHEN locale = 'en' THEN name END) AS nombre_en&#xA;    FROM concept_name&#xA;    WHERE voided = 0&#xA;    AND concept_name_type = 'FULLY_SPECIFIED'&#xA;    GROUP BY concept_id&#xA;) n ON n.concept_id = c.concept_id&#xA;WHERE c.retired = 0&#xA;  AND c.concept_id IN (&#xA;      SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0&#xA;  )&#xA;  AND (c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR c.concept_id IN (&#xA;    SELECT m.concept_id&#xA;    FROM concept_reference_map m&#xA;    JOIN concept_reference_term t ON t.concept_reference_term_id = m.concept_reference_term_id&#xA;    WHERE t.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;  ))&#xA;  ;&quot;"
+      DTS:Expression="&quot;SELECT&#xA;    c.concept_id AS EnfermedadId,&#xA;&#x9;COALESCE(n.nombre_es, n.nombre_en) AS Nombre,&#xA;    COALESCE(&#xA;        CASE LEFT(icd.icd10, 1)&#xA;            WHEN 'A' THEN 'Infecciosas y parasitarias'&#xA;            WHEN 'B' THEN 'Infecciosas y parasitarias'&#xA;            WHEN 'C' THEN 'Tumores'&#xA;            WHEN 'D' THEN 'Tumores / Enfermedades de la sangre'&#xA;            WHEN 'E' THEN 'Endocrinas, nutricionales y metabólicas'&#xA;            WHEN 'F' THEN 'Mentales y del comportamiento'&#xA;            WHEN 'G' THEN 'Del sistema nervioso'&#xA;            WHEN 'H' THEN 'Ojo y oído'&#xA;            WHEN 'I' THEN 'Circulatorias'&#xA;            WHEN 'J' THEN 'Respiratorias'&#xA;            WHEN 'K' THEN 'Digestivas'&#xA;            WHEN 'L' THEN 'Piel'&#xA;            WHEN 'M' THEN 'Musculoesqueléticas'&#xA;            WHEN 'N' THEN 'Genitourinarias'&#xA;            WHEN 'O' THEN 'Embarazo y parto'&#xA;            WHEN 'P' THEN 'Perinatales'&#xA;            WHEN 'Q' THEN 'Malformaciones congénitas'&#xA;            WHEN 'R' THEN 'Síntomas y hallazgos anormales'&#xA;            WHEN 'S' THEN 'Traumatismos'&#xA;            WHEN 'T' THEN 'Traumatismos / Intoxicaciones'&#xA;            WHEN 'Z' THEN 'Factores de salud'&#xA;            ELSE NULL&#xA;        END,&#xA;        'Sin categoría'&#xA;    ) AS tipoEnfermedad&#xA;FROM concept c&#xA;LEFT JOIN (&#xA;    SELECT m.concept_id, MIN(t.code) AS icd10&#xA;    FROM concept_reference_map m&#xA;    JOIN concept_reference_term t&#xA;        ON t.concept_reference_term_id = m.concept_reference_term_id&#xA;       AND t.retired = 0&#xA;    JOIN concept_reference_source s&#xA;        ON s.concept_source_id = t.concept_source_id&#xA;       AND s.name = 'ICD-10-WHO'&#xA;    GROUP BY m.concept_id&#xA;) icd ON icd.concept_id = c.concept_id&#xA;LEFT JOIN (&#xA;    SELECT concept_id,&#xA;           MAX(CASE WHEN locale = 'es' THEN name END) AS nombre_es,&#xA;           MAX(CASE WHEN locale = 'en' THEN name END) AS nombre_en&#xA;    FROM concept_name&#xA;    WHERE voided = 0&#xA;    AND concept_name_type = 'FULLY_SPECIFIED'&#xA;    GROUP BY concept_id&#xA;) n ON n.concept_id = c.concept_id&#xA;WHERE c.retired = 0&#xA;  AND c.concept_id IN (&#xA;      SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0&#xA;  )&#xA;  AND (c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;  OR c.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;  OR c.concept_id IN (&#xA;    SELECT m.concept_id&#xA;    FROM concept_reference_map m&#xA;    JOIN concept_reference_term t ON t.concept_reference_term_id = m.concept_reference_term_id&#xA;    WHERE c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;    OR c.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;  ))&#xA;  ;&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaEnfermedadDiferencial">
@@ -80,11 +80,14 @@ WHERE c.retired = 0
   AND c.concept_id IN (
       SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0
   )
-  AND (c.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.concept_id IN (
+  AND (c.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+  OR c.date_created BETWEEN '2026-10-01' AND CURDATE()
+  OR c.concept_id IN (
     SELECT m.concept_id
     FROM concept_reference_map m
     JOIN concept_reference_term t ON t.concept_reference_term_id = m.concept_reference_term_id
-    WHERE t.date_changed BETWEEN '2026-10-01' AND CURDATE()
+    WHERE c.date_changed BETWEEN '2026-10-01' AND CURDATE()
+    OR c.date_created BETWEEN '2026-10-01' AND CURDATE()
   ))
   ;</DTS:VariableValue>
     </DTS:Variable>
@@ -755,11 +758,14 @@ WHERE c.retired = 0
   AND c.concept_id IN (
       SELECT DISTINCT diagnosis_coded FROM encounter_diagnosis WHERE voided = 0
   )
-  AND (c.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.concept_id IN (
+  AND (c.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+  OR c.date_created BETWEEN '2026-10-01' AND CURDATE()
+  OR c.concept_id IN (
     SELECT m.concept_id
     FROM concept_reference_map m
     JOIN concept_reference_term t ON t.concept_reference_term_id = m.concept_reference_term_id
-    WHERE t.date_changed BETWEEN '2026-10-01' AND CURDATE()
+    WHERE c.date_changed BETWEEN '2026-10-01' AND CURDATE()
+    OR c.date_created BETWEEN '2026-10-01' AND CURDATE()
   ))
   ;</property>
                 <property
@@ -995,105 +1001,25 @@ WHERE c.retired = 0
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="191,42"
-          Id="Package\Llenar Carga Incremental DimEnfermedad\Búsqueda Enfermedad"
-          TopLeft="314.5,285.5" />
+          Size="254,42"
+          Id="Package\Llenar Carga Incremental DimEnfermedad\Nuevo DimEnfermedad Incremental"
+          TopLeft="501,395" />
         <NodeLayout
           Size="180,42"
           Id="Package\Llenar Carga Incremental DimEnfermedad\Conversión de datos"
           TopLeft="321,181" />
         <NodeLayout
+          Size="191,42"
+          Id="Package\Llenar Carga Incremental DimEnfermedad\Búsqueda Enfermedad"
+          TopLeft="314.5,285.5" />
+        <NodeLayout
           Size="246,42"
           Id="Package\Llenar Carga Incremental DimEnfermedad\Obtener MariaDb DimEnfermedad"
           TopLeft="294,86" />
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de origen de ADO NET]"
-          TopLeft="414,128">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,53"
-              Start="0,0"
-              End="0,45.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,45.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de conversión de datos]"
-          TopLeft="410.5,223">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,62.5"
-              Start="0,0"
-              End="0,55">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,55" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="268,42"
           Id="Package\Llenar Carga Incremental DimEnfermedad\Actualzar DimEnfermedad Incremental"
           TopLeft="101,396" />
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de entradas coincidentes de búsqueda]"
-          TopLeft="379.5,327.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-144.5,68.5"
-              Start="0,0"
-              End="-144.5,61">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,23.7414330218069" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,23.7414330218069"
-                    Point2="0,27.7414330218069"
-                    Point3="-4,27.7414330218069" />
-                  <mssgle:LineSegment
-                    End="-140.5,27.7414330218069" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-140.5,27.7414330218069"
-                    Point2="-144.5,27.7414330218069"
-                    Point3="-144.5,31.7414330218069" />
-                  <mssgle:LineSegment
-                    End="-144.5,61" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-172.0690234375,32.7414330218069,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="254,42"
-          Id="Package\Llenar Carga Incremental DimEnfermedad\Nuevo DimEnfermedad Incremental"
-          TopLeft="501,395" />
         <EdgeLayout
           Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de entradas no coincidentes de búsqueda]"
           TopLeft="440.5,327.5">
@@ -1130,9 +1056,110 @@ WHERE c.retired = 0
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="379.5,327.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-144.5,68.5"
+              Start="0,0"
+              End="-144.5,61">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.7414330218069" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.7414330218069"
+                    Point2="0,27.7414330218069"
+                    Point3="-4,27.7414330218069" />
+                  <mssgle:LineSegment
+                    End="-140.5,27.7414330218069" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-140.5,27.7414330218069"
+                    Point2="-144.5,27.7414330218069"
+                    Point3="-144.5,31.7414330218069" />
+                  <mssgle:LineSegment
+                    End="-144.5,61" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-172.0690234375,32.7414330218069,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de conversión de datos]"
+          TopLeft="410.5,223">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62.5"
+              Start="0,0"
+              End="0,55">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimEnfermedad.Paths[Salida de origen de ADO NET]"
+          TopLeft="414,128">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimEnfermedad\Obtener MariaDb DimEnfermedad">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimEnfermedad\Nuevo DimEnfermedad Incremental">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar Carga Incremental DimEnfermedad\Búsqueda Enfermedad">
     <Properties>
@@ -1153,27 +1180,6 @@ WHERE c.retired = 0
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar Carga Incremental DimEnfermedad\Obtener MariaDb DimEnfermedad">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar Carga Incremental DimEnfermedad\Nuevo DimEnfermedad Incremental">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

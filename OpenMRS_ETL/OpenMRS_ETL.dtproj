@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-SEU29NB</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1RF4OcKXwkCM8UE5lGI5mgAAAAACAAAAAAAQZgAAAAEAACAAAABwhlA8pZdDrLdRaJoAaK0pycw8UMUkXXPg1MgzvV1xcwAAAAAOgAAAAAIAACAAAADZVN7xT1Txrad8/cvbaFyR0mb6LsM4tUlWOgbdxarlXpAAAACwEiYtbVT+hZGmehiOIOIxtgWU0gSPlEd17hiKReNVTF8QHCmsdAyPTeCFXFU1uukNFE3FmFMLaqjm6aExaJcCgz+K53yRl9tfIFnOVls9cZzhm4iv4T0j7JVl/JfCHgyAqs70H5ZtFx2PfWhdVS8hNxhoI+rdMtHiSasQH5OwkH+htPcBtrn83FUXGlDIWG5AAAAAoFcU8XJ76rmhsyAciqvkZ8jolgi9wYLe4R8x2YTy2jJxKsUKsg/G49i78PDeBcZQcbOLnzOnqM3jgWpU+eHX8Q==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1RF4OcKXwkCM8UE5lGI5mgAAAAACAAAAAAAQZgAAAAEAACAAAACgrZyIak6kg/KKRrfbki2iIYgHjdANPMfM5IAq0dPyogAAAAAOgAAAAAIAACAAAAD9PvLBdjcQuWrZDLoihXOtpz5wkB3j3HfLd8oG+Z14gZAAAAAe/4isgCLuPnZncZCEwUlsB7YAiJcWf9ifaYxUxswtH2w1R+eKPkDVCZTszK5Xo6VoAZz2tHzDqk1svKoO7EahosGboAK3RnvdmpPgcvP0IVyKx0ClUg2eD7cp34FzKOzXv0PkFsLbtBcdKDDA32GHmn2LeiXiZkM2IOHTMCNwo0eOjbIF4oEe3fgxKXYGaJlAAAAAdNdP7L3dTIg7DIJf827Zx1HL0g6aRQXajc7JQ7J/q8W0SAgNuh/DXVxHdJ67l11Fg7+Idl1vaS5VSNpXnrAZmg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -48,6 +48,7 @@
           <SSIS:Package SSIS:Name="ProcesarDimMedicamentoDiferencial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimEnfermedadDiferencial.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="ProcesarDimUbicacionDiferencial.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="ProcesarDimSigVitalIncremental.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="ConexionMariaDB.conmgr" />
@@ -603,10 +604,27 @@
                 <SSIS:Property SSIS:Name="Name">ProcesarDimUbicacionDiferencial</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">73</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">80</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{2D4C49EF-E090-4C93-98CE-839C6330002E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9D580AC9-7DF0-4E53-AA98-5C9F20D6C646}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="ProcesarDimSigVitalIncremental.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{539D414C-E458-4FC0-8366-01EA34121044}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">ProcesarDimSigVitalIncremental</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">81</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{56A50D75-A59F-4081-BD8E-956F09F79F7F}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

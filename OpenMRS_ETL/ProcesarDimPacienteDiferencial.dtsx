@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimPacienteDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="110"
-  DTS:VersionGUID="{E48B33B4-6A4F-4E54-9C24-2E7A1E44A291}">
+  DTS:VersionBuild="113"
+  DTS:VersionGUID="{DB6534BA-127D-4328-A5A3-C277B857EDB9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:PackageParameters>
@@ -31,7 +31,7 @@
       DTS:CreationName=""
       DTS:DTSID="{4A146A03-6C19-408B-B739-43079A7D5B38}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;select&#xA;COALESCE(a.person_id, 0) AS person_id,&#xA;UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.given_name,''), ' ', IFNULL(pn.middle_name,'')), ''), 'N/NOMBRES')) AS nombres,&#xA;UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.family_name,''), ' ', IFNULL(pn.family_name2,'')), ''), 'N/APELLIDOS')) AS apellidos,&#xA;UPPER(IFNULL(NULLIF(a.gender,''), 'N')) AS sexo,&#xA;IFNULL(a.birthdate, '1900-01-01') AS fechaNacimiento,&#xA;IFNULL(a.date_created, NOW()) AS fechaIngreso,&#xA;NOW() AS fechaProceso&#xA;from person a&#xA;left join person_name pn&#xA;  on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1&#xA;WHERE (a.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE())&#xA;OR (pn.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE())&#xA;;&quot;"
+      DTS:Expression="&quot;select&#xA;COALESCE(a.person_id, 0) AS person_id,&#xA;UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.given_name,''), ' ', IFNULL(pn.middle_name,'')), ''), 'N/NOMBRES')) AS nombres,&#xA;UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.family_name,''), ' ', IFNULL(pn.family_name2,'')), ''), 'N/APELLIDOS')) AS apellidos,&#xA;UPPER(IFNULL(NULLIF(a.gender,''), 'N')) AS sexo,&#xA;IFNULL(a.birthdate, '1900-01-01') AS fechaNacimiento,&#xA;IFNULL(a.date_created, NOW()) AS fechaIngreso,&#xA;NOW() AS fechaProceso&#xA;from person a&#xA;left join person_name pn&#xA;  on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1&#xA;WHERE (&#xA;&#x9;a.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE() &#xA;&#x9;OR pn.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE()&#xA;&#x9;OR a.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE()&#xA;&#x9;OR pn.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE()&#xA;)&#xA;;&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaMariaDB">
@@ -47,8 +47,12 @@ NOW() AS fechaProceso
 from person a
 left join person_name pn
   on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1
-WHERE (a.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE())
-OR (pn.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE())
+WHERE (
+	a.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE() 
+	OR pn.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE()
+	OR a.date_created BETWEEN '2026-10-05' AND CURRENT_DATE()
+	OR pn.date_created BETWEEN '2026-10-05' AND CURRENT_DATE()
+)
 ;</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
@@ -871,8 +875,12 @@ NOW() AS fechaProceso
 from person a
 left join person_name pn
   on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1
-WHERE (a.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE())
-OR (pn.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE())
+WHERE (
+	a.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE() 
+	OR pn.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE()
+	OR a.date_created BETWEEN '2026-10-05' AND CURRENT_DATE()
+	OR pn.date_created BETWEEN '2026-10-05' AND CURRENT_DATE()
+)
 ;</property>
                 <property
                   dataType="System.Int32"

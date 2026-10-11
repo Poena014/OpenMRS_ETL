@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimUbicacionDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="80"
-  DTS:VersionGUID="{9D580AC9-7DF0-4E53-AA98-5C9F20D6C646}">
+  DTS:VersionBuild="81"
+  DTS:VersionGUID="{3E74139A-5B3B-45F1-A9C7-B8D4C04BE9D8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -20,7 +20,7 @@
       DTS:CreationName=""
       DTS:DTSID="{F65FFC5E-C978-4D1E-A2D1-82AE9E7C60F3}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;select DISTINCT &#xA;UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)) direccionId,&#xA;UPPER(IFNULL(pa.city_village,'N/CIUDAD')) ciudad,&#xA;UPPER(IFNULL(pa.state_province,'N/DEPARTAMENTO')) departamento ,&#xA;UPPER(IFNULL(pa.country,'N/PAIS')) pais,&#xA;UPPER(IFNULL(pa.postal_code,'N/POSTAL')) codigoPostal&#xA;from obs o &#xA;join person p on o.person_id =p.person_id &#xA;join person_address pa on p.person_id =pa.person_id &#xA;WHERE (p.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR pa.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() )&#xA;;&quot;"
+      DTS:Expression="&quot;select DISTINCT &#xA;UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)) direccionId,&#xA;UPPER(IFNULL(pa.city_village,'N/CIUDAD')) ciudad,&#xA;UPPER(IFNULL(pa.state_province,'N/DEPARTAMENTO')) departamento ,&#xA;UPPER(IFNULL(pa.country,'N/PAIS')) pais,&#xA;UPPER(IFNULL(pa.postal_code,'N/POSTAL')) codigoPostal&#xA;from obs o &#xA;join person p on o.person_id =p.person_id &#xA;join person_address pa on p.person_id =pa.person_id &#xA;WHERE (p.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR pa.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;&#x9;OR p.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR pa.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() &#xA;)&#xA;;&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaUbicacionDiferencial">
@@ -34,7 +34,9 @@ UPPER(IFNULL(pa.postal_code,'N/POSTAL')) codigoPostal
 from obs o 
 join person p on o.person_id =p.person_id 
 join person_address pa on p.person_id =pa.person_id 
-WHERE (p.date_changed BETWEEN '2026-10-01' AND CURDATE() OR pa.date_changed BETWEEN '2026-10-01' AND CURDATE() )
+WHERE (p.date_changed BETWEEN '2026-10-01' AND CURDATE() OR pa.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+	OR p.date_created BETWEEN '2026-10-01' AND CURDATE() OR pa.date_created BETWEEN '2026-10-01' AND CURDATE() 
+)
 ;</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
@@ -796,7 +798,9 @@ UPPER(IFNULL(pa.postal_code,'N/POSTAL')) codigoPostal
 from obs o 
 join person p on o.person_id =p.person_id 
 join person_address pa on p.person_id =pa.person_id 
-WHERE (p.date_changed BETWEEN '2026-10-01' AND CURDATE() OR pa.date_changed BETWEEN '2026-10-01' AND CURDATE() )
+WHERE (p.date_changed BETWEEN '2026-10-01' AND CURDATE() OR pa.date_changed BETWEEN '2026-10-01' AND CURDATE() 
+	OR p.date_created BETWEEN '2026-10-01' AND CURDATE() OR pa.date_created BETWEEN '2026-10-01' AND CURDATE() 
+)
 ;</property>
                 <property
                   dataType="System.Int32"
@@ -1220,7 +1224,7 @@ WHERE (p.date_changed BETWEEN '2026-10-01' AND CURDATE() OR pa.date_changed BETW
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1230,7 +1234,7 @@ WHERE (p.date_changed BETWEEN '2026-10-01' AND CURDATE() OR pa.date_changed BETW
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

@@ -1,0 +1,41 @@
+relationship 263b6d53-b6ab-4ca3-9140-986d892fb233
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimTiempo.Fecha
+	toColumn: LocalDateTable_ff12a21b-9527-4642-9588-05aa77f04f84.Date
+
+relationship fa10a7cc-98a0-4c7e-9c45-dcb4eca82c96
+	fromColumn: FactDiagnosticos.EnfermedadKey
+	toColumn: DimEnfermedad.EnfermedadKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6371ba94-e5b5-4358-a8e6-7beca667eeba
+	fromColumn: FactDiagnosticos.TiempoKey
+	toColumn: DimTiempo.TiempoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4f468e3e-3184-4307-b861-c3ee36383ba4
+	fromColumn: FactMedicamentos.MedicamentoKey
+	toColumn: DimMedicamento.MedicamentoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship c6f54be5-8976-441a-a75e-1e1dc9d5c70c
+	fromColumn: FactMedicamentos.TiempoKey
+	toColumn: DimTiempo.TiempoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 894e23e8-c6a3-496f-84e8-ef6911f670c9
+	fromColumn: FactVitales.SignoVitalKey
+	toColumn: DimSignoVital.SignoVitalKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4cef65ba-85f0-4bc3-98d7-48ed81c10e4d
+	fromColumn: FactVitales.TiempoKey
+	toColumn: DimTiempo.TiempoKey
+
+	annotation PBI_IsFromSource = FS
+

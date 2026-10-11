@@ -1,0 +1,64 @@
+table DimTiempo
+	lineageTag: 47a6c36e-2d2d-403c-b9eb-d3b91b3e89d0
+
+	column TiempoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e349f1ce-4f8e-425e-8c41-2787cf98489c
+		summarizeBy: none
+		sourceColumn: TiempoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1f28d4ae-67c1-419a-97ab-61a6244b8196
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: 263b6d53-b6ab-4ca3-9140-986d892fb233
+			defaultHierarchy: LocalDateTable_ff12a21b-9527-4642-9588-05aa77f04f84.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 195594dc-2335-4b93-abab-4d4da5780942
+		summarizeBy: sum
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c7b6d37-9cf6-476c-aca0-118e7bdf95af
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Anio
+		dataType: int64
+		formatString: 0
+		lineageTag: d55c5ff9-3e17-466a-9f09-9785ebd0a02b
+		summarizeBy: sum
+		sourceColumn: Anio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTiempo = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("JUANRIVERAPC", "OpenmrsETL_Validacion"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimTiempo"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

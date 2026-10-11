@@ -1,0 +1,1239 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/30/2026 9:17:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-SEU29NB"
+  DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
+  DTS:DTSID="{FCDEA6CD-151F-4936-B9E4-5E8DDDC91B25}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="ProcesarDimMedicamentoDiferencial"
+  DTS:PackageType="5"
+  DTS:VersionBuild="96"
+  DTS:VersionGUID="{B96D154D-E258-4AC3-A5BF-E47B8F695984}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{88B35B03-440B-4C9A-8F85-F969F4A3FA16}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT&#xA;    d.drug_id AS MedicamentoId,&#xA;    COALESCE(&#xA;        (SELECT cn.name FROM concept_name cn&#xA;          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0&#xA;            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        (SELECT cn2.name FROM concept_name cn2&#xA;          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0&#xA;            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),&#xA;        'N/NOMBRE'&#xA;    ) AS Nombre,&#xA;    COALESCE(d.strength, 'N/DOSIS') AS Fortaleza,&#xA;    COALESCE(d.concept_id, 0) AS ConceptoId,&#xA;    COALESCE(d.retired, 0) AS EstaRetirado&#xA;FROM drug d&#xA;JOIN concept c ON c.concept_id = d.concept_id&#xA;WHERE d.drug_id IN (&#xA;    SELECT DISTINCT do.drug_inventory_id FROM drug_order do&#xA;)&#xA;AND (d.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() OR c.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE() )&#xA;;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ConsultaMedicamentoDiferencial">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT
+    d.drug_id AS MedicamentoId,
+    COALESCE(
+        (SELECT cn.name FROM concept_name cn
+          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0
+            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        (SELECT cn2.name FROM concept_name cn2
+          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0
+            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        'N/NOMBRE'
+    ) AS Nombre,
+    COALESCE(d.strength, 'N/DOSIS') AS Fortaleza,
+    COALESCE(d.concept_id, 0) AS ConceptoId,
+    COALESCE(d.retired, 0) AS EstaRetirado
+FROM drug d
+JOIN concept c ON c.concept_id = d.concept_id
+WHERE d.drug_id IN (
+    SELECT DISTINCT do.drug_inventory_id FROM drug_order do
+)
+AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN '2026-10-01' AND CURDATE() )
+;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D086F6A0-0E5F-459C-A335-A169D403E6F3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FechaUltimaEjecucion">
+      <DTS:VariableValue
+        DTS:DataType="8">2026-10-01</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Llenar DimMedicamentoIncremental"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{AB0660F8-5BAB-4318-8B31-83CE5AB010AF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Llenar DimMedicamentoIncremental"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="[Obtener DimMedicamentos MariaDB Incremental].[SqlCommand]">@[User::ConsultaMedicamentoDiferencial]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Búsqueda Medicamento"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimMedicamento]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimMedicamento]) [refTable]
+where [refTable].[MedicamentoId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="MedicamentoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MedicamentoId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Nombre" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Fortaleza" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="ConceptoId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EstaRetirado" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Inputs[Entrada de búsqueda].Columns[Copy of MedicamentoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of MedicamentoId"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">MedicamentoId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas coincidentes de búsqueda].Columns[MedicamentoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas coincidentes de búsqueda].Columns[MedicamentoKey]"
+                      name="MedicamentoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">MedicamentoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Comando de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Ejecuta una instrucción SQL para cada fila de un flujo de datos. Por ejemplo, se usa para llamar al procedimiento almacenado de configuración de nuevo empleado para cada fila de la tabla de nuevos empleados. Nota: la ejecución de una instrucción SQL para cada fila de un flujo de datos de gran tamaño puede tardar mucho tiempo."
+              name="Comando de OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC ActualizarMedicamento ?,?,?,?,?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]"
+                  errorOrTruncationOperation="Ejecución de comando"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de comando de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of MedicamentoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of MedicamentoId"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@MedicamentoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of Nombre"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Nombre]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of Fortaleza]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of Fortaleza"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Fortaleza]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of ConceptoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of ConceptoId"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@ConceptoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of EstaRetirado]"
+                      cachedDataType="i4"
+                      cachedName="Copy of EstaRetirado"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@EstaRetirado]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@MedicamentoId]"
+                      dataType="i4"
+                      name="@MedicamentoId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="@Nombre">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Fortaleza]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="@Fortaleza">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@ConceptoId]"
+                      dataType="i4"
+                      name="@ConceptoId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@EstaRetirado]"
+                      dataType="bool"
+                      name="@EstaRetirado">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de comando de OLE DB]"
+                  exclusionGroup="1"
+                  name="Salida de comando de OLE DB"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de comando de OLE DB"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[MedicamentoId]"
+                      cachedDataType="i4"
+                      cachedName="MedicamentoId"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[MedicamentoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Nombre"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Fortaleza]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Fortaleza"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Fortaleza]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[ConceptoId]"
+                      cachedDataType="i4"
+                      cachedName="ConceptoId"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[ConceptoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[EstaRetirado]"
+                      cachedDataType="i4"
+                      cachedName="EstaRetirado"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]"
+                      name="Copy of MedicamentoId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[MedicamentoId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]"
+                      name="Copy of Nombre"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Nombre]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]"
+                      name="Copy of Fortaleza"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Fortaleza]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]"
+                      name="Copy of ConceptoId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[ConceptoId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]"
+                      name="Copy of EstaRetirado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino de OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[DimMedicamento]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">1000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of MedicamentoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of MedicamentoId"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of Nombre"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Fortaleza]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of Fortaleza"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fortaleza]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of ConceptoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of ConceptoId"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ConceptoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of EstaRetirado]"
+                      cachedDataType="i4"
+                      cachedName="Copy of EstaRetirado"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstaRetirado]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoKey]"
+                      dataType="i4"
+                      name="MedicamentoKey" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoId]"
+                      dataType="i4"
+                      name="MedicamentoId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fortaleza]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Fortaleza" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ConceptoId]"
+                      dataType="i4"
+                      name="ConceptoId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstaRetirado]"
+                      dataType="bool"
+                      name="EstaRetirado" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Obtener DimMedicamentos MariaDB Incremental"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+    d.drug_id AS MedicamentoId,
+    COALESCE(
+        (SELECT cn.name FROM concept_name cn
+          WHERE cn.concept_id = c.concept_id AND cn.locale = 'es' AND cn.voided = 0
+            AND cn.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        (SELECT cn2.name FROM concept_name cn2
+          WHERE cn2.concept_id = c.concept_id AND cn2.locale = 'en' AND cn2.voided = 0
+            AND cn2.concept_name_type = 'FULLY_SPECIFIED' LIMIT 1),
+        'N/NOMBRE'
+    ) AS Nombre,
+    COALESCE(d.strength, 'N/DOSIS') AS Fortaleza,
+    COALESCE(d.concept_id, 0) AS ConceptoId,
+    COALESCE(d.retired, 0) AS EstaRetirado
+FROM drug d
+JOIN concept c ON c.concept_id = d.concept_id
+WHERE d.drug_id IN (
+    SELECT DISTINCT do.drug_inventory_id FROM drug_order do
+)
+AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN '2026-10-01' AND CURDATE() )
+;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Connections[IDbConnection]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[MedicamentoId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[MedicamentoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[MedicamentoId]"
+                      name="MedicamentoId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
+                      length="255"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Fortaleza]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Fortaleza]"
+                      length="255"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[Fortaleza]"
+                      name="Fortaleza"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[ConceptoId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[ConceptoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[ConceptoId]"
+                      name="ConceptoId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaRetirado]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]"
+                      name="EstaRetirado"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[MedicamentoId]"
+                      dataType="i4"
+                      name="MedicamentoId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
+                      dataType="wstr"
+                      length="255"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[Fortaleza]"
+                      dataType="wstr"
+                      length="255"
+                      name="Fortaleza" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[ConceptoId]"
+                      dataType="i4"
+                      name="ConceptoId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaRetirado]"
+                      dataType="i4"
+                      name="EstaRetirado" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[MedicamentoId]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[MedicamentoId]"
+                      name="MedicamentoId" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Fortaleza]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[Fortaleza]"
+                      name="Fortaleza" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ConceptoId]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ConceptoId]"
+                      name="ConceptoId" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[EstaRetirado]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[EstaRetirado]"
+                      name="EstaRetirado" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Llenar DimMedicamentoIncremental.Paths[Salida de conversión de datos]"
+              endId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Inputs[Entrada de búsqueda]"
+              name="Salida de conversión de datos"
+              startId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas coincidentes de búsqueda]"
+              endId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas no coincidentes de búsqueda]"
+              endId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas no coincidentes de búsqueda"
+              startId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas no coincidentes de búsqueda]" />
+            <path
+              refId="Package\Llenar DimMedicamentoIncremental.Paths[Salida de origen de ADO NET]"
+              endId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de ADO NET"
+              startId="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental.Outputs[Salida de origen de ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtener Fecha de Ultima Ejecucion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{cc81c2a3-168f-4f3b-9f53-fee7623d368a}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtener Fecha de Ultima Ejecucion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="SELECT TOP 1 Valor as FechaUltimaEjecucion FROM dbo.Parametros&#xA;WHERE Nombre='FechaUltimaEjecucion'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="FechaUltimaEjecucion"
+            SQLTask:DtsVariableName="User::FechaUltimaEjecucion" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{07FBF233-AE53-43F4-994F-A53D7F196E2E}"
+      DTS:From="Package\Obtener Fecha de Ultima Ejecucion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Llenar DimMedicamentoIncremental" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Obtener Fecha de Ultima Ejecucion"
+          TopLeft="318,130" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\Llenar DimMedicamentoIncremental"
+          TopLeft="322,334" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="447,172">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,162"
+              Start="0,0"
+              End="0,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Llenar DimMedicamentoIncremental">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="319,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental"
+          TopLeft="309,89" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Conversión de datos"
+          TopLeft="380,172" />
+        <EdgeLayout
+          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de origen de ADO NET]"
+          TopLeft="469.25,131">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
+          TopLeft="377,268" />
+        <EdgeLayout
+          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de conversión de datos]"
+          TopLeft="473,214">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB"
+          TopLeft="240,397" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB"
+          TopLeft="553,403" />
+        <EdgeLayout
+          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="444.333333333333,310">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-111.833333333333,87"
+              Start="0,0"
+              End="-111.833333333333,79.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.2184368737475" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.2184368737475"
+                    Point2="0,35.2184368737475"
+                    Point3="-4,35.2184368737475" />
+                  <mssgle:LineSegment
+                    End="-107.833333333333,35.2184368737475" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-107.833333333333,35.2184368737475"
+                    Point2="-111.833333333333,35.2184368737475"
+                    Point3="-111.833333333333,39.2184368737475" />
+                  <mssgle:LineSegment
+                    End="-111.833333333333,79.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-155.735690104167,40.2184368737475,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas no coincidentes de búsqueda]"
+          TopLeft="507.666666666667,310">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="132.833333333333,93"
+              Start="0,0"
+              End="132.833333333333,85.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.6472945891784" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.6472945891784"
+                    Point2="0,37.6472945891784"
+                    Point3="4,37.6472945891784" />
+                  <mssgle:LineSegment
+                    End="128.833333333333,37.6472945891784" />
+                  <mssgle:CubicBezierSegment
+                    Point1="128.833333333333,37.6472945891784"
+                    Point2="132.833333333333,37.6472945891784"
+                    Point3="132.833333333333,41.6472945891784" />
+                  <mssgle:LineSegment
+                    End="132.833333333333,85.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.4723567708333,42.6472945891784,213.778046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimMedicamento]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

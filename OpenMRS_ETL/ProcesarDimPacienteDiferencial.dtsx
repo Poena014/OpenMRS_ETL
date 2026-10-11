@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimPacienteDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="109"
-  DTS:VersionGUID="{C9E58838-D6E5-4DA7-8AF2-0E11EF31785E}">
+  DTS:VersionBuild="110"
+  DTS:VersionGUID="{E48B33B4-6A4F-4E54-9C24-2E7A1E44A291}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:PackageParameters>

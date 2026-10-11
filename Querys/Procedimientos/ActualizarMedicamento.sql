@@ -44,7 +44,7 @@ BEGIN
 
         INSERT INTO dbo.DimMedicamento
         VALUES
-        (@MedicamentoId, @Nombre,@Fortaleza, @ConceptoId, @EstaRetirado)
+        (@MedicamentoId, @Nombre,@Fortaleza, @ConceptoId, @Es)
 
     END
 

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimMedicamentoDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="96"
-  DTS:VersionGUID="{B96D154D-E258-4AC3-A5BF-E47B8F695984}">
+  DTS:VersionBuild="97"
+  DTS:VersionGUID="{D4E0449F-7BB9-4BAE-9B27-98F0C00F8CC6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -74,6 +74,177 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
         <pipeline
           version="1">
           <components>
+            <component
+              refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Comando de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Ejecuta una instrucción SQL para cada fila de un flujo de datos. Por ejemplo, se usa para llamar al procedimiento almacenado de configuración de nuevo empleado para cada fila de la tabla de nuevos empleados. Nota: la ejecución de una instrucción SQL para cada fila de un flujo de datos de gran tamaño puede tardar mucho tiempo."
+              name="ActualizarMedicamento Incremental"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC ActualizarMedicamento ?,?,?,?,?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB]"
+                  errorOrTruncationOperation="Ejecución de comando"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de comando de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].Columns[Copy of MedicamentoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of MedicamentoId"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@MedicamentoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].Columns[Copy of Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of Nombre"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Nombre]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].Columns[Copy of Fortaleza]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of Fortaleza"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Fortaleza]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].Columns[Copy of ConceptoId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of ConceptoId"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@ConceptoId]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]" />
+                    <inputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].Columns[Copy of EstaRetirado]"
+                      cachedDataType="i4"
+                      cachedName="Copy of EstaRetirado"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@EstaRetirado]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@MedicamentoId]"
+                      dataType="i4"
+                      name="@MedicamentoId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="@Nombre">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Fortaleza]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="@Fortaleza">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@ConceptoId]"
+                      dataType="i4"
+                      name="@ConceptoId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB].ExternalColumns[@EstaRetirado]"
+                      dataType="bool"
+                      name="@EstaRetirado">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Outputs[Salida de comando de OLE DB]"
+                  exclusionGroup="1"
+                  name="Salida de comando de OLE DB"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Outputs[Salida de error de comando de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de comando de OLE DB"
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
             <component
               refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
               componentClassID="Microsoft.Lookup"
@@ -225,177 +396,6 @@ where [refTable].[MedicamentoId] = ?</property>
                       refId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB"
-              componentClassID="Microsoft.OLEDBCommand"
-              contactInfo="Comando de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
-              description="Ejecuta una instrucción SQL para cada fila de un flujo de datos. Por ejemplo, se usa para llamar al procedimiento almacenado de configuración de nuevo empleado para cada fila de la tabla de nuevos empleados. Nota: la ejecución de una instrucción SQL para cada fila de un flujo de datos de gran tamaño puede tardar mucho tiempo."
-              name="Comando de OLE DB"
-              usesDispositions="true"
-              version="2">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Comando SQL para ejecutar."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC ActualizarMedicamento ?,?,?,?,?</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
-                  name="DefaultCodePage">1252</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Connections[OleDbConnection]"
-                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
-                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]"
-                  errorOrTruncationOperation="Ejecución de comando"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="Entrada de comando de OLE DB">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of MedicamentoId]"
-                      cachedDataType="i4"
-                      cachedName="Copy of MedicamentoId"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@MedicamentoId]"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]" />
-                    <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of Nombre]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="255"
-                      cachedName="Copy of Nombre"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Nombre]"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]" />
-                    <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of Fortaleza]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="255"
-                      cachedName="Copy of Fortaleza"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Fortaleza]"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]" />
-                    <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of ConceptoId]"
-                      cachedDataType="i4"
-                      cachedName="Copy of ConceptoId"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@ConceptoId]"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]" />
-                    <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[Copy of EstaRetirado]"
-                      cachedDataType="i4"
-                      cachedName="Copy of EstaRetirado"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@EstaRetirado]"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@MedicamentoId]"
-                      dataType="i4"
-                      name="@MedicamentoId">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Nombre]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
-                      name="@Nombre">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
-                          name="DBParamInfoFlags">65</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@Fortaleza]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
-                      name="@Fortaleza">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
-                          name="DBParamInfoFlags">65</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@ConceptoId]"
-                      dataType="i4"
-                      name="@ConceptoId">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[@EstaRetirado]"
-                      dataType="bool"
-                      name="@EstaRetirado">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
-                          name="DBParamInfoFlags">65</property>
-                      </properties>
-                    </externalMetadataColumn>
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de comando de OLE DB]"
-                  exclusionGroup="1"
-                  name="Salida de comando de OLE DB"
-                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Salida de error de comando de OLE DB"
-                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -585,11 +585,11 @@ where [refTable].[MedicamentoId] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB"
+              refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
               description="Destino de OLE DB"
-              name="Destino de OLE DB"
+              name="Nuevo DimEnfermedad Incremental"
               usesDispositions="true"
               version="4">
               <properties>
@@ -642,7 +642,7 @@ where [refTable].[MedicamentoId] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Connections[OleDbConnection]"
+                  refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Connections[OleDbConnection]"
                   connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
                   connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
@@ -650,75 +650,75 @@ where [refTable].[MedicamentoId] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB]"
                   errorOrTruncationOperation="Insertar"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of MedicamentoId]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].Columns[Copy of MedicamentoId]"
                       cachedDataType="i4"
                       cachedName="Copy of MedicamentoId"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoId]"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoId]"
                       lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of MedicamentoId]" />
                     <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Nombre]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].Columns[Copy of Nombre]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Copy of Nombre"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
                       lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Nombre]" />
                     <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Fortaleza]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].Columns[Copy of Fortaleza]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Copy of Fortaleza"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fortaleza]"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fortaleza]"
                       lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Fortaleza]" />
                     <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of ConceptoId]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].Columns[Copy of ConceptoId]"
                       cachedDataType="i4"
                       cachedName="Copy of ConceptoId"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ConceptoId]"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[ConceptoId]"
                       lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ConceptoId]" />
                     <inputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of EstaRetirado]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].Columns[Copy of EstaRetirado]"
                       cachedDataType="i4"
                       cachedName="Copy of EstaRetirado"
-                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstaRetirado]"
+                      externalMetadataColumnId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstaRetirado]"
                       lineageId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EstaRetirado]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoKey]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoKey]"
                       dataType="i4"
                       name="MedicamentoKey" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoId]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[MedicamentoId]"
                       dataType="i4"
                       name="MedicamentoId" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[Nombre]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Nombre" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fortaleza]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fortaleza]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Fortaleza" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ConceptoId]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[ConceptoId]"
                       dataType="i4"
                       name="ConceptoId" />
                     <externalMetadataColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstaRetirado]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstaRetirado]"
                       dataType="bool"
                       name="EstaRetirado" />
                   </externalMetadataColumns>
@@ -726,22 +726,22 @@ where [refTable].[MedicamentoId] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Outputs[Salida de error de destino de OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Salida de error de destino de OLE DB"
-                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  synchronousInputId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      refId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -952,12 +952,12 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
               startId="Package\Llenar DimMedicamentoIncremental\Conversión de datos.Outputs[Salida de conversión de datos]" />
             <path
               refId="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas coincidentes de búsqueda]"
-              endId="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]"
+              endId="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental.Inputs[Entrada de comando de OLE DB]"
               name="Salida de entradas coincidentes de búsqueda"
               startId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas coincidentes de búsqueda]" />
             <path
               refId="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas no coincidentes de búsqueda]"
-              endId="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              endId="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental.Inputs[Entrada de destino de OLE DB]"
               name="Salida de entradas no coincidentes de búsqueda"
               startId="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento.Outputs[Salida de entradas no coincidentes de búsqueda]" />
             <path
@@ -1015,13 +1015,13 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="252,42"
-          Id="Package\Obtener Fecha de Ultima Ejecucion"
-          TopLeft="318,130" />
-        <NodeLayout
           Size="256,42"
           Id="Package\Llenar DimMedicamentoIncremental"
           TopLeft="322,334" />
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Obtener Fecha de Ultima Ejecucion"
+          TopLeft="318,130" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="447,172">
@@ -1053,9 +1053,21 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="254,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental"
+          TopLeft="586,403" />
+        <NodeLayout
+          Size="254,42"
+          Id="Package\Llenar DimMedicamentoIncremental\ActualizarMedicamento Incremental"
+          TopLeft="176,396" />
+        <NodeLayout
           Size="319,42"
           Id="Package\Llenar DimMedicamentoIncremental\Obtener DimMedicamentos MariaDB Incremental"
           TopLeft="309,89" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
+          TopLeft="377,268" />
         <NodeLayout
           Size="180,42"
           Id="Package\Llenar DimMedicamentoIncremental\Conversión de datos"
@@ -1082,10 +1094,78 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="198,42"
-          Id="Package\Llenar DimMedicamentoIncremental\Búsqueda Medicamento"
-          TopLeft="377,268" />
+        <EdgeLayout
+          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas no coincidentes de búsqueda]"
+          TopLeft="507.666666666667,310">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="205.333333333333,93"
+              Start="0,0"
+              End="205.333333333333,85.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.6472945891784" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.6472945891784"
+                    Point2="0,37.6472945891784"
+                    Point3="4,37.6472945891784" />
+                  <mssgle:LineSegment
+                    End="201.333333333333,37.6472945891784" />
+                  <mssgle:CubicBezierSegment
+                    Point1="201.333333333333,37.6472945891784"
+                    Point2="205.333333333333,37.6472945891784"
+                    Point3="205.333333333333,41.6472945891784" />
+                  <mssgle:LineSegment
+                    End="205.333333333333,85.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-4.22235677083331,42.6472945891784,213.778046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="444.333333333333,310">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-141.333333333333,86"
+              Start="0,0"
+              End="-141.333333333333,78.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.813627254509" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.813627254509"
+                    Point2="0,34.813627254509"
+                    Point3="-4,34.813627254509" />
+                  <mssgle:LineSegment
+                    End="-137.333333333333,34.813627254509" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-137.333333333333,34.813627254509"
+                    Point2="-141.333333333333,34.813627254509"
+                    Point3="-141.333333333333,38.813627254509" />
+                  <mssgle:LineSegment
+                    End="-141.333333333333,78.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-170.485690104167,39.813627254509,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de conversión de datos]"
           TopLeft="473,214">
@@ -1106,86 +1186,6 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="185,42"
-          Id="Package\Llenar DimMedicamentoIncremental\Comando de OLE DB"
-          TopLeft="240,397" />
-        <NodeLayout
-          Size="175,42"
-          Id="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB"
-          TopLeft="553,403" />
-        <EdgeLayout
-          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas coincidentes de búsqueda]"
-          TopLeft="444.333333333333,310">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-111.833333333333,87"
-              Start="0,0"
-              End="-111.833333333333,79.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,31.2184368737475" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,31.2184368737475"
-                    Point2="0,35.2184368737475"
-                    Point3="-4,35.2184368737475" />
-                  <mssgle:LineSegment
-                    End="-107.833333333333,35.2184368737475" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-107.833333333333,35.2184368737475"
-                    Point2="-111.833333333333,35.2184368737475"
-                    Point3="-111.833333333333,39.2184368737475" />
-                  <mssgle:LineSegment
-                    End="-111.833333333333,79.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-155.735690104167,40.2184368737475,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Llenar DimMedicamentoIncremental.Paths[Salida de entradas no coincidentes de búsqueda]"
-          TopLeft="507.666666666667,310">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="132.833333333333,93"
-              Start="0,0"
-              End="132.833333333333,85.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,33.6472945891784" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,33.6472945891784"
-                    Point2="0,37.6472945891784"
-                    Point3="4,37.6472945891784" />
-                  <mssgle:LineSegment
-                    End="128.833333333333,37.6472945891784" />
-                  <mssgle:CubicBezierSegment
-                    Point1="128.833333333333,37.6472945891784"
-                    Point2="132.833333333333,37.6472945891784"
-                    Point3="132.833333333333,41.6472945891784" />
-                  <mssgle:LineSegment
-                    End="132.833333333333,85.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-40.4723567708333,42.6472945891784,213.778046875,12.1953125"
-              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -1223,7 +1223,7 @@ AND (d.date_changed BETWEEN '2026-10-01' AND CURDATE() OR c.date_changed BETWEEN
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Llenar DimMedicamentoIncremental\Destino de OLE DB">
+    design-time-name="Package\Llenar DimMedicamentoIncremental\Nuevo DimEnfermedad Incremental">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

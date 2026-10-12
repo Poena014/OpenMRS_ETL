@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactVisita"
   DTS:PackageType="5"
-  DTS:VersionBuild="161"
-  DTS:VersionGUID="{FAC34C02-BF70-479D-A462-781707545609}">
+  DTS:VersionBuild="162"
+  DTS:VersionGUID="{1D0FED7D-EDA8-42E2-A773-09B2BE79D5D2}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -854,12 +854,12 @@ where [refTable].[Fecha] = ?</property>
                   <inputColumns>
                     <inputColumn
                       refId="Package\Llenar FactVisita\Data Conversion.Inputs[Data Conversion Input].Columns[VisitaID]"
-                      cachedDataType="i8"
+                      cachedDataType="i4"
                       cachedName="VisitaID"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[VisitaID]" />
                     <inputColumn
                       refId="Package\Llenar FactVisita\Data Conversion.Inputs[Data Conversion Input].Columns[PacienteID]"
-                      cachedDataType="i8"
+                      cachedDataType="i4"
                       cachedName="PacienteID"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[PacienteID]" />
                     <inputColumn
@@ -880,12 +880,12 @@ where [refTable].[Fecha] = ?</property>
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[UbicacionID]" />
                     <inputColumn
                       refId="Package\Llenar FactVisita\Data Conversion.Inputs[Data Conversion Input].Columns[TipoVisitaID]"
-                      cachedDataType="i8"
+                      cachedDataType="i4"
                       cachedName="TipoVisitaID"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[TipoVisitaID]" />
                     <inputColumn
                       refId="Package\Llenar FactVisita\Data Conversion.Inputs[Data Conversion Input].Columns[CantidadVisitas]"
-                      cachedDataType="i8"
+                      cachedDataType="i4"
                       cachedName="CantidadVisitas"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[CantidadVisitas]" />
                     <inputColumn
@@ -895,7 +895,7 @@ where [refTable].[Fecha] = ?</property>
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[DuracionMinutos]" />
                     <inputColumn
                       refId="Package\Llenar FactVisita\Data Conversion.Inputs[Data Conversion Input].Columns[EstaActiva]"
-                      cachedDataType="i8"
+                      cachedDataType="i4"
                       cachedName="EstaActiva"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[EstaActiva]" />
                     <inputColumn
@@ -1552,7 +1552,7 @@ ORDER BY v.visit_id;</property>
                   <outputColumns>
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[VisitaID]"
-                      dataType="i8"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[VisitaID]"
@@ -1561,7 +1561,7 @@ ORDER BY v.visit_id;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[PacienteID]"
-                      dataType="i8"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[PacienteID]"
@@ -1616,7 +1616,7 @@ ORDER BY v.visit_id;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[TipoVisitaID]"
-                      dataType="i8"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[TipoVisitaID]"
@@ -1625,7 +1625,7 @@ ORDER BY v.visit_id;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[CantidadVisitas]"
-                      dataType="i8"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[CantidadVisitas]"
@@ -1643,7 +1643,7 @@ ORDER BY v.visit_id;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].Columns[EstaActiva]"
-                      dataType="i8"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaActiva]"
@@ -1655,11 +1655,11 @@ ORDER BY v.visit_id;</property>
                     isUsed="True">
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[VisitaID]"
-                      dataType="i8"
+                      dataType="i4"
                       name="VisitaID" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[PacienteID]"
-                      dataType="i8"
+                      dataType="i4"
                       name="PacienteID" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[FechaInicio]"
@@ -1684,11 +1684,11 @@ ORDER BY v.visit_id;</property>
                       name="UbicacionID" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[TipoVisitaID]"
-                      dataType="i8"
+                      dataType="i4"
                       name="TipoVisitaID" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[CantidadVisitas]"
-                      dataType="i8"
+                      dataType="i4"
                       name="CantidadVisitas" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[DuracionMinutos]"
@@ -1696,7 +1696,7 @@ ORDER BY v.visit_id;</property>
                       name="DuracionMinutos" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaActiva]"
-                      dataType="i8"
+                      dataType="i4"
                       name="EstaActiva" />
                   </externalMetadataColumns>
                 </output>
@@ -1707,12 +1707,12 @@ ORDER BY v.visit_id;</property>
                   <outputColumns>
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[VisitaID]"
-                      dataType="i8"
+                      dataType="i4"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[VisitaID]"
                       name="VisitaID" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[PacienteID]"
-                      dataType="i8"
+                      dataType="i4"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[PacienteID]"
                       name="PacienteID" />
                     <outputColumn
@@ -1743,12 +1743,12 @@ ORDER BY v.visit_id;</property>
                       name="UbicacionID" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[TipoVisitaID]"
-                      dataType="i8"
+                      dataType="i4"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[TipoVisitaID]"
                       name="TipoVisitaID" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[CantidadVisitas]"
-                      dataType="i8"
+                      dataType="i4"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[CantidadVisitas]"
                       name="CantidadVisitas" />
                     <outputColumn
@@ -1758,7 +1758,7 @@ ORDER BY v.visit_id;</property>
                       name="DuracionMinutos" />
                     <outputColumn
                       refId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[EstaActiva]"
-                      dataType="i8"
+                      dataType="i4"
                       lineageId="Package\Llenar FactVisita\Obtener FactVisita MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[EstaActiva]"
                       name="EstaActiva" />
                     <outputColumn
@@ -1885,10 +1885,6 @@ ORDER BY v.visit_id;</property>
           Id="Package\Llenar FactVisita\Obtener FactVisita MariaDB"
           TopLeft="68,89" />
         <NodeLayout
-          Size="218,42"
-          Id="Package\Llenar FactVisita\Llenar FacVisita SQL Server"
-          TopLeft="703,118" />
-        <NodeLayout
           Size="165,42"
           Id="Package\Llenar FactVisita\Buscar TipoVisita"
           TopLeft="347,333" />
@@ -1900,6 +1896,10 @@ ORDER BY v.visit_id;</property>
           Size="161,42"
           Id="Package\Llenar FactVisita\Data Conversion"
           TopLeft="177,165" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Llenar FactVisita\Llenar FacVisita SQL Server"
+          TopLeft="703,118" />
         <NodeLayout
           Size="159,42"
           Id="Package\Llenar FactVisita\Buscar Paciente"
@@ -2172,19 +2172,6 @@ ORDER BY v.visit_id;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Llenar FactVisita\Llenar FacVisita SQL Server">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Llenar FactVisita\Buscar TipoVisita">
     <Properties>
       <Property>
@@ -2227,6 +2214,19 @@ ORDER BY v.visit_id;</property>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar FactVisita\Llenar FacVisita SQL Server">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 38.70835800854789,
+            "y": 783.1322676761273
+          },
+          "nodeIndex": "DimEnfermedad",
+          "nodeLineageTag": "f2edf2d2-c4c1-4b87-b188-1a25f1eff5fe",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1156.2932491476436,
+            "y": 469.57830556447584
+          },
+          "nodeIndex": "DimMedicamento",
+          "nodeLineageTag": "67d78253-b88f-43c9-a0f7-48f35f05dbca",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 90.370910970954043,
+            "y": 301.827233979952
+          },
+          "nodeIndex": "DimSignoVital",
+          "nodeLineageTag": "22b24662-c326-40c8-89c7-a2260926a19d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 670.08413039630523,
+            "y": 477.67964967427827
+          },
+          "nodeIndex": "DimTiempo",
+          "nodeLineageTag": "47a6c36e-2d2d-403c-b9eb-d3b91b3e89d0",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 361.2867562840114,
+            "y": 556.754150596519
+          },
+          "nodeIndex": "FactDiagnosticos",
+          "nodeLineageTag": "e41578fd-deac-4610-8b98-195cb0bf970c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 930.61508560297852,
+            "y": 111.48110530659045
+          },
+          "nodeIndex": "FactMedicamentos",
+          "nodeLineageTag": "6dd1ecb1-94ed-4b55-9a9d-d33390b924f3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 453.11551958665336,
+            "y": 121.69880813009487
+          },
+          "nodeIndex": "FactVitales",
+          "nodeLineageTag": "a1649d8d-1f71-4b4b-b6c1-f71a50380d4c",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 7
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 79.7049712239646,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

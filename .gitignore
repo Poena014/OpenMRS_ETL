@@ -435,3 +435,6 @@ FodyWeavers.xsd
 # (p. ej. ConexionMariaDB_CS con la password de MariaDB). Solo se versiona
 # de forma forzada con "git add -f" para su revisión manual.
 OpenMRS_ETL/Project.params
+
+# Power BI Desktop local caches and user settings
+**/.pbi/

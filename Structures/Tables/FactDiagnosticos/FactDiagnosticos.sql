@@ -3,14 +3,16 @@ GO
 
 CREATE TABLE FactDiagnosticos(
 	DiagnosticoKey INT IDENTITY(1,1),
+	DiagnosticoOrigenId INT NOT NULL,
 	EnfermedadKey INT NOT NULL,
 	PacienteKey INT NOT NULL,
 	UbicacionKey INT NOT NULL,
 	TiempoKey INT NOT NULL,
 	Temperatura DECIMAL(18,2),
 	Peso DECIMAL(18,2),
-	Edad INT,
-	Seguimiento BIT
+	Altura DECIMAL(18,2),
+	EdadSuceso INT,
+	EsRepetido INT
 )
 
 ALTER TABLE FactDiagnosticos 
@@ -18,6 +20,10 @@ ADD CONSTRAINT PK_Diagnosticos PRIMARY KEY (DiagnosticoKey);
 
 CREATE UNIQUE NONCLUSTERED INDEX ind_FactDiagnosticos
 ON FactDiagnosticos (DiagnosticoKey);
+
+CREATE UNIQUE NONCLUSTERED INDEX UX_FactDiagnosticos_DiagnosticoOrigenId
+ON FactDiagnosticos (DiagnosticoOrigenId)
+WITH (IGNORE_DUP_KEY = ON);
 
 ALTER TABLE FactDiagnosticos
 ADD CONSTRAINT FK_DimEnfermedad_Diagnosticos

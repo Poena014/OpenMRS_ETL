@@ -36,7 +36,7 @@ BEGIN
     END
 
     ----CON SDC 2
-    IF (@Nombre <> @Nombre)
+    IF (@Nombre <> @NombreActual)
     BEGIN
 
         INSERT INTO dbo.DimTipoVisita

@@ -121,6 +121,7 @@ GO
 
 CREATE TABLE FactDiagnosticos(
 	DiagnosticoKey INT IDENTITY(1,1) NOT NULL,
+	DiagnosticoOrigenId INT NOT NULL,
 	EnfermedadKey INT NOT NULL,
 	PacienteKey INT NOT NULL,
 	UbicacionKey INT NOT NULL,
@@ -131,6 +132,11 @@ CREATE TABLE FactDiagnosticos(
 	EdadSuceso INT,
 	EsRepetido INT
 )
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX UX_FactDiagnosticos_DiagnosticoOrigenId
+ON FactDiagnosticos (DiagnosticoOrigenId)
+WITH (IGNORE_DUP_KEY = ON);
 GO
 
 CREATE TABLE FactMedicamentos(

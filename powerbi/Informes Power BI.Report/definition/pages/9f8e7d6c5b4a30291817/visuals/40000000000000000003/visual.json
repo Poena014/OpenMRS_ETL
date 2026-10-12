@@ -1,0 +1,295 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+    "name":  "40000000000000000003",
+    "position":  {
+                     "x":  1080,
+                     "y":  310,
+                     "z":  2,
+                     "height":  700,
+                     "width":  800,
+                     "tabOrder":  2
+                 },
+    "visual":  {
+                   "visualType":  "lineChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "HierarchyLevel":  {
+                                                                                                                                  "Expression":  {
+                                                                                                                                                     "Hierarchy":  {
+                                                                                                                                                                       "Expression":  {
+                                                                                                                                                                                          "PropertyVariationSource":  {
+                                                                                                                                                                                                                          "Expression":  {
+                                                                                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                                                                                               "Entity":  "DimTiempo"
+                                                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                                         },
+                                                                                                                                                                                                                          "Name":  "Variación",
+                                                                                                                                                                                                                          "Property":  "Fecha"
+                                                                                                                                                                                                                      }
+                                                                                                                                                                                      },
+                                                                                                                                                                       "Hierarchy":  "Jerarquía de fechas"
+                                                                                                                                                                   }
+                                                                                                                                                 },
+                                                                                                                                  "Level":  "Año"
+                                                                                                                              }
+                                                                                                       },
+                                                                                             "queryRef":  "DimTiempo.Fecha.Variación.Jerarquía de fechas.Año",
+                                                                                             "nativeQueryRef":  "Fecha Año",
+                                                                                             "active":  true
+                                                                                         },
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "HierarchyLevel":  {
+                                                                                                                                  "Expression":  {
+                                                                                                                                                     "Hierarchy":  {
+                                                                                                                                                                       "Expression":  {
+                                                                                                                                                                                          "PropertyVariationSource":  {
+                                                                                                                                                                                                                          "Expression":  {
+                                                                                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                                                                                               "Entity":  "DimTiempo"
+                                                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                                         },
+                                                                                                                                                                                                                          "Name":  "Variación",
+                                                                                                                                                                                                                          "Property":  "Fecha"
+                                                                                                                                                                                                                      }
+                                                                                                                                                                                      },
+                                                                                                                                                                       "Hierarchy":  "Jerarquía de fechas"
+                                                                                                                                                                   }
+                                                                                                                                                 },
+                                                                                                                                  "Level":  "Mes"
+                                                                                                                              }
+                                                                                                       },
+                                                                                             "queryRef":  "DimTiempo.Fecha.Variación.Jerarquía de fechas.Mes",
+                                                                                             "nativeQueryRef":  "Fecha Mes",
+                                                                                             "active":  true
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "FactVitales"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Observaciones meses completos"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Observaciones meses completos",
+                                                                                      "format":  "0",
+                                                                                      "queryRef":  "FactVitales.Observaciones meses completos"
+                                                                                  }
+                                                                              ]
+                                                          }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "background":  {
+                                                                                                          "solid":  {
+                                                                                                                        "color":  {
+                                                                                                                                      "expr":  {
+                                                                                                                                                   "Literal":  {
+                                                                                                                                                                   "Value":  "\u0027#0F6B63\u0027"
+                                                                                                                                                               }
+                                                                                                                                               }
+                                                                                                                                  }
+                                                                                                                    }
+                                                                                                      },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Observaciones vitales por mes\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "alignment":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027center\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     },
+                                                                                       "heading":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "\u0027Heading3\u0027"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                       "fontColor":  {
+                                                                                                         "solid":  {
+                                                                                                                       "color":  {
+                                                                                                                                     "expr":  {
+                                                                                                                                                  "Literal":  {
+                                                                                                                                                                  "Value":  "\u0027#FFFFFF\u0027"
+                                                                                                                                                              }
+                                                                                                                                              }
+                                                                                                                                 }
+                                                                                                                   }
+                                                                                                     },
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "fontSize":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "17D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "background":  [
+                                                                     {
+                                                                         "properties":  {
+                                                                                            "color":  {
+                                                                                                          "solid":  {
+                                                                                                                        "color":  {
+                                                                                                                                      "expr":  {
+                                                                                                                                                   "Literal":  {
+                                                                                                                                                                   "Value":  "\u0027#FFFFFF\u0027"
+                                                                                                                                                               }
+                                                                                                                                               }
+                                                                                                                                  }
+                                                                                                                    }
+                                                                                                      },
+                                                                                            "transparency":  {
+                                                                                                                 "expr":  {
+                                                                                                                              "Literal":  {
+                                                                                                                                              "Value":  "0D"
+                                                                                                                                          }
+                                                                                                                          }
+                                                                                                             },
+                                                                                            "show":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "true"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                        }
+                                                                     }
+                                                                 ],
+                                                  "border":  [
+                                                                 {
+                                                                     "properties":  {
+                                                                                        "radius":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "4D"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                        "color":  {
+                                                                                                      "solid":  {
+                                                                                                                    "color":  {
+                                                                                                                                  "expr":  {
+                                                                                                                                               "Literal":  {
+                                                                                                                                                               "Value":  "\u0027#D0D7DE\u0027"
+                                                                                                                                                           }
+                                                                                                                                           }
+                                                                                                                              }
+                                                                                                                }
+                                                                                                  },
+                                                                                        "show":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "true"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                    }
+                                                                 }
+                                                             ],
+                                                  "subTitle":  [
+                                                                   {
+                                                                       "properties":  {
+                                                                                          "show":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "false"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   }
+                                                                                      }
+                                                                   }
+                                                               ]
+                                              },
+                   "drillFilterOtherVisuals":  true,
+                   "objects":  {
+                                   "dataPoint":  [
+                                                     {
+                                                         "selector":  {
+                                                                          "metadata":  "FactVitales.Observaciones meses completos"
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#C46535\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     }
+                                                 ],
+                                   "labels":  [
+                                                  {
+                                                      "properties":  {
+                                                                         "color":  {
+                                                                                       "solid":  {
+                                                                                                     "color":  {
+                                                                                                                   "expr":  {
+                                                                                                                                "Literal":  {
+                                                                                                                                                "Value":  "\u0027#374151\u0027"
+                                                                                                                                            }
+                                                                                                                            }
+                                                                                                               }
+                                                                                                 }
+                                                                                   },
+                                                                         "labelPrecision":  {
+                                                                                                "expr":  {
+                                                                                                             "Literal":  {
+                                                                                                                             "Value":  "0L"
+                                                                                                                         }
+                                                                                                         }
+                                                                                            },
+                                                                         "labelDisplayUnits":  {
+                                                                                                   "expr":  {
+                                                                                                                "Literal":  {
+                                                                                                                                "Value":  "1D"
+                                                                                                                            }
+                                                                                                            }
+                                                                                               },
+                                                                         "show":  {
+                                                                                      "expr":  {
+                                                                                                   "Literal":  {
+                                                                                                                   "Value":  "false"
+                                                                                                               }
+                                                                                               }
+                                                                                  }
+                                                                     }
+                                                  }
+                                              ]
+                               }
+               }
+}

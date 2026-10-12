@@ -634,26 +634,41 @@
               </SSIS:Properties>
               <SSIS:Parameters />
             </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="ProcesarDimProveedorDiferencial.dtsx">
-            <SSIS:PackageMetaData SSIS:Name="ProcesarFactMedicamentosDiferencial.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{51E492F4-9414-479A-90AA-85A50A0A49F7}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">ProcesarDimProveedorDiferencial</SSIS:Property>
-                <SSIS:Property SSIS:Name="ID">{62A7CB4C-5C99-4072-B6A7-EC8DDCE9D46B}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">ProcesarFactMedicamentosDiferencial</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">136</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">116</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{3C96DEC8-0287-4FB9-9C59-B1B4D1AD9715}</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{3A94FF0B-0356-4264-90BD-3DFB454E9F31}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
-              </SSIS:Properties>
+			  <SSIS:PackageMetaData SSIS:Name="ProcesarFactMedicamentosDiferencial.dtsx">
+				  <SSIS:Properties>
+					  <SSIS:Property SSIS:Name="ID">{62A7CB4C-5C99-4072-B6A7-EC8DDCE9D46B}</SSIS:Property>
+					  <SSIS:Property SSIS:Name="Name">ProcesarFactMedicamentosDiferencial</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionBuild">116</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionComments">
+					  </SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionGUID">{3A94FF0B-0356-4264-90BD-3DFB454E9F31}</SSIS:Property>
+					  <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+					  <SSIS:Property SSIS:Name="Description">
+					  </SSIS:Property>
+					  <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+				  </SSIS:Properties>
+				  <SSIS:Parameters />
+			  </SSIS:PackageMetaData>
+
+			  <SSIS:PackageMetaData SSIS:Name="ProcesarDimProveedorDiferencial.dtsx">
+				  <SSIS:Properties>
+					  <SSIS:Property SSIS:Name="ID">{51E492F4-9414-479A-90AA-85A50A0A49F7}</SSIS:Property>
+					  <SSIS:Property SSIS:Name="Name">ProcesarDimProveedorDiferencial</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionBuild">136</SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionComments">
+					  </SSIS:Property>
+					  <SSIS:Property SSIS:Name="VersionGUID">{3C96DEC8-0287-4FB9-9C59-B1B4D1AD9715}</SSIS:Property>
+					  <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+					  <SSIS:Property SSIS:Name="Description">
+					  </SSIS:Property>
+					  <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+				  </SSIS:Properties>
+				  <SSIS:Parameters />
+			  </SSIS:PackageMetaData>
               <SSIS:Parameters>
                 <SSIS:Parameter SSIS:Name="CM.MySQL_Origen.root.ConnectByProxy">
                   <SSIS:Properties>
@@ -772,8 +787,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-              </SSIS:Parameters>
-            </SSIS:PackageMetaData>
+              </SSIS:Parameters>            
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>
       </SSIS:Project>

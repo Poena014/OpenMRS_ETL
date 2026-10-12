@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimProveedorDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="143"
-  DTS:VersionGUID="{BFF3196D-A23A-4052-8D90-A642D58F9487}">
+  DTS:VersionBuild="161"
+  DTS:VersionGUID="{A27DD747-9BD0-491D-9765-846386B70B82}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
           <DTS:Password
             DTS:Name="pwd"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxasZaBYrOE2DvwLdDs7TUQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAhPlFRHsJf4P1XqGbH43jhHa3q5Ni5ctpems8/bf6zhgAAAAAOgAAAAAIAACAAAABXPQU2zd8hDGPjwhT505wNlCIBn8F08ZCmfsOpVm0wQxAAAABiqlMNLRQvlIfyB2CgJgizQAAAAJ4LuQZLYpNEKixSNtVphVoEFcwMIkE+WofXVtSDgW55vNRXn4Mn7YIFSAJtLK/3q81UoR/nnJ3hif79mr9mU90</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxasZaBYrOE2DvwLdDs7TUQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADVSWSpS1wMcKplABMdqqk90l9UdHQwVl2KSgXv90cQ5gAAAAAOgAAAAAIAACAAAAA4HKzFw8tbY5N9L27bcJDIcGhoDyXDbDA+llLmqYcTThAAAAAO3drlsrmM0ajvIN7/M8NWQAAAAP9lWTmdb8bfiK8Mo1vEiN7ONNOYzY30rV2WendoiJv5Q27BKZYsWXq813uDLi0h/OOqHmicOaChuambWMM6eUs</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -37,29 +37,35 @@
       DTS:CreationName=""
       DTS:DTSID="{AD7448AD-9844-4B2A-ACCC-A2C1A2733EA7}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;select&#xA;COALESCE(a.person_id, 0) AS person_id,&#xA;UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.given_name,''), ' ', IFNULL(pn.middle_name,'')), ''), 'N/NOMBRES')) AS nombres,&#xA;UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.family_name,''), ' ', IFNULL(pn.family_name2,'')), ''), 'N/APELLIDOS')) AS apellidos,&#xA;UPPER(IFNULL(NULLIF(a.gender,''), 'N')) AS sexo,&#xA;IFNULL(a.birthdate, '1900-01-01') AS fechaNacimiento,&#xA;IFNULL(a.date_created, NOW()) AS fechaIngreso,&#xA;NOW() AS fechaProceso&#xA;from person a&#xA;left join person_name pn&#xA;  on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1&#xA;WHERE (&#xA;&#x9;a.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE() &#xA;&#x9;OR pn.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE()&#xA;&#x9;OR a.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE()&#xA;&#x9;OR pn.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion1] + &quot;' AND CURRENT_DATE()&#xA;)&#xA;;&quot;"
+      DTS:Expression="&quot;SELECT&#xA;p.provider_id providerId,&#xA;p.person_id personId,&#xA;UPPER(&#xA;&#x9;COALESCE(&#xA;&#x9;&#x9;NULLIF(TRIM(p.name), ''),&#xA;&#x9;&#x9;NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),&#xA;&#x9;&#x9;'N/A'&#xA;&#x9;)&#xA;) nombreCompleto,&#xA;IFNULL(p.identifier, 'N/A') identificador,&#xA;p.retired estaRetirado,&#xA;p.date_created fechaCreacion,&#xA;p.date_retired fechaRetiro,&#xA;NOW() fechaProceso&#xA;FROM openmrs.provider p&#xA;LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id&#xA;&#x9;AND pn.voided = 0&#xA;&#x9;AND pn.preferred = 1&#xA;WHERE (p.date_changed IS NOT NULL &#xA;&#x9;  AND p.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()) &#xA;      OR (p.date_created IS NOT NULL &#xA;      AND p.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE())&#xA;ORDER BY p.provider_id ASC;&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaMariaDB">
       <DTS:VariableValue
-        DTS:DataType="8">select
-COALESCE(a.person_id, 0) AS person_id,
-UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.given_name,''), ' ', IFNULL(pn.middle_name,'')), ''), 'N/NOMBRES')) AS nombres,
-UPPER(IFNULL(NULLIF(CONCAT(IFNULL(pn.family_name,''), ' ', IFNULL(pn.family_name2,'')), ''), 'N/APELLIDOS')) AS apellidos,
-UPPER(IFNULL(NULLIF(a.gender,''), 'N')) AS sexo,
-IFNULL(a.birthdate, '1900-01-01') AS fechaNacimiento,
-IFNULL(a.date_created, NOW()) AS fechaIngreso,
-NOW() AS fechaProceso
-from person a
-left join person_name pn
-  on pn.person_id = a.person_id and pn.voided = 0 and pn.preferred = 1
-WHERE (
-	a.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE() 
-	OR pn.date_changed BETWEEN '2026-10-05' AND CURRENT_DATE()
-	OR a.date_created BETWEEN '2026-10-05' AND CURRENT_DATE()
-	OR pn.date_created BETWEEN '2026-10-05' AND CURRENT_DATE()
-)
-;</DTS:VariableValue>
+        DTS:DataType="8">SELECT
+p.provider_id providerId,
+p.person_id personId,
+UPPER(
+	COALESCE(
+		NULLIF(TRIM(p.name), ''),
+		NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),
+		'N/A'
+	)
+) nombreCompleto,
+IFNULL(p.identifier, 'N/A') identificador,
+p.retired estaRetirado,
+p.date_created fechaCreacion,
+p.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM openmrs.provider p
+LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
+	AND pn.voided = 0
+	AND pn.preferred = 1
+WHERE (p.date_changed IS NOT NULL 
+	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
+      OR (p.date_created IS NOT NULL 
+      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
+ORDER BY p.provider_id ASC;</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -90,9 +96,9 @@ LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
 	AND pn.voided = 0
 	AND pn.preferred = 1
 WHERE (p.date_changed IS NOT NULL 
-	  AND p.date_changed BETWEEN '2026-7-01' AND CURDATE()) 
+	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
       OR (p.date_created IS NOT NULL 
-      AND p.date_created BETWEEN '2026-7-01' AND CURDATE())
+      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
 ORDER BY p.provider_id ASC;</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
@@ -102,7 +108,7 @@ ORDER BY p.provider_id ASC;</DTS:VariableValue>
       DTS:Namespace="User"
       DTS:ObjectName="FechaUltimaEjecucion">
       <DTS:VariableValue
-        DTS:DataType="8">2026-7-01</DTS:VariableValue>
+        DTS:DataType="8">2026-10-01</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -987,9 +993,9 @@ LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
 	AND pn.voided = 0
 	AND pn.preferred = 1
 WHERE (p.date_changed IS NOT NULL 
-	  AND p.date_changed BETWEEN '2026-7-01' AND CURDATE()) 
+	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
       OR (p.date_created IS NOT NULL 
-      AND p.date_created BETWEEN '2026-7-01' AND CURDATE())
+      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
 ORDER BY p.provider_id ASC;</property>
                 <property
                   dataType="System.Int32"
@@ -1316,59 +1322,7 @@ ORDER BY p.provider_id ASC;</property>
         <NodeLayout
           Size="298,42"
           Id="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB"
-          TopLeft="215,65" />
-        <NodeLayout
-          Size="180,42"
-          Id="Package\Llenar Carga Incremental DimProveedor\Conversión de datos"
-          TopLeft="280,135" />
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Salida de origen de ADO NET]"
-          TopLeft="367,107">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,28"
-              Start="0,0"
-              End="0,20.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="197,42"
-          Id="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor"
-          TopLeft="267,202" />
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Data Conversion Output]"
-          TopLeft="367.75,177">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,25"
-              Start="0,0"
-              End="0,17.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,17.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="217,39" />
         <NodeLayout
           Size="242,42"
           Id="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental"
@@ -1377,112 +1331,135 @@ ORDER BY p.provider_id ASC;</property>
           Size="245,45"
           Id="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental"
           TopLeft="433,312" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Llenar Carga Incremental DimProveedor\Conversión de datos"
+          TopLeft="280,135" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor"
+          TopLeft="269,221" />
         <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup Match Output]"
-          TopLeft="334,244">
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Salida de origen de ADO NET]"
+          TopLeft="368,81">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-143,62"
+              EndConnector="0,54"
               Start="0,0"
-              End="-143,54.5">
+              End="0,46.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.0996978851964" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,21.0996978851964"
-                    Point2="0,25.0996978851964"
-                    Point3="-4,25.0996978851964" />
-                  <mssgle:LineSegment
-                    End="-139,25.0996978851964" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-139,25.0996978851964"
-                    Point2="-143,25.0996978851964"
-                    Point3="-143,29.0996978851964" />
-                  <mssgle:LineSegment
-                    End="-143,54.5" />
+                    End="0,46.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-119.69138671875,30.0996978851964,96.3827734375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup No Match Output]"
-          TopLeft="397,244">
+          TopLeft="399,263">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="158.5,68"
+              EndConnector="156.5,49"
               Start="0,0"
-              End="158.5,60.5">
+              End="156.5,41.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,23.5287009063444" />
+                    End="0,15.8368580060423" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,23.5287009063444"
-                    Point2="0,27.5287009063444"
-                    Point3="4,27.5287009063444" />
+                    Point1="0,15.8368580060423"
+                    Point2="0,19.8368580060423"
+                    Point3="4,19.8368580060423" />
                   <mssgle:LineSegment
-                    End="154.5,27.5287009063444" />
+                    End="152.5,19.8368580060423" />
                   <mssgle:CubicBezierSegment
-                    Point1="154.5,27.5287009063444"
-                    Point2="158.5,27.5287009063444"
-                    Point3="158.5,31.5287009063444" />
+                    Point1="152.5,19.8368580060423"
+                    Point2="156.5,19.8368580060423"
+                    Point3="156.5,23.8368580060423" />
                   <mssgle:LineSegment
-                    End="158.5,60.5" />
+                    End="156.5,41.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="23.44361328125,32.5287009063444,111.6127734375,11.609375"
+              BoundingBox="13.5749609375,24.8368580060423,129.350078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup Match Output]"
+          TopLeft="336,263">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-145,43"
+              Start="0,0"
+              End="-145,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.4078549848943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.4078549848943"
+                    Point2="0,17.4078549848943"
+                    Point3="-4,17.4078549848943" />
+                  <mssgle:LineSegment
+                    End="-141,17.4078549848943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-141,17.4078549848943"
+                    Point2="-145,17.4078549848943"
+                    Point3="-145,21.4078549848943" />
+                  <mssgle:LineSegment
+                    End="-145,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-129.5600390625,22.4078549848943,114.120078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Data Conversion Output]"
+          TopLeft="368.75,177">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,10.25,16,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimProveedor]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental">
     <Properties>
@@ -1493,6 +1470,37 @@ ORDER BY p.provider_id ASC;</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProveedor]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

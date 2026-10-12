@@ -1,0 +1,267 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+    "name":  "40000000000000000002",
+    "position":  {
+                     "x":  40,
+                     "y":  310,
+                     "z":  1,
+                     "height":  700,
+                     "width":  1000,
+                     "tabOrder":  1
+                 },
+    "visual":  {
+                   "visualType":  "tableEx",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "DimSignoVital"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Nombre"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Nombre",
+                                                                                           "queryRef":  "DimSignoVital.Nombre"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "DimSignoVital"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Unidad"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Unidad",
+                                                                                           "queryRef":  "DimSignoVital.Unidad"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "FactVitales"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Observaciones vitales"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Observaciones vitales",
+                                                                                           "format":  "0",
+                                                                                           "queryRef":  "FactVitales.Observaciones vitales"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "FactVitales"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Valor promedio"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Valor promedio",
+                                                                                           "format":  "0.00",
+                                                                                           "queryRef":  "FactVitales.Valor promedio"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "FactVitales"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Valor mínimo"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Valor mínimo",
+                                                                                           "format":  "0.00",
+                                                                                           "queryRef":  "FactVitales.Valor mínimo"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "FactVitales"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Valor máximo"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Valor máximo",
+                                                                                           "format":  "0.00",
+                                                                                           "queryRef":  "FactVitales.Valor máximo"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "background":  {
+                                                                                                          "solid":  {
+                                                                                                                        "color":  {
+                                                                                                                                      "expr":  {
+                                                                                                                                                   "Literal":  {
+                                                                                                                                                                   "Value":  "\u0027#0F6B63\u0027"
+                                                                                                                                                               }
+                                                                                                                                               }
+                                                                                                                                  }
+                                                                                                                    }
+                                                                                                      },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Estadísticas por signo vital\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "alignment":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027center\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     },
+                                                                                       "heading":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "\u0027Heading3\u0027"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                       "fontColor":  {
+                                                                                                         "solid":  {
+                                                                                                                       "color":  {
+                                                                                                                                     "expr":  {
+                                                                                                                                                  "Literal":  {
+                                                                                                                                                                  "Value":  "\u0027#FFFFFF\u0027"
+                                                                                                                                                              }
+                                                                                                                                              }
+                                                                                                                                 }
+                                                                                                                   }
+                                                                                                     },
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "fontSize":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "17D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "background":  [
+                                                                     {
+                                                                         "properties":  {
+                                                                                            "color":  {
+                                                                                                          "solid":  {
+                                                                                                                        "color":  {
+                                                                                                                                      "expr":  {
+                                                                                                                                                   "Literal":  {
+                                                                                                                                                                   "Value":  "\u0027#FFFFFF\u0027"
+                                                                                                                                                               }
+                                                                                                                                               }
+                                                                                                                                  }
+                                                                                                                    }
+                                                                                                      },
+                                                                                            "transparency":  {
+                                                                                                                 "expr":  {
+                                                                                                                              "Literal":  {
+                                                                                                                                              "Value":  "0D"
+                                                                                                                                          }
+                                                                                                                          }
+                                                                                                             },
+                                                                                            "show":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "true"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                        }
+                                                                     }
+                                                                 ],
+                                                  "border":  [
+                                                                 {
+                                                                     "properties":  {
+                                                                                        "radius":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "4D"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                        "color":  {
+                                                                                                      "solid":  {
+                                                                                                                    "color":  {
+                                                                                                                                  "expr":  {
+                                                                                                                                               "Literal":  {
+                                                                                                                                                               "Value":  "\u0027#D0D7DE\u0027"
+                                                                                                                                                           }
+                                                                                                                                           }
+                                                                                                                              }
+                                                                                                                }
+                                                                                                  },
+                                                                                        "show":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "true"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                    }
+                                                                 }
+                                                             ],
+                                                  "subTitle":  [
+                                                                   {
+                                                                       "properties":  {
+                                                                                          "show":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "false"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   }
+                                                                                      }
+                                                                   }
+                                                               ]
+                                              },
+                   "drillFilterOtherVisuals":  true,
+                   "objects":  {
+                                   "total":  [
+                                                 {
+                                                     "properties":  {
+                                                                        "totals":  {
+                                                                                       "expr":  {
+                                                                                                    "Literal":  {
+                                                                                                                    "Value":  "false"
+                                                                                                                }
+                                                                                                }
+                                                                                   }
+                                                                    }
+                                                 }
+                                             ]
+                               }
+               }
+}

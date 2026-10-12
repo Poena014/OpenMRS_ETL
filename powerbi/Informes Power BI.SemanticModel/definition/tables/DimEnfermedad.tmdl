@@ -1,0 +1,48 @@
+table DimEnfermedad
+	lineageTag: f2edf2d2-c4c1-4b87-b188-1a25f1eff5fe
+
+	column EnfermedadKey
+		dataType: int64
+		formatString: 0
+		lineageTag: efe6b539-f7a1-4de7-92c0-616ada89e5b6
+		summarizeBy: none
+		sourceColumn: EnfermedadKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EnfermedadId
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f8bfc1c-208e-4405-831f-c0f5185b8558
+		summarizeBy: none
+		sourceColumn: EnfermedadId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: eb0b2a2a-0e79-452d-a07a-fb8a31d8763d
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipoEnfermedad
+		dataType: string
+		lineageTag: 0e1bbd01-cb97-4364-a3e2-85cda6f4062b
+		summarizeBy: none
+		sourceColumn: tipoEnfermedad
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEnfermedad = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("JUANRIVERAPC", "OpenmrsETL_Validacion"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimEnfermedad"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

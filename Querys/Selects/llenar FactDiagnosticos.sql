@@ -2,7 +2,7 @@ USE OpenmrsETL
 GO
 
 SELECT
-  COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,
+  COALESCE(ed.encounter_diagnosis_id, 0) AS DiagnosticoKey,
   COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
   COALESCE(vt.patient_id, 0) AS PacienteId,
   COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
@@ -11,14 +11,16 @@ SELECT
   COALESCE(vit.temperatura, 0) AS temperatura,
   COALESCE(vit.peso, 0) AS peso,
   COALESCE(vit.altura, 0) AS altura,
-  (SELECT COUNT(*)
+  CASE WHEN EXISTS (
+   SELECT 1
    FROM encounter_diagnosis ed2
    JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
    JOIN visit v2 ON v2.visit_id = e2.visit_id
    WHERE ed2.voided = 0 AND e2.voided = 0
      AND v2.patient_id = vt.patient_id
      AND ed2.diagnosis_coded = ed.diagnosis_coded
-     AND v2.date_started <= vt.date_started) AS veces_previas
+     AND ed2.encounter_diagnosis_id < ed.encounter_diagnosis_id
+  ) THEN 1 ELSE 0 END AS veces_previas
 FROM encounter_diagnosis ed
 JOIN encounter e
   ON e.encounter_id = ed.encounter_id AND e.voided = 0
@@ -42,12 +44,14 @@ LEFT JOIN (
 ) vit ON vit.visit_id = vt.visit_id
 WHERE ed.voided = 0
   AND ed.diagnosis_coded IS NOT NULL
+  AND vt.voided = 0
+  AND vt.date_stopped IS NOT NULL
 ORDER BY vt.visit_id;
 
 --CONSULTA INCREMENTAL
 "
 SELECT
-  COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,
+  COALESCE(ed.encounter_diagnosis_id, 0) AS DiagnosticoKey,
   COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
   COALESCE(vt.patient_id, 0) AS PacienteId,
   COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
@@ -56,14 +60,16 @@ SELECT
   COALESCE(vit.temperatura, 0) AS temperatura,
   COALESCE(vit.peso, 0) AS peso,
   COALESCE(vit.altura, 0) AS altura,
-  (SELECT COUNT(*)
+  CASE WHEN EXISTS (
+   SELECT 1
    FROM encounter_diagnosis ed2
    JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
    JOIN visit v2 ON v2.visit_id = e2.visit_id
    WHERE ed2.voided = 0 AND e2.voided = 0
      AND v2.patient_id = vt.patient_id
      AND ed2.diagnosis_coded = ed.diagnosis_coded
-     AND v2.date_started <= vt.date_started) AS veces_previas
+     AND ed2.encounter_diagnosis_id < ed.encounter_diagnosis_id
+  ) THEN 1 ELSE 0 END AS veces_previas
 FROM encounter_diagnosis ed
 JOIN encounter e
   ON e.encounter_id = ed.encounter_id AND e.voided = 0
@@ -87,8 +93,6 @@ LEFT JOIN (
 ) vit ON vit.visit_id = vt.visit_id
 WHERE ed.voided = 0
   AND ed.diagnosis_coded IS NOT NULL
-  AND (
-  	vt.date_created <= CURDATE() 
-  	AND vt.date_stopped BETWEEN '" + @[User::FechaUltimaEjecucion] + "' AND CURDATE() 
-);"
-  
+  AND vt.voided = 0
+  AND vt.date_stopped > '" + @[User::FechaUltimaEjecucion] + "'
+  AND vt.date_stopped <= NOW();"

@@ -1,0 +1,1508 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/30/2026 9:17:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-SEU29NB"
+  DTS:CreatorName="DESKTOP-SEU29NB\Moises Molina"
+  DTS:DTSID="{51E492F4-9414-479A-90AA-85A50A0A49F7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="ProcesarDimProveedorDiferencial"
+  DTS:PackageType="5"
+  DTS:VersionBuild="161"
+  DTS:VersionGUID="{A27DD747-9BD0-491D-9765-846386B70B82}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MySQL_Origen.root]"
+      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{180D024B-C374-4BD6-805E-DC8B460A96FD}"
+      DTS:ObjectName="MySQL_Origen.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxasZaBYrOE2DvwLdDs7TUQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADVSWSpS1wMcKplABMdqqk90l9UdHQwVl2KSgXv90cQ5gAAAAAOgAAAAAIAACAAAAA4HKzFw8tbY5N9L27bcJDIcGhoDyXDbDA+llLmqYcTThAAAAAO3drlsrmM0ajvIN7/M8NWQAAAAP9lWTmdb8bfiK8Mo1vEiN7ONNOYzY30rV2WendoiJv5Q27BKZYsWXq813uDLi0h/OOqHmicOaChuambWMM6eUs</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AD7448AD-9844-4B2A-ACCC-A2C1A2733EA7}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT&#xA;p.provider_id providerId,&#xA;p.person_id personId,&#xA;UPPER(&#xA;&#x9;COALESCE(&#xA;&#x9;&#x9;NULLIF(TRIM(p.name), ''),&#xA;&#x9;&#x9;NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),&#xA;&#x9;&#x9;'N/A'&#xA;&#x9;)&#xA;) nombreCompleto,&#xA;IFNULL(p.identifier, 'N/A') identificador,&#xA;p.retired estaRetirado,&#xA;p.date_created fechaCreacion,&#xA;p.date_retired fechaRetiro,&#xA;NOW() fechaProceso&#xA;FROM openmrs.provider p&#xA;LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id&#xA;&#x9;AND pn.voided = 0&#xA;&#x9;AND pn.preferred = 1&#xA;WHERE (p.date_changed IS NOT NULL &#xA;&#x9;  AND p.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()) &#xA;      OR (p.date_created IS NOT NULL &#xA;      AND p.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE())&#xA;ORDER BY p.provider_id ASC;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ConsultaMariaDB">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT
+p.provider_id providerId,
+p.person_id personId,
+UPPER(
+	COALESCE(
+		NULLIF(TRIM(p.name), ''),
+		NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),
+		'N/A'
+	)
+) nombreCompleto,
+IFNULL(p.identifier, 'N/A') identificador,
+p.retired estaRetirado,
+p.date_created fechaCreacion,
+p.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM openmrs.provider p
+LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
+	AND pn.voided = 0
+	AND pn.preferred = 1
+WHERE (p.date_changed IS NOT NULL 
+	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
+      OR (p.date_created IS NOT NULL 
+      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
+ORDER BY p.provider_id ASC;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CC6E8754-3358-492E-8C7A-DF0C8607DADE}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT&#xA;p.provider_id providerId,&#xA;p.person_id personId,&#xA;UPPER(&#xA;&#x9;COALESCE(&#xA;&#x9;&#x9;NULLIF(TRIM(p.name), ''),&#xA;&#x9;&#x9;NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),&#xA;&#x9;&#x9;'N/A'&#xA;&#x9;)&#xA;) nombreCompleto,&#xA;IFNULL(p.identifier, 'N/A') identificador,&#xA;p.retired estaRetirado,&#xA;p.date_created fechaCreacion,&#xA;p.date_retired fechaRetiro,&#xA;NOW() fechaProceso&#xA;FROM openmrs.provider p&#xA;LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id&#xA;&#x9;AND pn.voided = 0&#xA;&#x9;AND pn.preferred = 1&#xA;WHERE (p.date_changed IS NOT NULL &#xA;&#x9;  AND p.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()) &#xA;      OR (p.date_created IS NOT NULL &#xA;      AND p.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE())&#xA;ORDER BY p.provider_id ASC;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ConsultaProveedorIncremental">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT
+p.provider_id providerId,
+p.person_id personId,
+UPPER(
+	COALESCE(
+		NULLIF(TRIM(p.name), ''),
+		NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),
+		'N/A'
+	)
+) nombreCompleto,
+IFNULL(p.identifier, 'N/A') identificador,
+p.retired estaRetirado,
+p.date_created fechaCreacion,
+p.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM openmrs.provider p
+LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
+	AND pn.voided = 0
+	AND pn.preferred = 1
+WHERE (p.date_changed IS NOT NULL 
+	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
+      OR (p.date_created IS NOT NULL 
+      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
+ORDER BY p.provider_id ASC;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{669898EC-757A-404D-9EB9-1B730EECC73A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FechaUltimaEjecucion">
+      <DTS:VariableValue
+        DTS:DataType="8">2026-10-01</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Llenar Carga Incremental DimProveedor"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{A028FA4A-5D19-48D2-A121-0F8019183F8A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Llenar Carga Incremental DimProveedor"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="[Obtener DimProveedor Incremental MariaDB].[SqlCommand]">@[User::ConsultaProveedorIncremental]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Actualizar Proveedor Incremental"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC dbo.ActualizarProveedor ?,?,?,?,?,?,?,?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of providerId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of providerId"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@ProviderId]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of providerId]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of personId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of personId"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@PersonId]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of personId]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of nombreCompleto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="510"
+                      cachedName="Copy of nombreCompleto"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@NombreCompleto]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of identificador]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="510"
+                      cachedName="Copy of identificador"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@Identificador]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of identificador]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of estaRetirado]"
+                      cachedDataType="i2"
+                      cachedName="Copy of estaRetirado"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@EstaRetirado]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of fechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of fechaCreacion"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@FechaCreacion]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of fechaRetiro]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of fechaRetiro"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@FechaRetiro]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaRetiro]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].Columns[Copy of fechaProceso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of fechaProceso"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@FechaProceso]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaProceso]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@ProviderId]"
+                      dataType="i4"
+                      name="@ProviderId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@PersonId]"
+                      dataType="i4"
+                      name="@PersonId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@NombreCompleto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="@NombreCompleto">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@Identificador]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="@Identificador">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@EstaRetirado]"
+                      dataType="bool"
+                      name="@EstaRetirado">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="@FechaCreacion">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@FechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="@FechaRetiro">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input].ExternalColumns[@FechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="@FechaProceso">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Busqueda de Proveedor"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimProveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimProveedor]) [refTable]
+where [refTable].[ProviderId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProveedorKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProviderId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PersonId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreCompleto" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Identificador" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="EstaRetirado" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FechaCreacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FechaRetiro" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FechaProceso" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of providerId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Inputs[Lookup Input].Columns[Copy of providerId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of providerId"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of providerId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ProviderId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Match Output].Columns[ProveedorKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Match Output].Columns[ProveedorKey]"
+                      name="ProveedorKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ProveedorKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[providerId]"
+                      cachedDataType="i4"
+                      cachedName="providerId"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[providerId]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[personId]"
+                      cachedDataType="i4"
+                      cachedName="personId"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[personId]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[nombreCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="510"
+                      cachedName="nombreCompleto"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[identificador]"
+                      cachedDataType="wstr"
+                      cachedLength="510"
+                      cachedName="identificador"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[identificador]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[estaRetirado]"
+                      cachedDataType="i2"
+                      cachedName="estaRetirado"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[fechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaCreacion"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[fechaRetiro]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaRetiro"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[fechaProceso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaProceso"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of providerId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of providerId]"
+                      name="Copy of providerId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[providerId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of personId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of personId]"
+                      name="Copy of personId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[personId]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="510"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]"
+                      name="Copy of nombreCompleto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of identificador]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="510"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of identificador]"
+                      name="Copy of identificador"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[identificador]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
+                      name="Copy of estaRetirado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaCreacion]"
+                      name="Copy of fechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaRetiro]"
+                      name="Copy of fechaRetiro"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaProceso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaProceso]"
+                      name="Copy of fechaProceso"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Nuevo DimProveedor Incremental"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimProveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Connections[OleDbConnection]"
+                  connectionManagerID="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConecionPriv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of providerId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of providerId"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[ProviderId]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of providerId]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of personId]"
+                      cachedDataType="i4"
+                      cachedName="Copy of personId"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[PersonId]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of personId]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of nombreCompleto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="510"
+                      cachedName="Copy of nombreCompleto"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[NombreCompleto]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of nombreCompleto]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of identificador]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="510"
+                      cachedName="Copy of identificador"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[Identificador]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of identificador]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of estaRetirado]"
+                      cachedDataType="i2"
+                      cachedName="Copy of estaRetirado"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of fechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of fechaCreacion"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of fechaRetiro]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of fechaRetiro"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[FechaRetiro]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaRetiro]" />
+                    <inputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].Columns[Copy of fechaProceso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Copy of fechaProceso"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[FechaProceso]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of fechaProceso]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[ProveedorKey]"
+                      dataType="i4"
+                      name="ProveedorKey" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[ProviderId]"
+                      dataType="i4"
+                      name="ProviderId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[PersonId]"
+                      dataType="i4"
+                      name="PersonId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[NombreCompleto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NombreCompleto" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[Identificador]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Identificador" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
+                      dataType="bool"
+                      name="EstaRetirado" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="FechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[FechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="FechaRetiro" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input].ExternalColumns[FechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="FechaProceso" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Obtener DimProveedor Incremental MariaDB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+p.provider_id providerId,
+p.person_id personId,
+UPPER(
+	COALESCE(
+		NULLIF(TRIM(p.name), ''),
+		NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),
+		'N/A'
+	)
+) nombreCompleto,
+IFNULL(p.identifier, 'N/A') identificador,
+p.retired estaRetirado,
+p.date_created fechaCreacion,
+p.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM openmrs.provider p
+LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
+	AND pn.voided = 0
+	AND pn.preferred = 1
+WHERE (p.date_changed IS NOT NULL 
+	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
+      OR (p.date_created IS NOT NULL 
+      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
+ORDER BY p.provider_id ASC;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MySQL_Origen.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[MySQL_Origen.root]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[providerId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[providerId]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[providerId]"
+                      name="providerId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[personId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[personId]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[personId]"
+                      name="personId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[nombreCompleto]"
+                      length="510"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]"
+                      name="nombreCompleto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[identificador]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[identificador]"
+                      length="510"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[identificador]"
+                      name="identificador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
+                      name="estaRetirado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]"
+                      name="fechaCreacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaRetiro]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]"
+                      name="fechaRetiro"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[providerId]"
+                      dataType="i4"
+                      name="providerId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[personId]"
+                      dataType="i4"
+                      name="personId" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[nombreCompleto]"
+                      dataType="wstr"
+                      length="510"
+                      name="nombreCompleto" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[identificador]"
+                      dataType="wstr"
+                      length="510"
+                      name="identificador" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
+                      dataType="i2"
+                      name="estaRetirado" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      name="fechaRetiro" />
+                    <externalMetadataColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      name="fechaProceso" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[providerId]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[providerId]"
+                      name="providerId" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[personId]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[personId]"
+                      name="personId" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[nombreCompleto]"
+                      dataType="wstr"
+                      length="510"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[nombreCompleto]"
+                      name="nombreCompleto" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[identificador]"
+                      dataType="wstr"
+                      length="510"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[identificador]"
+                      name="identificador" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
+                      dataType="i2"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
+                      name="estaRetirado" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[fechaCreacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[fechaCreacion]"
+                      name="fechaCreacion" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[fechaRetiro]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[fechaRetiro]"
+                      name="fechaRetiro" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[fechaProceso]"
+                      name="fechaProceso" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Llenar Carga Incremental DimProveedor.Paths[Data Conversion Output]"
+              endId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup Match Output]"
+              endId="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental.Inputs[OLE DB Command Input]"
+              name="Lookup Match Output"
+              startId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup No Match Output]"
+              endId="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Llenar Carga Incremental DimProveedor.Paths[Salida de origen de ADO NET]"
+              endId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input]"
+              name="Salida de origen de ADO NET"
+              startId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtener Fecha de Ultima Ejecucion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{90A1F7E3-FC5D-412C-AD19-F2ABEB8A47E2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtener Fecha de Ultima Ejecucion"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:SqlStatementSource="SELECT TOP 1 Valor as FechaUltimaEjecucion FROM dbo.Parametros&#xA;WHERE Nombre='FechaUltimaEjecucion'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="FechaUltimaEjecucion"
+            SQLTask:DtsVariableName="User::FechaUltimaEjecucion" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{C8854E6C-C9F5-4620-92DC-83449A07B5B6}"
+      DTS:From="Package\Obtener Fecha de Ultima Ejecucion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Llenar Carga Incremental DimProveedor" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="276,42"
+          Id="Package\Llenar Carga Incremental DimProveedor"
+          TopLeft="233,260" />
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Obtener Fecha de Ultima Ejecucion"
+          TopLeft="248,109" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="372.5,151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,109"
+              Start="0,0"
+              End="0,101.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,101.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Llenar Carga Incremental DimProveedor">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="298,42"
+          Id="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB"
+          TopLeft="217,39" />
+        <NodeLayout
+          Size="242,42"
+          Id="Package\Llenar Carga Incremental DimProveedor\Actualizar Proveedor Incremental"
+          TopLeft="70,306" />
+        <NodeLayout
+          Size="245,45"
+          Id="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental"
+          TopLeft="433,312" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Llenar Carga Incremental DimProveedor\Conversión de datos"
+          TopLeft="280,135" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor"
+          TopLeft="269,221" />
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Salida de origen de ADO NET]"
+          TopLeft="368,81">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup No Match Output]"
+          TopLeft="399,263">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156.5,49"
+              Start="0,0"
+              End="156.5,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.8368580060423" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.8368580060423"
+                    Point2="0,19.8368580060423"
+                    Point3="4,19.8368580060423" />
+                  <mssgle:LineSegment
+                    End="152.5,19.8368580060423" />
+                  <mssgle:CubicBezierSegment
+                    Point1="152.5,19.8368580060423"
+                    Point2="156.5,19.8368580060423"
+                    Point3="156.5,23.8368580060423" />
+                  <mssgle:LineSegment
+                    End="156.5,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="13.5749609375,24.8368580060423,129.350078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Lookup Match Output]"
+          TopLeft="336,263">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-145,43"
+              Start="0,0"
+              End="-145,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.4078549848943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.4078549848943"
+                    Point2="0,17.4078549848943"
+                    Point3="-4,17.4078549848943" />
+                  <mssgle:LineSegment
+                    End="-141,17.4078549848943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-141,17.4078549848943"
+                    Point2="-145,17.4078549848943"
+                    Point3="-145,21.4078549848943" />
+                  <mssgle:LineSegment
+                    End="-145,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-129.5600390625,22.4078549848943,114.120078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimProveedor.Paths[Data Conversion Output]"
+          TopLeft="368.75,177">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,10.25,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimProveedor\Nuevo DimProveedor Incremental">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimProveedor\Busqueda de Proveedor">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProveedor]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimSigVitalDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="98"
-  DTS:VersionGUID="{B7484A2E-24F0-428A-8249-4B7AD7C91F9A}">
+  DTS:VersionBuild="99"
+  DTS:VersionGUID="{3657400A-ACE3-46DA-A4FA-93E778642924}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -134,7 +134,7 @@ where [refTable].[SignoVitalId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[SignoVitalId]};</property>
+                  name="ParameterMap">#{Package\Llenar Incremental DimSigVitales\58:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -266,7 +266,7 @@ where [refTable].[SignoVitalId] = ?</property>
                       lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[Unidad]" />
                     <inputColumn
                       refId="Package\Llenar Incremental DimSigVitales\Conversión de datos.Inputs[Data Conversion Input].Columns[EstaRetirado]"
-                      cachedDataType="i8"
+                      cachedDataType="i4"
                       cachedName="EstaRetirado"
                       lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]" />
                   </inputColumns>
@@ -496,7 +496,7 @@ WHERE c.concept_id IN (
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].Columns[EstaRetirado]"
-                      dataType="i8"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaRetirado]"
@@ -522,7 +522,7 @@ WHERE c.concept_id IN (
                       name="Unidad" />
                     <externalMetadataColumn
                       refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de origen de ADO NET].ExternalColumns[EstaRetirado]"
-                      dataType="i8"
+                      dataType="i4"
                       name="EstaRetirado" />
                   </externalMetadataColumns>
                 </output>
@@ -550,7 +550,7 @@ WHERE c.concept_id IN (
                       name="Unidad" />
                     <outputColumn
                       refId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[EstaRetirado]"
-                      dataType="i8"
+                      dataType="i4"
                       lineageId="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental.Outputs[Salida de error de origen de ADO NET].Columns[EstaRetirado]"
                       name="EstaRetirado" />
                     <outputColumn
@@ -993,6 +993,18 @@ WHERE c.concept_id IN (
           Id="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental"
           TopLeft="344,16" />
         <NodeLayout
+          Size="177,42"
+          Id="Package\Llenar Incremental DimSigVitales\OLE DB Destination"
+          TopLeft="594,253" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Llenar Incremental DimSigVitales\OLE DB Command"
+          TopLeft="158,243" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Llenar Incremental DimSigVitales\Busqueda de SigVital"
+          TopLeft="380,157" />
+        <NodeLayout
           Size="180,42"
           Id="Package\Llenar Incremental DimSigVitales\Conversión de datos"
           TopLeft="380,86" />
@@ -1018,76 +1030,6 @@ WHERE c.concept_id IN (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="184,42"
-          Id="Package\Llenar Incremental DimSigVitales\Busqueda de SigVital"
-          TopLeft="380,157" />
-        <EdgeLayout
-          Id="Package\Llenar Incremental DimSigVitales.Paths[Data Conversion Output]"
-          TopLeft="471,128">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,29"
-              Start="0,0"
-              End="0,21.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,21.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\Llenar Incremental DimSigVitales\OLE DB Command"
-          TopLeft="158,243" />
-        <EdgeLayout
-          Id="Package\Llenar Incremental DimSigVitales.Paths[Lookup Match Output]"
-          TopLeft="442.666666666667,199">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-198.166666666667,44"
-              Start="0,0"
-              End="-198.166666666667,36.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,13.8275862068966" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,13.8275862068966"
-                    Point2="0,17.8275862068966"
-                    Point3="-4,17.8275862068966" />
-                  <mssgle:LineSegment
-                    End="-194.166666666667,17.8275862068966" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-194.166666666667,17.8275862068966"
-                    Point2="-198.166666666667,17.8275862068966"
-                    Point3="-198.166666666667,21.8275862068966" />
-                  <mssgle:LineSegment
-                    End="-198.166666666667,36.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-147.274720052083,22.8275862068966,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="177,42"
-          Id="Package\Llenar Incremental DimSigVitales\OLE DB Destination"
-          TopLeft="594,253" />
         <EdgeLayout
           Id="Package\Llenar Incremental DimSigVitales.Paths[Lookup No Match Output]"
           TopLeft="501.333333333333,199">
@@ -1124,40 +1066,67 @@ WHERE c.concept_id IN (
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Incremental DimSigVitales.Paths[Lookup Match Output]"
+          TopLeft="442.666666666667,199">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-198.166666666667,44"
+              Start="0,0"
+              End="-198.166666666667,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.8275862068966" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.8275862068966"
+                    Point2="0,17.8275862068966"
+                    Point3="-4,17.8275862068966" />
+                  <mssgle:LineSegment
+                    End="-194.166666666667,17.8275862068966" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-194.166666666667,17.8275862068966"
+                    Point2="-198.166666666667,17.8275862068966"
+                    Point3="-198.166666666667,21.8275862068966" />
+                  <mssgle:LineSegment
+                    End="-198.166666666667,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-147.274720052083,22.8275862068966,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Incremental DimSigVitales.Paths[Data Conversion Output]"
+          TopLeft="471,128">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Llenar Incremental DimSigVitales\Busqueda de SigVital">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimSignoVital]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar Incremental DimSigVitales\OLE DB Destination">
     <Properties>
@@ -1168,6 +1137,37 @@ WHERE c.concept_id IN (
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Incremental DimSigVitales\Busqueda de SigVital">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimSignoVital]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar Incremental DimSigVitales\Obtener DimSigVitales Incremental">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimTipoVisitaDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="183"
-  DTS:VersionGUID="{33E04798-BCA8-4CB9-9C92-57EE89C7B76A}">
+  DTS:VersionBuild="184"
+  DTS:VersionGUID="{CDEF27D1-0D43-4B87-A2DD-C6DD7970FC68}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,12 +23,7 @@
       DTS:ObjectName="MySQL_Origen.root">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;">
-          <DTS:Password
-            DTS:Name="pwd"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxasZaBYrOE2DvwLdDs7TUQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADVxFodEX/0WjyMmiowLpejWXHOvZs8SFx6+vrfmUYIoAAAAAAOgAAAAAIAACAAAAAy+YMiOlQMn56fLkJuubZpdk4s2X7/zwMSOu0B9NygzBAAAAAvDeJvoXY28h24nqALaaE4QAAAANsOQQIztTg+RsnXtBWSoIfHxcL/L8qXcWzinWPJAvvaTLvSTTAjV6FlvK7hnj/nd4Ogo0V3ekfdF4Yu/yDIbN4</DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -290,13 +285,13 @@ where [refTable].[TipoVisitaId] = ?</property>
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoVisita\Data Conversion.Inputs[Data Conversion Input].Columns[Nombre]"
                       cachedDataType="wstr"
-                      cachedLength="510"
+                      cachedLength="255"
                       cachedName="Nombre"
                       lineageId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[Nombre]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoVisita\Data Conversion.Inputs[Data Conversion Input].Columns[Descripcion]"
                       cachedDataType="wstr"
-                      cachedLength="2048"
+                      cachedLength="1024"
                       cachedName="Descripcion"
                       lineageId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[Descripcion]" />
                   </inputColumns>
@@ -449,8 +444,8 @@ WHERE (VT.date_changed IS NOT NULL
               <connections>
                 <connection
                   refId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Connections[IDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[MySQL_Origen.root]"
-                  connectionManagerRefId="Package.ConnectionManagers[MySQL_Origen.root]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
                   description="Administrador de conexiones administrado"
                   name="IDbConnection" />
               </connections>
@@ -474,7 +469,7 @@ WHERE (VT.date_changed IS NOT NULL
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
-                      length="510"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[Nombre]"
                       name="Nombre"
                       truncationRowDisposition="FailComponent" />
@@ -484,7 +479,7 @@ WHERE (VT.date_changed IS NOT NULL
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[Descripcion]"
-                      length="2048"
+                      length="1024"
                       lineageId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[Descripcion]"
                       name="Descripcion"
                       truncationRowDisposition="FailComponent" />
@@ -498,12 +493,12 @@ WHERE (VT.date_changed IS NOT NULL
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[Nombre]"
                       dataType="wstr"
-                      length="510"
+                      length="255"
                       name="Nombre" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[Descripcion]"
                       dataType="wstr"
-                      length="2048"
+                      length="1024"
                       name="Descripcion" />
                   </externalMetadataColumns>
                 </output>
@@ -520,13 +515,13 @@ WHERE (VT.date_changed IS NOT NULL
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
                       dataType="wstr"
-                      length="510"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[Nombre]"
                       name="Nombre" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[Descripcion]"
                       dataType="wstr"
-                      length="2048"
+                      length="1024"
                       lineageId="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[Descripcion]"
                       name="Descripcion" />
                     <outputColumn
@@ -938,6 +933,10 @@ WHERE (VT.date_changed IS NOT NULL
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="173,42"
+          Id="Package\Llenar Carga Incremental DimTipoVisita\OLE DB Command"
+          TopLeft="162,296" />
+        <NodeLayout
           Size="296,42"
           Id="Package\Llenar Carga Incremental DimTipoVisita\Obtener DimTipoVisita Incremental MariaDB"
           TopLeft="227,48" />
@@ -945,66 +944,10 @@ WHERE (VT.date_changed IS NOT NULL
           Size="161,42"
           Id="Package\Llenar Carga Incremental DimTipoVisita\Data Conversion"
           TopLeft="303,124" />
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimTipoVisita.Paths[Salida de origen de ADO NET]"
-          TopLeft="375,90">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="8.5,34"
-              Start="0,0"
-              End="8.5,26.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,13" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,13"
-                    Point2="0,17"
-                    Point3="4,17" />
-                  <mssgle:LineSegment
-                    End="4.5,17" />
-                  <mssgle:CubicBezierSegment
-                    Point1="4.5,17"
-                    Point2="8.5,17"
-                    Point3="8.5,21" />
-                  <mssgle:LineSegment
-                    End="8.5,26.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="195,42"
           Id="Package\Llenar Carga Incremental DimTipoVisita\Busqueda de TipoVisita"
           TopLeft="281,204" />
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimTipoVisita.Paths[Data Conversion Output]"
-          TopLeft="381,166">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,38"
-              Start="0,0"
-              End="0,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,30.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="177,42"
           Id="Package\Llenar Carga Incremental DimTipoVisita\OLE DB Destination"
@@ -1045,10 +988,6 @@ WHERE (VT.date_changed IS NOT NULL
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\Llenar Carga Incremental DimTipoVisita\OLE DB Command"
-          TopLeft="162,296" />
         <EdgeLayout
           Id="Package\Llenar Carga Incremental DimTipoVisita.Paths[Lookup Match Output]"
           TopLeft="347.333333333333,246">
@@ -1085,6 +1024,62 @@ WHERE (VT.date_changed IS NOT NULL
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimTipoVisita.Paths[Data Conversion Output]"
+          TopLeft="381,166">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimTipoVisita.Paths[Salida de origen de ADO NET]"
+          TopLeft="375,90">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.5,34"
+              Start="0,0"
+              End="8.5,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13"
+                    Point2="0,17"
+                    Point3="4,17" />
+                  <mssgle:LineSegment
+                    End="4.5,17" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.5,17"
+                    Point2="8.5,17"
+                    Point3="8.5,21" />
+                  <mssgle:LineSegment
+                    End="8.5,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -1102,7 +1097,7 @@ WHERE (VT.date_changed IS NOT NULL
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1112,7 +1107,7 @@ WHERE (VT.date_changed IS NOT NULL
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

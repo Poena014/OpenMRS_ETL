@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="7/30/2026 9:17:11 PM"
@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactDiagnosticosDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="123"
-  DTS:VersionGUID="{68E89B6F-37A3-4CED-8618-988E65CA7A1E}">
+  DTS:VersionBuild="124"
+  DTS:VersionGUID="{F3B3EA3D-AE98-4659-B586-510C24F26CA9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -68,8 +68,8 @@ LEFT JOIN (
 WHERE ed.voided = 0
   AND ed.diagnosis_coded IS NOT NULL
   AND (
-    vt.voided = 0
-    AND vt.date_stopped &gt; '2026-10-01' AND vt.date_stopped &lt;= NOW()
+  	vt.voided = 0 
+  	AND vt.date_stopped &gt; '2026-10-01' AND vt.date_stopped &lt;= NOW() 
 );</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
@@ -156,7 +156,7 @@ where [refTable].[EnfermedadId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\31:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\233:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -464,7 +464,7 @@ where [refTable].[Fecha] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\36:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\234:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -1154,12 +1154,6 @@ where [refTable].[DireccionId] = ?</property>
                       cachedName="PacienteId"
                       externalMetadataColumnId="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
                       lineageId="Package\Llenar FactDiagnosticos Incremental\Obtener MariaDB FactDiagnosticos Incremental.Outputs[Salida de origen de ADO NET].Columns[PacienteId]" />
-                    <inputColumn
-                      refId="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of DiagnosticoKey]"
-                      cachedDataType="i4"
-                      cachedName="Copy of DiagnosticoKey"
-                      externalMetadataColumnId="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoOrigenId]"
-                      lineageId="Package\Llenar FactDiagnosticos Incremental\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of DiagnosticoKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1171,10 +1165,6 @@ where [refTable].[DireccionId] = ?</property>
                       refId="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoKey]"
                       dataType="i4"
                       name="DiagnosticoKey" />
-                    <externalMetadataColumn
-                      refId="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoOrigenId]"
-                      dataType="i4"
-                      name="DiagnosticoOrigenId" />
                     <externalMetadataColumn
                       refId="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
                       dataType="i4"
@@ -1298,8 +1288,8 @@ LEFT JOIN (
 WHERE ed.voided = 0
   AND ed.diagnosis_coded IS NOT NULL
   AND (
-    vt.voided = 0
-    AND vt.date_stopped &gt; '2026-10-01' AND vt.date_stopped &lt;= NOW()
+  	vt.voided = 0 
+  	AND vt.date_stopped &gt; '2026-10-01' AND vt.date_stopped &lt;= NOW() 
 );</property>
                 <property
                   dataType="System.Int32"
@@ -1629,13 +1619,13 @@ WHERE ed.voided = 0
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="252,42"
-          Id="Package\Obtener Fecha de Ultima Ejecucion"
-          TopLeft="389,134" />
-        <NodeLayout
           Size="258,42"
           Id="Package\Llenar FactDiagnosticos Incremental"
           TopLeft="387,299" />
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Obtener Fecha de Ultima Ejecucion"
+          TopLeft="389,134" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="515.5,176">
@@ -1667,13 +1657,33 @@ WHERE ed.voided = 0
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="180,42"
+          Id="Package\Llenar FactDiagnosticos Incremental\Conversión de datos"
+          TopLeft="356,206" />
+        <NodeLayout
           Size="312,42"
           Id="Package\Llenar FactDiagnosticos Incremental\Obtener MariaDB FactDiagnosticos Incremental"
           TopLeft="285,100" />
         <NodeLayout
-          Size="180,42"
-          Id="Package\Llenar FactDiagnosticos Incremental\Conversión de datos"
-          TopLeft="356,206" />
+          Size="265,42"
+          Id="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer"
+          TopLeft="865,597" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Paciente"
+          TopLeft="472,368" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Ubicacion"
+          TopLeft="575,452" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Enfermedad"
+          TopLeft="354,291" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Tiempo"
+          TopLeft="698,530" />
         <EdgeLayout
           Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de origen de ADO NET]"
           TopLeft="443.5,142">
@@ -1696,95 +1706,39 @@ WHERE ed.voided = 0
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="265,42"
-          Id="Package\Llenar FactDiagnosticos Incremental\Llenar Datos Diagnosticos SQLServer"
-          TopLeft="865,597" />
-        <NodeLayout
-          Size="159,42"
-          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Paciente"
-          TopLeft="472,368" />
-        <NodeLayout
-          Size="165,42"
-          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Ubicacion"
-          TopLeft="575,452" />
-        <NodeLayout
-          Size="176,42"
-          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Enfermedad"
-          TopLeft="354,291" />
-        <NodeLayout
-          Size="153,42"
-          Id="Package\Llenar FactDiagnosticos Incremental\Buscar Tiempo"
-          TopLeft="698,530" />
         <EdgeLayout
-          Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de entradas coincidentes de búsqueda]"
-          TopLeft="657.5,494">
+          Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de entradas coincidentes de búsqueda3]"
+          TopLeft="774.5,572">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="117,36"
+              EndConnector="223,25"
               Start="0,0"
-              End="117,28.5">
+              End="223,17.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14" />
+                    End="0,8.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,14"
-                    Point2="0,18"
-                    Point3="4,18" />
+                    Point1="0,8.5"
+                    Point2="0,12.5"
+                    Point3="4,12.5" />
                   <mssgle:LineSegment
-                    End="113,18" />
+                    End="219,12.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="113,18"
-                    Point2="117,18"
-                    Point3="117,22" />
+                    Point1="219,12.5"
+                    Point2="223,12.5"
+                    Point3="223,16.5" />
                   <mssgle:LineSegment
-                    End="117,28.5" />
+                    End="223,17.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-41.3190234375,23,199.638046875,12.1953125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de entradas coincidentes de búsqueda1]"
-          TopLeft="551.5,410">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="106,42"
-              Start="0,0"
-              End="106,34.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,17" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,17"
-                    Point2="0,21"
-                    Point3="4,21" />
-                  <mssgle:LineSegment
-                    End="102,21" />
-                  <mssgle:CubicBezierSegment
-                    Point1="102,21"
-                    Point2="106,21"
-                    Point3="106,25" />
-                  <mssgle:LineSegment
-                    End="106,34.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-55.50701171875,26,217.0140234375,16"
+              BoundingBox="11.6809765625,17.5,199.638046875,12.1953125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1825,38 +1779,74 @@ WHERE ed.voided = 0
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de entradas coincidentes de búsqueda3]"
-          TopLeft="774.5,572">
+          Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="551.5,410">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="223,25"
+              EndConnector="106,42"
               Start="0,0"
-              End="223,17.5">
+              End="106,34.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,8.5" />
+                    End="0,17" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,8.5"
-                    Point2="0,12.5"
-                    Point3="4,12.5" />
+                    Point1="0,17"
+                    Point2="0,21"
+                    Point3="4,21" />
                   <mssgle:LineSegment
-                    End="219,12.5" />
+                    End="102,21" />
                   <mssgle:CubicBezierSegment
-                    Point1="219,12.5"
-                    Point2="223,12.5"
-                    Point3="223,16.5" />
+                    Point1="102,21"
+                    Point2="106,21"
+                    Point3="106,25" />
                   <mssgle:LineSegment
-                    End="223,17.5" />
+                    End="106,34.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="11.6809765625,17.5,199.638046875,12.1953125"
+              BoundingBox="-55.50701171875,26,217.0140234375,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Llenar FactDiagnosticos Incremental.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="657.5,494">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117,36"
+              Start="0,0"
+              End="117,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="4,18" />
+                  <mssgle:LineSegment
+                    End="113,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113,18"
+                    Point2="117,18"
+                    Point3="117,22" />
+                  <mssgle:LineSegment
+                    End="117,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-41.3190234375,23,199.638046875,12.1953125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1899,7 +1889,7 @@ WHERE ed.voided = 0
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1909,7 +1899,7 @@ WHERE ed.voided = 0
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1922,7 +1912,7 @@ WHERE ed.voided = 0
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

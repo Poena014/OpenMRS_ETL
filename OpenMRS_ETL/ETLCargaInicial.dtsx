@@ -11,12 +11,29 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="23"
-  DTS:VersionGUID="{565E4098-2FEC-4DB6-893F-4418F9DAB5D1}">
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{27561E3B-146B-4BC7-9A9F-924446F108BD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\ActualizarUltimaEjecucion"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tarea Ejecutar paquete"
+      DTS:DTSID="{7A4993C2-3394-461C-AA2C-8D2E05BE337A}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ActualizarUltimaEjecucion"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>ActualizarParametroTiempo.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\DimSigVitales Inicial"
       DTS:CreationName="Microsoft.ExecutePackageTask"
@@ -297,6 +314,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción 12"
       DTS:To="Package\FactVitales Iniciales" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 13]"
+      DTS:CreationName=""
+      DTS:DTSID="{13F4C491-FC99-4680-ADF1-BD1CBC50CDA2}"
+      DTS:From="Package\FactVitales Iniciales"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 13"
+      DTS:To="Package\ActualizarUltimaEjecucion" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
       DTS:CreationName=""
@@ -720,6 +745,32 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,-50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="207,42"
+          Id="Package\ActualizarUltimaEjecucion"
+          TopLeft="735,393" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 13]"
+          TopLeft="835.25,323">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70"
+              Start="0,0"
+              End="0,62.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,62.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

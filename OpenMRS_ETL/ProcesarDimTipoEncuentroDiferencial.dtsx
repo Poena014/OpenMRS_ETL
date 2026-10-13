@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimTipoEncuentroDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="218"
-  DTS:VersionGUID="{FCA5248B-7A7C-4B4E-8A23-4E0D9780EEE5}">
+  DTS:VersionBuild="227"
+  DTS:VersionGUID="{63481C47-C50A-423D-B880-A008410B6481}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,70 +23,33 @@
       DTS:ObjectName="MySQL_Origen.root">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;">
-          <DTS:Password
-            DTS:Name="pwd"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxasZaBYrOE2DvwLdDs7TUQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB37FWjuxN+PdDRl3rkOAPFho8aZb3G1l2HXFdADcyCVgAAAAAOgAAAAAIAACAAAAAa6DfB+rrfuH9U4/W7kcj6wWQKoMiMvpaL3mpEE5UsMBAAAADvTFT5o7fzLRYt7KayFc8FQAAAADKjT4FKwKXTRMH5e8gMJB/t24dKXR0EEXBWrDtfAx9w8SDy7fNJkToFadjyZixh7I9CE7Vnbno4ixuNt2zuOfA</DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
-      DTS:DTSID="{73E31C78-BFA1-4680-942A-417488BDE57E}"
-      DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;SELECT&#xA;p.provider_id providerId,&#xA;p.person_id personId,&#xA;UPPER(&#xA;&#x9;COALESCE(&#xA;&#x9;&#x9;NULLIF(TRIM(p.name), ''),&#xA;&#x9;&#x9;NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),&#xA;&#x9;&#x9;'N/A'&#xA;&#x9;)&#xA;) nombreCompleto,&#xA;IFNULL(p.identifier, 'N/A') identificador,&#xA;p.retired estaRetirado,&#xA;p.date_created fechaCreacion,&#xA;p.date_retired fechaRetiro,&#xA;NOW() fechaProceso&#xA;FROM openmrs.provider p&#xA;LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id&#xA;&#x9;AND pn.voided = 0&#xA;&#x9;AND pn.preferred = 1&#xA;WHERE (p.date_changed IS NOT NULL &#xA;&#x9;  AND p.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()) &#xA;      OR (p.date_created IS NOT NULL &#xA;      AND p.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE())&#xA;ORDER BY p.provider_id ASC;&quot;"
-      DTS:IncludeInDebugDump="2345"
-      DTS:Namespace="User"
-      DTS:ObjectName="ConsultaMariaDB">
-      <DTS:VariableValue
-        DTS:DataType="8">SELECT
-p.provider_id providerId,
-p.person_id personId,
-UPPER(
-	COALESCE(
-		NULLIF(TRIM(p.name), ''),
-		NULLIF(TRIM(CONCAT_WS(' ', pn.given_name, pn.middle_name, pn.family_name, pn.family_name2)), ''),
-		'N/A'
-	)
-) nombreCompleto,
-IFNULL(p.identifier, 'N/A') identificador,
-p.retired estaRetirado,
-p.date_created fechaCreacion,
-p.date_retired fechaRetiro,
-NOW() fechaProceso
-FROM openmrs.provider p
-LEFT JOIN openmrs.person_name pn ON p.person_id = pn.person_id
-	AND pn.voided = 0
-	AND pn.preferred = 1
-WHERE (p.date_changed IS NOT NULL 
-	  AND p.date_changed BETWEEN '2026-10-01' AND CURDATE()) 
-      OR (p.date_created IS NOT NULL 
-      AND p.date_created BETWEEN '2026-10-01' AND CURDATE())
-ORDER BY p.provider_id ASC;</DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable
-      DTS:CreationName=""
       DTS:DTSID="{78BA3509-8FE9-4C08-B99A-98B4EA783326}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;SELECT&#xA;et.encounterTypeId, et.nombre,CAST(et.descripcion AS CHAR(500) CHARACTER SET utf8mb4) AS descripcion,&#xA;et.estaRetirado,&#xA;et.fechaCreacion,&#xA;et.fechaRetiro,et.fechaProceso&#xA;FROM openmrs.vw_encounter_type_etl et&#xA;WHERE (et.date_changed IS NOT NULL &#xA;&#x9;  AND et.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND NOW()) &#xA;      OR (et.date_created IS NOT NULL &#xA;      AND et.date_created BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND NOW())&#xA;ORDER BY et.encounterTypeId ASC;&quot;"
+      DTS:Expression="&quot;&#xA;SELECT&#xA;et.encounter_type_id encounterTypeId,&#xA;UPPER(et.name) nombre,&#xA;IFNULL(UPPER(et.description), 'N/A') descripcion,&#xA;et.retired estaRetirado,&#xA;et.date_created fechaCreacion,&#xA;et.date_retired fechaRetiro,&#xA;NOW() fechaProceso&#xA;FROM encounter_type et&#xA;WHERE et.date_changed BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;OR et.date_created  BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;;&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaTipoEncuentroIncremental">
       <DTS:VariableValue
-        DTS:DataType="8">SELECT
-et.encounterTypeId, et.nombre,CAST(et.descripcion AS CHAR(500) CHARACTER SET utf8mb4) AS descripcion,
-et.estaRetirado,
-et.fechaCreacion,
-et.fechaRetiro,et.fechaProceso
-FROM openmrs.vw_encounter_type_etl et
-WHERE (et.date_changed IS NOT NULL 
-	  AND et.date_changed BETWEEN '2026-10-01' AND NOW()) 
-      OR (et.date_created IS NOT NULL 
-      AND et.date_created BETWEEN '2026-10-01' AND NOW())
-ORDER BY et.encounterTypeId ASC;</DTS:VariableValue>
+        DTS:DataType="8">
+SELECT
+et.encounter_type_id encounterTypeId,
+UPPER(et.name) nombre,
+IFNULL(UPPER(et.description), 'N/A') descripcion,
+et.retired estaRetirado,
+et.date_created fechaCreacion,
+et.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM encounter_type et
+WHERE et.date_changed BETWEEN '2026-10-01' AND CURDATE()
+OR et.date_created  BETWEEN '2026-10-01' AND CURDATE()
+;</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -159,7 +122,7 @@ ORDER BY et.encounterTypeId ASC;</DTS:VariableValue>
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Actualizar TipoEncuentro Incremental.Inputs[OLE DB Command Input].Columns[Copy of nombre]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="100"
+                      cachedLength="255"
                       cachedName="Copy of nombre"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Actualizar TipoEncuentro Incremental.Inputs[OLE DB Command Input].ExternalColumns[@Nombre]"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]" />
@@ -171,7 +134,7 @@ ORDER BY et.encounterTypeId ASC;</DTS:VariableValue>
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of encounterTypeId]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Actualizar TipoEncuentro Incremental.Inputs[OLE DB Command Input].Columns[Copy of estaRetirado]"
-                      cachedDataType="i2"
+                      cachedDataType="bool"
                       cachedName="Copy of estaRetirado"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Actualizar TipoEncuentro Incremental.Inputs[OLE DB Command Input].ExternalColumns[@EstaRetirado]"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]" />
@@ -356,7 +319,7 @@ where [refTable].[EncounterTypeId] = ?</property>
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -408,11 +371,11 @@ where [refTable].[EncounterTypeId] = ?</property>
                       <properties>
                         <property
                           dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
                           name="JoinToReferenceColumn">EncounterTypeId</property>
                         <property
                           dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
                           name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
@@ -424,7 +387,6 @@ where [refTable].[EncounterTypeId] = ?</property>
                 <output
                   refId="Package\Llenar Carga Incremental DimTipoEncuentro\Busqueda de DimTipoEncuentro.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\Llenar Carga Incremental DimTipoEncuentro\Busqueda de DimTipoEncuentro.Inputs[Lookup Input]">
@@ -498,18 +460,18 @@ where [refTable].[EncounterTypeId] = ?</property>
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input].Columns[nombre]"
                       cachedDataType="wstr"
-                      cachedLength="100"
+                      cachedLength="50"
                       cachedName="nombre"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombre]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input].Columns[descripcion]"
                       cachedDataType="wstr"
-                      cachedLength="1000"
+                      cachedLength="500"
                       cachedName="descripcion"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[descripcion]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Inputs[Data Conversion Input].Columns[estaRetirado]"
-                      cachedDataType="i2"
+                      cachedDataType="bool"
                       cachedName="estaRetirado"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]" />
                     <inputColumn
@@ -541,7 +503,7 @@ where [refTable].[EncounterTypeId] = ?</property>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of encounterTypeId]"
                       dataType="i4"
-                      errorOrTruncationOperation="Conversion"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of encounterTypeId]"
                       name="Copy of encounterTypeId"
@@ -550,11 +512,11 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[encounterTypeId]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
@@ -562,9 +524,9 @@ where [refTable].[EncounterTypeId] = ?</property>
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]"
                       codePage="1252"
                       dataType="str"
-                      errorOrTruncationOperation="Conversion"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      length="100"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]"
                       name="Copy of nombre"
                       truncationRowDisposition="FailComponent">
@@ -572,11 +534,11 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombre]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
@@ -584,7 +546,7 @@ where [refTable].[EncounterTypeId] = ?</property>
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of descripcion]"
                       codePage="1252"
                       dataType="str"
-                      errorOrTruncationOperation="Conversion"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       length="500"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of descripcion]"
@@ -594,18 +556,18 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[descripcion]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
-                      dataType="i2"
-                      errorOrTruncationOperation="Conversion"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]"
                       name="Copy of estaRetirado"
@@ -614,18 +576,18 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of fechaCreacion]"
                       dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversion"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of fechaCreacion]"
                       name="Copy of fechaCreacion"
@@ -634,18 +596,18 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaCreacion]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of fechaRetiro]"
                       dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversion"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of fechaRetiro]"
                       name="Copy of fechaRetiro"
@@ -654,18 +616,18 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaRetiro]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of fechaProceso]"
                       dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Conversion"
+                      errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of fechaProceso]"
                       name="Copy of fechaProceso"
@@ -674,11 +636,11 @@ where [refTable].[EncounterTypeId] = ?</property>
                         <property
                           containsID="true"
                           dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
                           name="SourceInputColumnLineageID">#{Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[fechaProceso]}</property>
                         <property
                           dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
                           name="FastParse">false</property>
                       </properties>
                     </outputColumn>
@@ -759,11 +721,11 @@ where [refTable].[EncounterTypeId] = ?</property>
                 <property
                   dataType="System.String"
                   description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
-                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  name="FastLoadMaxInsertCommitSize">1000</property>
               </properties>
               <connections>
                 <connection
@@ -791,13 +753,13 @@ where [refTable].[EncounterTypeId] = ?</property>
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Nuevo DimTipoEncuentro Incremental.Inputs[OLE DB Destination Input].Columns[Copy of nombre]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="100"
+                      cachedLength="255"
                       cachedName="Copy of nombre"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Nuevo DimTipoEncuentro Incremental.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of nombre]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Nuevo DimTipoEncuentro Incremental.Inputs[OLE DB Destination Input].Columns[Copy of estaRetirado]"
-                      cachedDataType="i2"
+                      cachedDataType="bool"
                       cachedName="Copy of estaRetirado"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Nuevo DimTipoEncuentro Incremental.Inputs[OLE DB Destination Input].ExternalColumns[EstaRetirado]"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of estaRetirado]" />
@@ -908,17 +870,19 @@ where [refTable].[EncounterTypeId] = ?</property>
                   description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
-et.encounterTypeId, et.nombre,CAST(et.descripcion AS CHAR(500) CHARACTER SET utf8mb4) AS descripcion,
-et.estaRetirado,
-et.fechaCreacion,
-et.fechaRetiro,et.fechaProceso
-FROM openmrs.vw_encounter_type_etl et
-WHERE (et.date_changed IS NOT NULL 
-	  AND et.date_changed BETWEEN '2026-10-01' AND NOW()) 
-      OR (et.date_created IS NOT NULL 
-      AND et.date_created BETWEEN '2026-10-01' AND NOW())
-ORDER BY et.encounterTypeId ASC;</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">
+SELECT
+et.encounter_type_id encounterTypeId,
+UPPER(et.name) nombre,
+IFNULL(UPPER(et.description), 'N/A') descripcion,
+et.retired estaRetirado,
+et.date_created fechaCreacion,
+et.date_retired fechaRetiro,
+NOW() fechaProceso
+FROM encounter_type et
+WHERE et.date_changed BETWEEN '2026-10-01' AND CURDATE()
+OR et.date_created  BETWEEN '2026-10-01' AND CURDATE()
+;</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
@@ -945,8 +909,8 @@ ORDER BY et.encounterTypeId ASC;</property>
               <connections>
                 <connection
                   refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Connections[IDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[MySQL_Origen.root]"
-                  connectionManagerRefId="Package.ConnectionManagers[MySQL_Origen.root]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
                   description="Administrador de conexiones administrado"
                   name="IDbConnection" />
               </connections>
@@ -970,7 +934,7 @@ ORDER BY et.encounterTypeId ASC;</property>
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[nombre]"
-                      length="100"
+                      length="50"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombre]"
                       name="nombre"
                       truncationRowDisposition="FailComponent" />
@@ -980,13 +944,13 @@ ORDER BY et.encounterTypeId ASC;</property>
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[descripcion]"
-                      length="1000"
+                      length="500"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[descripcion]"
                       name="descripcion"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
-                      dataType="i2"
+                      dataType="bool"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
@@ -1030,16 +994,15 @@ ORDER BY et.encounterTypeId ASC;</property>
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[nombre]"
                       dataType="wstr"
-                      length="100"
+                      length="50"
                       name="nombre" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[descripcion]"
-                      dataType="wstr"
-                      length="1000"
+                      dataType="nText"
                       name="descripcion" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
-                      dataType="i2"
+                      dataType="bool"
                       name="estaRetirado" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
@@ -1068,18 +1031,17 @@ ORDER BY et.encounterTypeId ASC;</property>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[nombre]"
                       dataType="wstr"
-                      length="100"
+                      length="50"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[nombre]"
                       name="nombre" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[descripcion]"
-                      dataType="wstr"
-                      length="1000"
+                      dataType="nText"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[descripcion]"
                       name="descripcion" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
-                      dataType="i2"
+                      dataType="bool"
                       lineageId="Package\Llenar Carga Incremental DimTipoEncuentro\Obtener DimTipoEncuentro Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
                       name="estaRetirado" />
                     <outputColumn
@@ -1244,6 +1206,28 @@ ORDER BY et.encounterTypeId ASC;</property>
           Id="Package\Llenar Carga Incremental DimTipoEncuentro\Actualizar TipoEncuentro Incremental"
           TopLeft="128,277" />
         <EdgeLayout
+          Id="Package\Llenar Carga Incremental DimTipoEncuentro.Paths[Salida de origen de ADO NET]"
+          TopLeft="407.5,55">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\Llenar Carga Incremental DimTipoEncuentro.Paths[Lookup No Match Output]"
           TopLeft="445.333333333333,229">
           <EdgeLayout.Curve>
@@ -1329,28 +1313,6 @@ ORDER BY et.encounterTypeId ASC;</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,51.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Llenar Carga Incremental DimTipoEncuentro.Paths[Salida de origen de ADO NET]"
-          TopLeft="407.5,55">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,31"
-              Start="0,0"
-              End="0,23.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,23.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

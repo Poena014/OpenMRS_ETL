@@ -94,5 +94,6 @@ LEFT JOIN (
 WHERE ed.voided = 0
   AND ed.diagnosis_coded IS NOT NULL
   AND vt.voided = 0
+  AND vt.date_stopped IS NOT NULL
   AND vt.date_stopped > '" + @[User::FechaUltimaEjecucion] + "'
-  AND vt.date_stopped <= NOW();"
+  AND vt.date_stopped <= CURDATE();"

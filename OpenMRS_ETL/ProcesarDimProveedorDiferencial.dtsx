@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimProveedorDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="161"
-  DTS:VersionGUID="{A27DD747-9BD0-491D-9765-846386B70B82}">
+  DTS:VersionBuild="162"
+  DTS:VersionGUID="{840D8AA3-04BF-4C77-866E-98D860D29157}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,12 +23,7 @@
       DTS:ObjectName="MySQL_Origen.root">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;">
-          <DTS:Password
-            DTS:Name="pwd"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxasZaBYrOE2DvwLdDs7TUQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADVSWSpS1wMcKplABMdqqk90l9UdHQwVl2KSgXv90cQ5gAAAAAOgAAAAAIAACAAAAA4HKzFw8tbY5N9L27bcJDIcGhoDyXDbDA+llLmqYcTThAAAAAO3drlsrmM0ajvIN7/M8NWQAAAAP9lWTmdb8bfiK8Mo1vEiN7ONNOYzY30rV2WendoiJv5Q27BKZYsWXq813uDLi0h/OOqHmicOaChuambWMM6eUs</DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -533,18 +528,18 @@ where [refTable].[ProviderId] = ?</property>
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[nombreCompleto]"
                       cachedDataType="wstr"
-                      cachedLength="510"
+                      cachedLength="255"
                       cachedName="nombreCompleto"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[identificador]"
                       cachedDataType="wstr"
-                      cachedLength="510"
+                      cachedLength="255"
                       cachedName="identificador"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[identificador]" />
                     <inputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Conversión de datos.Inputs[Data Conversion Input].Columns[estaRetirado]"
-                      cachedDataType="i2"
+                      cachedDataType="bool"
                       cachedName="estaRetirado"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]" />
                     <inputColumn
@@ -1023,8 +1018,8 @@ ORDER BY p.provider_id ASC;</property>
               <connections>
                 <connection
                   refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Connections[IDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[MySQL_Origen.root]"
-                  connectionManagerRefId="Package.ConnectionManagers[MySQL_Origen.root]"
+                  connectionManagerID="{C41D271F-15A2-42F9-9B9F-14241C35D875}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ConexionMariaDB]"
                   description="Administrador de conexiones administrado"
                   name="IDbConnection" />
               </connections>
@@ -1057,7 +1052,7 @@ ORDER BY p.provider_id ASC;</property>
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[nombreCompleto]"
-                      length="510"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[nombreCompleto]"
                       name="nombreCompleto"
                       truncationRowDisposition="FailComponent" />
@@ -1067,13 +1062,13 @@ ORDER BY p.provider_id ASC;</property>
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[identificador]"
-                      length="510"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[identificador]"
                       name="identificador"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].Columns[estaRetirado]"
-                      dataType="i2"
+                      dataType="bool"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
@@ -1121,16 +1116,16 @@ ORDER BY p.provider_id ASC;</property>
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[nombreCompleto]"
                       dataType="wstr"
-                      length="510"
+                      length="255"
                       name="nombreCompleto" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[identificador]"
                       dataType="wstr"
-                      length="510"
+                      length="255"
                       name="identificador" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[estaRetirado]"
-                      dataType="i2"
+                      dataType="bool"
                       name="estaRetirado" />
                     <externalMetadataColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de origen de ADO NET].ExternalColumns[fechaCreacion]"
@@ -1164,18 +1159,18 @@ ORDER BY p.provider_id ASC;</property>
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[nombreCompleto]"
                       dataType="wstr"
-                      length="510"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[nombreCompleto]"
                       name="nombreCompleto" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[identificador]"
                       dataType="wstr"
-                      length="510"
+                      length="255"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[identificador]"
                       name="identificador" />
                     <outputColumn
                       refId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
-                      dataType="i2"
+                      dataType="bool"
                       lineageId="Package\Llenar Carga Incremental DimProveedor\Obtener DimProveedor Incremental MariaDB.Outputs[Salida de error de origen de ADO NET].Columns[estaRetirado]"
                       name="estaRetirado" />
                     <outputColumn
@@ -1393,7 +1388,7 @@ ORDER BY p.provider_id ASC;</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="13.5749609375,24.8368580060423,129.350078125,16"
+              BoundingBox="13.5749609375,24.8368580060423,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1429,7 +1424,7 @@ ORDER BY p.provider_id ASC;</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-129.5600390625,22.4078549848943,114.120078125,16"
+              BoundingBox="-129.5600390625,22.4078549848943,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1452,9 +1447,7 @@ ORDER BY p.provider_id ASC;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-8,10.25,16,16"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

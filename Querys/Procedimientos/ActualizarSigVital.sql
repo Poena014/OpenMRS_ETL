@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER PROCEDURE [dbo].[ActualizarSigVital](
+CREATE OR ALTER PROCEDURE dbo.ActualizarSigVital (
     @SignoVitalId INT,
     @Nombre VARCHAR(50),
 	@Unidad VARCHAR(500),

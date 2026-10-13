@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactVitalesDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="150"
-  DTS:VersionGUID="{C76C8D01-18A2-4EE7-BA9C-A4565B97E4C6}">
+  DTS:VersionBuild="152"
+  DTS:VersionGUID="{D815304E-1AD3-4FBD-8615-7096D4AA6EFC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -68,7 +68,6 @@ WHERE o.voided = 0
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{A9D58750-99B3-4D92-AD29-5CDF801086CC}"
-      DTS:EvaluateAsExpression="True"
       DTS:Expression="@[User::IdConceptos]"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
@@ -469,7 +468,7 @@ where [refTable].[LocalId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactVitales\423:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactVitales\349:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -761,7 +760,7 @@ where [refTable].[ProviderId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactVitales\424:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactVitales\350:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -907,7 +906,7 @@ where [refTable].[SignoVitalId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactVitales\425:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactVitales\351:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -1795,6 +1794,7 @@ WHERE o.voided = 0
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{94A8D0C1-DE89-41D6-AE9D-F4056555D505}"
+          SQLTask:TimeOut="60"
           SQLTask:SqlStatementSource="Exec dbo.ObtenerSignosVitales"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -1861,13 +1861,13 @@ WHERE o.voided = 0
           Id="Package\Llenar FactVitales"
           TopLeft="191,266" />
         <NodeLayout
-          Size="252,42"
-          Id="Package\Obtener Fecha de Ultima Ejecucion"
-          TopLeft="143,92" />
-        <NodeLayout
           Size="207,42"
           Id="Package\Obtener ConceptosVitales"
           TopLeft="171,171" />
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Obtener Fecha de Ultima Ejecucion"
+          TopLeft="143,92" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="271.75,134">
@@ -2326,7 +2326,7 @@ WHERE o.voided = 0
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2336,7 +2336,7 @@ WHERE o.voided = 0
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER PROCEDURE [dbo].[ActualizarTipoEncuentro](
+CREATE OR ALTER PROCEDURE dbo.ActualizarTipoEncuentro (
     @EncounterTypeId INT,
     @Nombre VARCHAR(50),
 	@Descripcion VARCHAR(500),

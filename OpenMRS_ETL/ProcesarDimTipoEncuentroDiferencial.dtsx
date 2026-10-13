@@ -11,22 +11,10 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimTipoEncuentroDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="227"
-  DTS:VersionGUID="{63481C47-C50A-423D-B880-A008410B6481}">
+  DTS:VersionBuild="228"
+  DTS:VersionGUID="{3E1A6D3A-0854-4F86-B4FC-695CE64D1F49}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[MySQL_Origen.root]"
-      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
-      DTS:DTSID="{4DEBF194-A22F-4B23-9397-480F8D2A7E8B}"
-      DTS:ObjectName="MySQL_Origen.root">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
@@ -340,7 +328,7 @@ where [refTable].[EncounterTypeId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Llenar Carga Incremental DimTipoEncuentro\161:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar Carga Incremental DimTipoEncuentro\348:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1224,7 +1212,9 @@ OR et.date_created  BETWEEN '2026-10-01' AND CURDATE()
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1318,7 +1308,9 @@ OR et.date_created  BETWEEN '2026-10-01' AND CURDATE()
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

@@ -11,22 +11,10 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarDimProveedorDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="162"
-  DTS:VersionGUID="{840D8AA3-04BF-4C77-866E-98D860D29157}">
+  DTS:VersionBuild="163"
+  DTS:VersionGUID="{9DDE0DB4-733C-49D8-A769-E2D33A55C4A4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[MySQL_Origen.root]"
-      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
-      DTS:DTSID="{180D024B-C374-4BD6-805E-DC8B460A96FD}"
-      DTS:ObjectName="MySQL_Origen.root">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="uid=root;Dsn=MySQL_Origen;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
@@ -1353,7 +1341,9 @@ ORDER BY p.provider_id ASC;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1447,7 +1437,9 @@ ORDER BY p.provider_id ASC;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

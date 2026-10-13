@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactDiagnosticosDiferencial"
   DTS:PackageType="5"
-  DTS:VersionBuild="124"
-  DTS:VersionGUID="{F3B3EA3D-AE98-4659-B586-510C24F26CA9}">
+  DTS:VersionBuild="128"
+  DTS:VersionGUID="{E3334224-C4EA-4EB2-AB0D-82548D969DFA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -20,57 +20,56 @@
       DTS:CreationName=""
       DTS:DTSID="{59A11B55-46F8-49C7-9F1C-1A533D391CC5}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;&#xA;SELECT&#xA;  COALESCE(ed.encounter_diagnosis_id, 0) AS DiagnosticoKey,&#xA;  COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,&#xA;  COALESCE(vt.patient_id, 0) AS PacienteId,&#xA;  COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,&#xA;  CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,&#xA;  COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,&#xA;  COALESCE(vit.temperatura, 0) AS temperatura,&#xA;  COALESCE(vit.peso, 0) AS peso,&#xA;  COALESCE(vit.altura, 0) AS altura,&#xA;  CASE WHEN EXISTS (SELECT 1&#xA;   FROM encounter_diagnosis ed2&#xA;   JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id&#xA;   JOIN visit v2 ON v2.visit_id = e2.visit_id&#xA;   WHERE ed2.voided = 0 AND e2.voided = 0&#xA;     AND v2.patient_id = vt.patient_id&#xA;     AND ed2.diagnosis_coded = ed.diagnosis_coded&#xA;     AND ed2.encounter_diagnosis_id &lt; ed.encounter_diagnosis_id) THEN 1 ELSE 0 END AS veces_previas&#xA;FROM encounter_diagnosis ed&#xA;JOIN encounter e&#xA;  ON e.encounter_id = ed.encounter_id AND e.voided = 0&#xA;JOIN visit vt&#xA;  ON vt.visit_id = e.visit_id&#xA;JOIN person p&#xA;  ON p.person_id = vt.patient_id&#xA;LEFT JOIN person_address pa&#xA;  ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1&#xA;LEFT JOIN (&#xA;    SELECT e.visit_id,&#xA;           MAX(o_temp.value_numeric)  AS temperatura,&#xA;           MAX(o_peso.value_numeric)  AS peso,&#xA;           MAX(o_talla.value_numeric) AS altura&#xA;    FROM encounter e&#xA;    LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0&#xA;    LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0&#xA;    LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0&#xA;    WHERE e.encounter_type = 5 AND e.voided = 0&#xA;    GROUP BY e.visit_id&#xA;) vit ON vit.visit_id = vt.visit_id&#xA;WHERE ed.voided = 0&#xA;  AND ed.diagnosis_coded IS NOT NULL&#xA;  AND (&#xA;  &#x9;vt.voided = 0 &#xA;  &#x9;AND vt.date_stopped &gt; '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND vt.date_stopped &lt;= NOW() &#xA;);&quot;"
+      DTS:Expression="&quot;&#xA;  SELECT&#xA;    COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,&#xA;    COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,&#xA;    COALESCE(vt.patient_id, 0) AS PacienteId,&#xA;    COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,&#xA;    CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,&#xA;    COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,&#xA;    COALESCE(vit.temperatura, 0) AS temperatura,&#xA;    COALESCE(vit.peso, 0) AS peso,&#xA;    COALESCE(vit.altura, 0) AS altura,&#xA;    (SELECT COUNT(*)&#xA;    FROM encounter_diagnosis ed2&#xA;    JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id&#xA;    JOIN visit v2 ON v2.visit_id = e2.visit_id&#xA;    WHERE ed2.voided = 0 AND e2.voided = 0&#xA;      AND v2.patient_id = vt.patient_id&#xA;      AND ed2.diagnosis_coded = ed.diagnosis_coded&#xA;      AND v2.date_started &lt;= vt.date_started) AS veces_previas&#xA;  FROM encounter_diagnosis ed&#xA;  JOIN encounter e&#xA;    ON e.encounter_id = ed.encounter_id AND e.voided = 0&#xA;  JOIN visit vt&#xA;    ON vt.visit_id = e.visit_id&#xA;  JOIN person p&#xA;    ON p.person_id = vt.patient_id&#xA;  LEFT JOIN person_address pa&#xA;    ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1&#xA;  LEFT JOIN (&#xA;      SELECT e.visit_id,&#xA;            MAX(o_temp.value_numeric)  AS temperatura,&#xA;            MAX(o_peso.value_numeric)  AS peso,&#xA;            MAX(o_talla.value_numeric) AS altura&#xA;      FROM encounter e&#xA;      LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0&#xA;      LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0&#xA;      LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0&#xA;      WHERE e.encounter_type = 5 AND e.voided = 0&#xA;      GROUP BY e.visit_id&#xA;  ) vit ON vit.visit_id = vt.visit_id&#xA;  WHERE ed.voided = 0&#xA;    AND ed.diagnosis_coded IS NOT NULL&#xA;    AND (&#xA;      vt.date_stopped BETWEEN '&quot; + @[User::FechaUltimaEjecucion] + &quot;' AND CURDATE()&#xA;  );&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaFacDiagnosticosDiferencial">
       <DTS:VariableValue
         DTS:DataType="8">
-SELECT
-  COALESCE(ed.encounter_diagnosis_id, 0) AS DiagnosticoKey,
-  COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
-  COALESCE(vt.patient_id, 0) AS PacienteId,
-  COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
-  CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,
-  COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,
-  COALESCE(vit.temperatura, 0) AS temperatura,
-  COALESCE(vit.peso, 0) AS peso,
-  COALESCE(vit.altura, 0) AS altura,
-  CASE WHEN EXISTS (SELECT 1
-   FROM encounter_diagnosis ed2
-   JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
-   JOIN visit v2 ON v2.visit_id = e2.visit_id
-   WHERE ed2.voided = 0 AND e2.voided = 0
-     AND v2.patient_id = vt.patient_id
-     AND ed2.diagnosis_coded = ed.diagnosis_coded
-     AND ed2.encounter_diagnosis_id &lt; ed.encounter_diagnosis_id) THEN 1 ELSE 0 END AS veces_previas
-FROM encounter_diagnosis ed
-JOIN encounter e
-  ON e.encounter_id = ed.encounter_id AND e.voided = 0
-JOIN visit vt
-  ON vt.visit_id = e.visit_id
-JOIN person p
-  ON p.person_id = vt.patient_id
-LEFT JOIN person_address pa
-  ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1
-LEFT JOIN (
-    SELECT e.visit_id,
-           MAX(o_temp.value_numeric)  AS temperatura,
-           MAX(o_peso.value_numeric)  AS peso,
-           MAX(o_talla.value_numeric) AS altura
-    FROM encounter e
-    LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0
-    LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0
-    LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0
-    WHERE e.encounter_type = 5 AND e.voided = 0
-    GROUP BY e.visit_id
-) vit ON vit.visit_id = vt.visit_id
-WHERE ed.voided = 0
-  AND ed.diagnosis_coded IS NOT NULL
-  AND (
-  	vt.voided = 0 
-  	AND vt.date_stopped &gt; '2026-10-01' AND vt.date_stopped &lt;= NOW() 
-);</DTS:VariableValue>
+  SELECT
+    COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,
+    COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
+    COALESCE(vt.patient_id, 0) AS PacienteId,
+    COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
+    CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,
+    COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,
+    COALESCE(vit.temperatura, 0) AS temperatura,
+    COALESCE(vit.peso, 0) AS peso,
+    COALESCE(vit.altura, 0) AS altura,
+    (SELECT COUNT(*)
+    FROM encounter_diagnosis ed2
+    JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
+    JOIN visit v2 ON v2.visit_id = e2.visit_id
+    WHERE ed2.voided = 0 AND e2.voided = 0
+      AND v2.patient_id = vt.patient_id
+      AND ed2.diagnosis_coded = ed.diagnosis_coded
+      AND v2.date_started &lt;= vt.date_started) AS veces_previas
+  FROM encounter_diagnosis ed
+  JOIN encounter e
+    ON e.encounter_id = ed.encounter_id AND e.voided = 0
+  JOIN visit vt
+    ON vt.visit_id = e.visit_id
+  JOIN person p
+    ON p.person_id = vt.patient_id
+  LEFT JOIN person_address pa
+    ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1
+  LEFT JOIN (
+      SELECT e.visit_id,
+            MAX(o_temp.value_numeric)  AS temperatura,
+            MAX(o_peso.value_numeric)  AS peso,
+            MAX(o_talla.value_numeric) AS altura
+      FROM encounter e
+      LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0
+      LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0
+      LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0
+      WHERE e.encounter_type = 5 AND e.voided = 0
+      GROUP BY e.visit_id
+  ) vit ON vit.visit_id = vt.visit_id
+  WHERE ed.voided = 0
+    AND ed.diagnosis_coded IS NOT NULL
+    AND (
+      vt.date_stopped BETWEEN '2026-10-01' AND CURDATE()
+  );</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -156,7 +155,7 @@ where [refTable].[EnfermedadId] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\233:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\338:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -464,7 +463,7 @@ where [refTable].[Fecha] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
-                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\234:invalid};</property>
+                  name="ParameterMap">#{Package\Llenar FactDiagnosticos Incremental\339:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -1246,51 +1245,50 @@ where [refTable].[DireccionId] = ?</property>
                   expressionType="Notify"
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">
-SELECT
-  COALESCE(ed.encounter_diagnosis_id, 0) AS DiagnosticoKey,
-  COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
-  COALESCE(vt.patient_id, 0) AS PacienteId,
-  COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
-  CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,
-  COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,
-  COALESCE(vit.temperatura, 0) AS temperatura,
-  COALESCE(vit.peso, 0) AS peso,
-  COALESCE(vit.altura, 0) AS altura,
-  CASE WHEN EXISTS (SELECT 1
-   FROM encounter_diagnosis ed2
-   JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
-   JOIN visit v2 ON v2.visit_id = e2.visit_id
-   WHERE ed2.voided = 0 AND e2.voided = 0
-     AND v2.patient_id = vt.patient_id
-     AND ed2.diagnosis_coded = ed.diagnosis_coded
-     AND ed2.encounter_diagnosis_id &lt; ed.encounter_diagnosis_id) THEN 1 ELSE 0 END AS veces_previas
-FROM encounter_diagnosis ed
-JOIN encounter e
-  ON e.encounter_id = ed.encounter_id AND e.voided = 0
-JOIN visit vt
-  ON vt.visit_id = e.visit_id
-JOIN person p
-  ON p.person_id = vt.patient_id
-LEFT JOIN person_address pa
-  ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1
-LEFT JOIN (
-    SELECT e.visit_id,
-           MAX(o_temp.value_numeric)  AS temperatura,
-           MAX(o_peso.value_numeric)  AS peso,
-           MAX(o_talla.value_numeric) AS altura
-    FROM encounter e
-    LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0
-    LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0
-    LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0
-    WHERE e.encounter_type = 5 AND e.voided = 0
-    GROUP BY e.visit_id
-) vit ON vit.visit_id = vt.visit_id
-WHERE ed.voided = 0
-  AND ed.diagnosis_coded IS NOT NULL
-  AND (
-  	vt.voided = 0 
-  	AND vt.date_stopped &gt; '2026-10-01' AND vt.date_stopped &lt;= NOW() 
-);</property>
+  SELECT
+    COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,
+    COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
+    COALESCE(vt.patient_id, 0) AS PacienteId,
+    COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
+    CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,
+    COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,
+    COALESCE(vit.temperatura, 0) AS temperatura,
+    COALESCE(vit.peso, 0) AS peso,
+    COALESCE(vit.altura, 0) AS altura,
+    (SELECT COUNT(*)
+    FROM encounter_diagnosis ed2
+    JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
+    JOIN visit v2 ON v2.visit_id = e2.visit_id
+    WHERE ed2.voided = 0 AND e2.voided = 0
+      AND v2.patient_id = vt.patient_id
+      AND ed2.diagnosis_coded = ed.diagnosis_coded
+      AND v2.date_started &lt;= vt.date_started) AS veces_previas
+  FROM encounter_diagnosis ed
+  JOIN encounter e
+    ON e.encounter_id = ed.encounter_id AND e.voided = 0
+  JOIN visit vt
+    ON vt.visit_id = e.visit_id
+  JOIN person p
+    ON p.person_id = vt.patient_id
+  LEFT JOIN person_address pa
+    ON pa.person_id = p.person_id AND pa.voided = 0 AND pa.preferred = 1
+  LEFT JOIN (
+      SELECT e.visit_id,
+            MAX(o_temp.value_numeric)  AS temperatura,
+            MAX(o_peso.value_numeric)  AS peso,
+            MAX(o_talla.value_numeric) AS altura
+      FROM encounter e
+      LEFT JOIN obs o_temp  ON o_temp.encounter_id  = e.encounter_id AND o_temp.concept_id  = 4166 AND o_temp.voided  = 0
+      LEFT JOIN obs o_peso  ON o_peso.encounter_id  = e.encounter_id AND o_peso.concept_id  = 4168 AND o_peso.voided  = 0
+      LEFT JOIN obs o_talla ON o_talla.encounter_id = e.encounter_id AND o_talla.concept_id = 4167 AND o_talla.voided = 0
+      WHERE e.encounter_type = 5 AND e.voided = 0
+      GROUP BY e.visit_id
+  ) vit ON vit.visit_id = vt.visit_id
+  WHERE ed.voided = 0
+    AND ed.diagnosis_coded IS NOT NULL
+    AND (
+      vt.date_stopped BETWEEN '2026-10-01' AND CURDATE()
+  );</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."

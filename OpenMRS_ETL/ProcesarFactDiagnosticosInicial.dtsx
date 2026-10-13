@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ProcesarFactDiagnosticosInicial"
   DTS:PackageType="5"
-  DTS:VersionBuild="106"
-  DTS:VersionGUID="{5028A9B2-4117-4AC4-8C29-9BB2E8A64FC4}">
+  DTS:VersionBuild="107"
+  DTS:VersionGUID="{5E25FC00-BB60-4A1C-965F-08B0CCE0F5F0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -998,25 +998,23 @@ where [refTable].[DireccionId] = ?</property>
                   expressionType="Notify"
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
-  COALESCE(ed.encounter_diagnosis_id, 0) AS DiagnosticoKey,
+  COALESCE(ed.encounter_id, 0) AS DiagnosticoKey,
   COALESCE(ed.diagnosis_coded, 0) AS EnfermedadId,
   COALESCE(vt.patient_id, 0) AS PacienteId,
-  UPPER(IFNULL(NULLIF(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country), ''), 'N/A')) AS UbicacionId,
-  CAST(DATE(IFNULL(IFNULL(e.encounter_datetime, vt.date_started), '1900-01-01')) AS DATETIME) AS TiempoKey,
+  COALESCE(UPPER(CONCAT_WS(', ', pa.address1, pa.county_district, pa.city_village, pa.state_province, pa.country)), '') AS UbicacionId,
+  CAST(DATE(COALESCE(e.encounter_datetime, vt.date_started)) AS DATETIME) AS TiempoKey,
   COALESCE(TIMESTAMPDIFF(YEAR, p.birthdate, COALESCE(e.encounter_datetime, vt.date_started)), 0) AS edadSuceso,
   COALESCE(vit.temperatura, 0) AS temperatura,
   COALESCE(vit.peso, 0) AS peso,
   COALESCE(vit.altura, 0) AS altura,
-  CASE WHEN EXISTS (
-   SELECT 1
+  (SELECT COUNT(*)
    FROM encounter_diagnosis ed2
    JOIN encounter e2 ON e2.encounter_id = ed2.encounter_id
    JOIN visit v2 ON v2.visit_id = e2.visit_id
    WHERE ed2.voided = 0 AND e2.voided = 0
      AND v2.patient_id = vt.patient_id
      AND ed2.diagnosis_coded = ed.diagnosis_coded
-     AND ed2.encounter_diagnosis_id &lt; ed.encounter_diagnosis_id
-  ) THEN 1 ELSE 0 END AS veces_previas
+     AND v2.date_started &lt;= vt.date_started) AS veces_previas
 FROM encounter_diagnosis ed
 JOIN encounter e
   ON e.encounter_id = ed.encounter_id AND e.voided = 0
@@ -1040,9 +1038,7 @@ LEFT JOIN (
 ) vit ON vit.visit_id = vt.visit_id
 WHERE ed.voided = 0
   AND ed.diagnosis_coded IS NOT NULL
-  AND vt.voided = 0
-  AND vt.date_stopped IS NOT NULL
-ORDER BY vt.visit_id;</property>
+;</property>
                 <property
                   dataType="System.Int32"
                   description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
@@ -1421,12 +1417,6 @@ ORDER BY vt.visit_id;</property>
                       cachedName="PacienteId"
                       externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
                       lineageId="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb.Outputs[Salida de origen de ADO NET].Columns[PacienteId]" />
-                    <inputColumn
-                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].Columns[Copy of DiagnosticoKey]"
-                      cachedDataType="i4"
-                      cachedName="Copy of DiagnosticoKey"
-                      externalMetadataColumnId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoOrigenId]"
-                      lineageId="Package\LLenar FactDiagnosticos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of DiagnosticoKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1438,10 +1428,6 @@ ORDER BY vt.visit_id;</property>
                       refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoKey]"
                       dataType="i4"
                       name="DiagnosticoKey" />
-                    <externalMetadataColumn
-                      refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiagnosticoOrigenId]"
-                      dataType="i4"
-                      name="DiagnosticoOrigenId" />
                     <externalMetadataColumn
                       refId="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer.Inputs[Entrada de destino de OLE DB].ExternalColumns[PacienteKey]"
                       dataType="i4"
@@ -1606,10 +1592,6 @@ ORDER BY vt.visit_id;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="153,42"
-          Id="Package\LLenar FactDiagnosticos\Buscar Tiempo"
-          TopLeft="482,504" />
-        <NodeLayout
           Size="180,42"
           Id="Package\LLenar FactDiagnosticos\Conversión de datos"
           TopLeft="48,185" />
@@ -1622,6 +1604,10 @@ ORDER BY vt.visit_id;</property>
           Id="Package\LLenar FactDiagnosticos\Buscar Paciente"
           TopLeft="256,342" />
         <NodeLayout
+          Size="265,42"
+          Id="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer"
+          TopLeft="720,504" />
+        <NodeLayout
           Size="165,42"
           Id="Package\LLenar FactDiagnosticos\Buscar Ubicacion"
           TopLeft="359,426" />
@@ -1630,9 +1616,9 @@ ORDER BY vt.visit_id;</property>
           Id="Package\LLenar FactDiagnosticos\Buscar Enfermedad"
           TopLeft="138,265" />
         <NodeLayout
-          Size="265,42"
-          Id="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer"
-          TopLeft="720,504" />
+          Size="153,42"
+          Id="Package\LLenar FactDiagnosticos\Buscar Tiempo"
+          TopLeft="482,504" />
         <EdgeLayout
           Id="Package\LLenar FactDiagnosticos.Paths[Salida de origen de ADO NET]"
           TopLeft="138.25,131">
@@ -1825,15 +1811,10 @@ ORDER BY vt.visit_id;</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer">
+    design-time-name="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -1861,10 +1842,15 @@ ORDER BY vt.visit_id;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\LLenar FactDiagnosticos\Leer Datos FactDiagnosticos Mariadb">
+    design-time-name="Package\LLenar FactDiagnosticos\Llenar Datos Diagnosticos SQLServer">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

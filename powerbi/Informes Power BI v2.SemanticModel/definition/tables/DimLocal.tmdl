@@ -1,0 +1,73 @@
+table DimLocal
+	lineageTag: 29b6f743-1528-4c31-bd9b-4868c53c1bba
+
+	column LocalKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e472be24-200f-41bd-8b6d-2e2abac44dea
+		summarizeBy: none
+		sourceColumn: LocalKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocalId
+		dataType: int64
+		formatString: 0
+		lineageTag: 78ba744d-a209-4384-8825-215b8fe70aa1
+		summarizeBy: count
+		sourceColumn: LocalId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: a91d831a-87a6-4308-9ae0-9bec7c451fad
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: 67061de0-7260-4b77-a69c-11a219754d8c
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departamento
+		dataType: string
+		lineageTag: 8c4d484b-61b2-454e-af46-53029f4e039d
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: c8b23a3b-acd0-4030-9012-9c31e46e9b68
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column EstaRetirado
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ac0f3f7f-30cc-42fa-96b3-8f57d59799fc
+		summarizeBy: none
+		sourceColumn: EstaRetirado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimLocal = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimLocal"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

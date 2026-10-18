@@ -1,0 +1,64 @@
+table DimUbicacion
+	lineageTag: 64d8d94c-321c-4f7b-b412-5b6bd2a0a774
+
+	column UbicacionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d2385fc5-cc38-4d5f-8a10-e004d85a3f0e
+		summarizeBy: none
+		sourceColumn: UbicacionKey
+
+		annotation SummarizationSetBy = User
+
+	column DireccionId
+		dataType: string
+		lineageTag: 34449c6f-c6bb-4ae4-a4ac-b706a068c381
+		summarizeBy: none
+		sourceColumn: DireccionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 5e1a67dc-80a1-415f-ae4f-4154d08b2a93
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: e9e1fcee-254f-4f73-94c9-0e520336987c
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departamento
+		dataType: string
+		lineageTag: b030a671-ba88-4cc8-8488-4a5a88588ff8
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodigoPostal
+		dataType: string
+		lineageTag: afbde39c-b63f-4c3e-92d0-5643502879f3
+		summarizeBy: none
+		sourceColumn: CodigoPostal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimUbicacion = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimUbicacion"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

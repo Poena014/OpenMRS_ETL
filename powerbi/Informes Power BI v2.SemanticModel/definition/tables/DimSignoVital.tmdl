@@ -1,0 +1,57 @@
+table DimSignoVital
+	lineageTag: 22b24662-c326-40c8-89c7-a2260926a19d
+
+	column SignoVitalKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f3466a94-681b-4158-a1d6-c601eaef7386
+		summarizeBy: none
+		sourceColumn: SignoVitalKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SignoVitalId
+		dataType: int64
+		formatString: 0
+		lineageTag: 36f46e1d-6094-4879-9d58-ade181132345
+		summarizeBy: none
+		sourceColumn: SignoVitalId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: efcb5a53-775c-46ec-89ab-4aa99daa33c9
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unidad
+		dataType: string
+		lineageTag: f6e31399-866f-4fdc-b702-0d5a1824695c
+		summarizeBy: none
+		sourceColumn: Unidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column EstaRetirado
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7ada5d9a-b8aa-4058-97dd-8fb8406ed4c1
+		summarizeBy: none
+		sourceColumn: EstaRetirado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimSignoVital = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimSignoVital"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,124 @@
+table FactVitales
+	lineageTag: a1649d8d-1f71-4b4b-b6c1-f71a50380d4c
+
+	measure 'Observaciones vitales' = COUNTROWS(FactVitales)
+		formatString: 0
+		lineageTag: 60939f59-3bd4-47ad-86b2-318cd71352dd
+
+	measure 'Pacientes con signos vitales' = DISTINCTCOUNT(FactVitales[PacienteKey])
+		formatString: 0
+		lineageTag: 7488470d-a99f-4d11-9aa4-e94f5450eb3d
+
+	measure 'Tipos de signos vitales' = DISTINCTCOUNT(FactVitales[SignoVitalKey])
+		formatString: 0
+		lineageTag: 21fc8f48-a244-498a-a126-c80d9f3ccf05
+
+	measure 'Valor promedio' = AVERAGE(FactVitales[Valor])
+		formatString: 0.00
+		lineageTag: db3c2490-c100-40b1-a346-a7e63e826bc6
+
+	measure 'Valor mínimo' = MIN(FactVitales[Valor])
+		formatString: 0.00
+		lineageTag: cff90cc6-c8c2-4cce-b16d-3cf67e3ae4f5
+
+	measure 'Valor máximo' = MAX(FactVitales[Valor])
+		formatString: 0.00
+		lineageTag: d082cbb5-623b-4ef9-bb39-c78e65129853
+
+	measure 'Observaciones meses completos' = VAR UltimaFecha = MAXX(ALL(FactVitales), RELATED(DimTiempo[Fecha])) VAR FinMesContexto = EOMONTH(MAX(DimTiempo[Fecha]), 0) RETURN IF(FinMesContexto = EOMONTH(UltimaFecha, 0) && UltimaFecha < EOMONTH(UltimaFecha, 0), BLANK(), [Observaciones vitales])
+		formatString: 0
+		lineageTag: f8602c98-1086-4f80-ad9f-1c64ccfa045f
+
+	column VitalKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 344d43d8-8d9f-4689-92de-b4ebd19a9957
+		summarizeBy: none
+		sourceColumn: VitalKey
+
+		annotation SummarizationSetBy = User
+
+	column SignoVitalKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 41137619-7fd6-4a21-91f2-25b9096d4a76
+		summarizeBy: none
+		sourceColumn: SignoVitalKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PacienteKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 58373445-e76d-4358-89eb-805d11c70daf
+		summarizeBy: none
+		sourceColumn: PacienteKey
+
+		annotation SummarizationSetBy = User
+
+	column ProveedorKey
+		dataType: int64
+		formatString: 0
+		lineageTag: af752c19-ecb4-408d-a056-e096cdac6ea8
+		summarizeBy: none
+		sourceColumn: ProveedorKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column UbicacionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: be8c6fc3-8356-43a3-88e7-3ed96ff737b3
+		summarizeBy: none
+		sourceColumn: UbicacionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocalKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 539903ee-b981-40e6-bb55-972f9483c9db
+		summarizeBy: none
+		sourceColumn: LocalKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TiempoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a6398ce4-a4b2-4c94-bb1a-4ee819d12ae3
+		summarizeBy: none
+		sourceColumn: TiempoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		lineageTag: 4e207b13-2811-4030-b4e8-043f6cbcae96
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EdadSuceso
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f5d790a-d3d0-48c7-9d3e-f41383edb1df
+		summarizeBy: sum
+		sourceColumn: EdadSuceso
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactVitales = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "FactVitales"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

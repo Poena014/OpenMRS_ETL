@@ -1,0 +1,30 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DimEnfermedad","DimMedicamento","DimSignoVital","DimTiempo","FactDiagnosticos","FactMedicamentos","FactVitales","DimLocal","DimPaciente","DimProveedor","DimTipoVisita","DimUbicacion"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DimEnfermedad
+ref table DimMedicamento
+ref table DimSignoVital
+ref table DimTiempo
+ref table FactDiagnosticos
+ref table FactMedicamentos
+ref table FactVitales
+ref table DimLocal
+ref table DimPaciente
+ref table DimProveedor
+ref table DimTipoVisita
+ref table DimUbicacion
+
+ref cultureInfo es-MX
+

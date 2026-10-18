@@ -1,0 +1,187 @@
+table FactDiagnosticos
+	lineageTag: e41578fd-deac-4610-8b98-195cb0bf970c
+
+	measure Diagnósticos = COUNTROWS(FactDiagnosticos)
+		formatString: 0
+		lineageTag: 87e1e5e1-0fc9-4b32-92d7-97dcd70ec9b9
+
+	measure 'Pacientes con diagnósticos' = DISTINCTCOUNT(FactDiagnosticos[PacienteKey])
+		formatString: 0
+		lineageTag: 8f8c1632-1126-4c95-b3bb-0649546234f8
+
+	measure 'Diagnósticos repetidos' = CALCULATE([Diagnósticos], FactDiagnosticos[EsRepetido] = 1)
+		formatString: 0
+		lineageTag: 047137d7-d15f-4af4-b454-8d6aeb9849c6
+
+	measure '% diagnósticos repetidos' = DIVIDE([Diagnósticos repetidos], [Diagnósticos])
+		formatString: 0.0%
+		lineageTag: 2d762823-2645-4af6-a2ee-2a72903d5ced
+
+	measure 'Edad promedio al diagnóstico' = AVERAGE(FactDiagnosticos[EdadSuceso])
+		formatString: 0.0
+		lineageTag: 8bfaa861-6c63-4f31-85cd-2ed69bb7d170
+
+	measure 'Diagnósticos meses completos' = VAR UltimaFecha = MAXX(ALL(FactDiagnosticos), RELATED(DimTiempo[Fecha])) VAR FinMesContexto = EOMONTH(MAX(DimTiempo[Fecha]), 0) RETURN IF(FinMesContexto = EOMONTH(UltimaFecha, 0) && UltimaFecha < EOMONTH(UltimaFecha, 0), BLANK(), [Diagnósticos])
+		formatString: 0
+		lineageTag: 1d03b5ae-03cd-4400-9837-d90c6697b3f5
+
+	measure 'Diagnósticos repetidos meses completos' =
+			
+			VAR UltimaFecha = MAXX(ALL(FactDiagnosticos), RELATED(DimTiempo[Fecha]))
+			VAR FinMesContexto = EOMONTH(MAX(DimTiempo[Fecha]), 0)
+			RETURN IF(
+			    FinMesContexto = EOMONTH(UltimaFecha, 0) && UltimaFecha < EOMONTH(UltimaFecha, 0),
+			    BLANK(),
+			    [Diagnósticos repetidos]
+			)
+		formatString: 0
+		lineageTag: 6919d605-9d6f-47eb-9277-c3f58aa55eb0
+
+	column DiagnosticoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7273c07f-2e80-4d4a-b62a-2b4074266a26
+		summarizeBy: none
+		sourceColumn: DiagnosticoKey
+
+		annotation SummarizationSetBy = User
+
+	column EnfermedadKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 99996ce6-406a-4d14-8559-e1daf4583b01
+		summarizeBy: none
+		sourceColumn: EnfermedadKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PacienteKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 87d86033-5ab9-4dd7-af69-0a8ebf380e4c
+		summarizeBy: none
+		sourceColumn: PacienteKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column UbicacionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f573145f-22a7-42fd-b615-c1edaba5f5f4
+		summarizeBy: none
+		sourceColumn: UbicacionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TiempoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 04202d48-8379-4baa-8faa-7c47d83a5102
+		summarizeBy: none
+		sourceColumn: TiempoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Temperatura
+		dataType: double
+		lineageTag: 452eec75-f72f-42ed-b912-013fcac50489
+		summarizeBy: sum
+		sourceColumn: Temperatura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Peso
+		dataType: double
+		lineageTag: 8fa162b8-55c5-489a-9991-c69f37fa3b50
+		summarizeBy: sum
+		sourceColumn: Peso
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Altura
+		dataType: double
+		lineageTag: beccd00a-7f65-4c7f-97b1-a809274ec930
+		summarizeBy: sum
+		sourceColumn: Altura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EdadSuceso
+		dataType: int64
+		formatString: 0
+		lineageTag: b0d8befe-5dac-4d31-88ab-373ac803e357
+		summarizeBy: sum
+		sourceColumn: EdadSuceso
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsRepetido
+		dataType: int64
+		formatString: 0
+		lineageTag: e102f8fb-71c2-4419-a39f-222e971bfdff
+		summarizeBy: sum
+		sourceColumn: EsRepetido
+
+		annotation SummarizationSetBy = Automatic
+
+	column RangoEdad =
+			
+			SWITCH(
+			    TRUE(),
+			    FactDiagnosticos[EdadSuceso] < 3,  "0-2",
+			    FactDiagnosticos[EdadSuceso] < 11, "3-10",
+			    FactDiagnosticos[EdadSuceso] < 18, "11-17",
+			    FactDiagnosticos[EdadSuceso] < 30, "18-29",
+			    FactDiagnosticos[EdadSuceso] < 45, "30-44",
+			    FactDiagnosticos[EdadSuceso] < 60, "45-59",
+			    FactDiagnosticos[EdadSuceso] < 70, "60-69",
+			    FactDiagnosticos[EdadSuceso] < 80, "70-79",
+			    FactDiagnosticos[EdadSuceso] >= 80, "80+",
+			    "Sin edad"
+			)
+		lineageTag: d1acb264-7270-485a-8d33-8b9de87d2894
+		summarizeBy: none
+		sortByColumn: OrdenRango
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrdenRango =
+			
+			SWITCH(
+			    TRUE(),
+			    FactDiagnosticos[EdadSuceso] < 3,  1,
+			    FactDiagnosticos[EdadSuceso] < 11, 2,
+			    FactDiagnosticos[EdadSuceso] < 18, 3,
+			    FactDiagnosticos[EdadSuceso] < 30, 4,
+			    FactDiagnosticos[EdadSuceso] < 45, 5,
+			    FactDiagnosticos[EdadSuceso] < 60, 6,
+			    FactDiagnosticos[EdadSuceso] < 70, 7,
+			    FactDiagnosticos[EdadSuceso] < 80, 8,
+			    FactDiagnosticos[EdadSuceso] >= 80, 9,
+			    10
+			)
+		formatString: 0
+		lineageTag: 3b50cdac-0e36-4465-bf68-d8396f291783
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactDiagnosticos = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "FactDiagnosticos"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

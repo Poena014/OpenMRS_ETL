@@ -1,0 +1,204 @@
+table FactMedicamentos
+	lineageTag: 6dd1ecb1-94ed-4b55-9a9d-d33390b924f3
+
+	measure 'Ördenes de Medicamentos' = COUNTROWS(FactMedicamentos)
+		formatString: 0
+		lineageTag: b17e1a26-2301-4c54-b735-c0f0b2d5091f
+
+	measure 'Pacientes con órdenes' = DISTINCTCOUNT(FactMedicamentos[PacienteKey])
+		formatString: 0
+		lineageTag: 13f74d86-7b17-48a8-9a57-a85a414b2ad9
+
+	measure 'Unidades indicadas' = SUM(FactMedicamentos[Cantidad])
+		formatString: 0
+		lineageTag: 2fa72fd2-48d4-48c3-ad6a-10bb8c00d081
+
+	measure 'Resurtidos indicados' = SUM(FactMedicamentos[NumRefills])
+		formatString: 0
+		lineageTag: dfbe2ad5-7d17-4640-a4cb-f4fa44b55c4f
+
+	measure 'Medicamentos distintos' = DISTINCTCOUNT(FactMedicamentos[MedicamentoKey])
+		formatString: 0
+		lineageTag: c5c49cf9-df29-41ae-9db3-d1f2c971b838
+
+	measure 'Órdenes meses completos' = VAR UltimaFecha = MAXX(ALL(FactMedicamentos), RELATED(DimTiempo[Fecha])) VAR FinMesContexto = EOMONTH(MAX(DimTiempo[Fecha]), 0) RETURN IF(FinMesContexto = EOMONTH(UltimaFecha, 0) && UltimaFecha < EOMONTH(UltimaFecha, 0), BLANK(), [Ördenes de Medicamentos])
+		formatString: 0
+		lineageTag: 14345540-8fc3-478a-a5bf-c852766ebc71
+
+	measure 'Unidades promedio por orden' = DIVIDE(SUM(FactMedicamentos[Cantidad]), COUNTROWS(FactMedicamentos))
+		formatString: 0.00
+		lineageTag: e8c9e777-ad6c-4a12-b046-c7425265ec75
+
+	measure '% órdenes con resurtidos' =
+			DIVIDE(
+			    CALCULATE(COUNTROWS(FactMedicamentos), FactMedicamentos[NumRefills] > 0),
+			    COUNTROWS(FactMedicamentos)
+			)
+		lineageTag: 17e50ad7-c28b-4d83-b4d0-3ec895b7e636
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MedicamentoPedidoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f31eb38-c6a4-47fd-9e8f-3e84ab22c637
+		summarizeBy: none
+		sourceColumn: MedicamentoPedidoKey
+
+		annotation SummarizationSetBy = User
+
+	column MedicamentoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8112ae53-c8c7-48d4-b494-3b26a47f90dc
+		summarizeBy: none
+		sourceColumn: MedicamentoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PacienteKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 45894ec7-d069-437e-8a95-9e2eea326069
+		summarizeBy: none
+		sourceColumn: PacienteKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProveedorKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 90aa8658-55f1-4893-ba1c-ab321f336b73
+		summarizeBy: none
+		sourceColumn: ProveedorKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column UbicacionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 24f8314f-002c-4582-9822-40ffed13950c
+		summarizeBy: none
+		sourceColumn: UbicacionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocalKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 964b99c5-5824-4a49-a0d4-a75d6dfd5645
+		summarizeBy: none
+		sourceColumn: LocalKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TiempoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e9b68cd9-163d-4f3d-982c-8073e1ffeba1
+		summarizeBy: none
+		sourceColumn: TiempoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TipoVisitaKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 94dcb091-fb00-4d3c-b3da-a75915a4d33d
+		summarizeBy: none
+		sourceColumn: TipoVisitaKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dosis
+		dataType: double
+		lineageTag: 6a5073de-e4e1-4a55-860f-e68b5f24764d
+		summarizeBy: sum
+		sourceColumn: Dosis
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: 2fdef946-a108-4bd1-be46-831d50ce4a2e
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumRefills
+		dataType: int64
+		formatString: 0
+		lineageTag: 63a65eb9-6fdc-48bf-b426-ab563355f5a5
+		summarizeBy: sum
+		sourceColumn: NumRefills
+
+		annotation SummarizationSetBy = Automatic
+
+	column EdadSuceso
+		dataType: int64
+		formatString: 0
+		lineageTag: 256b9402-fcce-40a1-8c12-301ddb5e0b6e
+		summarizeBy: sum
+		sourceColumn: EdadSuceso
+
+		annotation SummarizationSetBy = Automatic
+
+	column RangoEdad =
+			
+			SWITCH(
+			    TRUE(),
+			    FactMedicamentos[EdadSuceso] < 3,  "0-2",
+			    FactMedicamentos[EdadSuceso] < 11, "3-10",
+			    FactMedicamentos[EdadSuceso] < 18, "11-17",
+			    FactMedicamentos[EdadSuceso] < 30, "18-29",
+			    FactMedicamentos[EdadSuceso] < 45, "30-44",
+			    FactMedicamentos[EdadSuceso] < 60, "45-59",
+			    FactMedicamentos[EdadSuceso] < 70, "60-69",
+			    FactMedicamentos[EdadSuceso] < 80, "70-79",
+			    FactMedicamentos[EdadSuceso] >= 80, "80+",
+			    "Sin edad"
+			)
+		lineageTag: 3a57df81-dc57-4635-a675-b6adf7bc6c4b
+		summarizeBy: none
+		sortByColumn: OrdenRango
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrdenRango =
+			
+			SWITCH(
+			    TRUE(),
+			    FactMedicamentos[EdadSuceso] < 3,  1,
+			    FactMedicamentos[EdadSuceso] < 11, 2,
+			    FactMedicamentos[EdadSuceso] < 18, 3,
+			    FactMedicamentos[EdadSuceso] < 30, 4,
+			    FactMedicamentos[EdadSuceso] < 45, 5,
+			    FactMedicamentos[EdadSuceso] < 60, 6,
+			    FactMedicamentos[EdadSuceso] < 70, 7,
+			    FactMedicamentos[EdadSuceso] < 80, 8,
+			    FactMedicamentos[EdadSuceso] >= 80, 9,
+			    10
+			)
+		formatString: 0
+		lineageTag: 31a5d3cc-c240-4b59-891d-a5128d4d174b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	partition FactMedicamentos = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "FactMedicamentos"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

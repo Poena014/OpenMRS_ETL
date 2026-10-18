@@ -1,0 +1,93 @@
+table DimProveedor
+	lineageTag: 2b52244b-251e-4133-8988-8bd9068dd569
+
+	column ProveedorKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ea22c5e-024b-48d8-90a0-449fb600290c
+		summarizeBy: none
+		sourceColumn: ProveedorKey
+
+		annotation SummarizationSetBy = User
+
+	column ProviderId
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f5ee67c-f937-4ab6-be7f-eee94632d2c7
+		summarizeBy: count
+		sourceColumn: ProviderId
+
+		annotation SummarizationSetBy = Automatic
+
+	column PersonId
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a64f900-5173-4d99-af9e-67fbdd7cc605
+		summarizeBy: count
+		sourceColumn: PersonId
+
+		annotation SummarizationSetBy = Automatic
+
+	column NombreCompleto
+		dataType: string
+		lineageTag: b6054684-bedc-4f9e-b3e6-0ed2e22b02a9
+		summarizeBy: none
+		sourceColumn: NombreCompleto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Identificador
+		dataType: string
+		lineageTag: 1ee7e68f-9eb7-4d6b-9bb5-88c8ab77fe26
+		summarizeBy: none
+		sourceColumn: Identificador
+
+		annotation SummarizationSetBy = Automatic
+
+	column EstaRetirado
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c32a1fce-b2a0-41e7-b765-7150ae2c797b
+		summarizeBy: none
+		sourceColumn: EstaRetirado
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaCreacion
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e010b572-7acd-45f2-8120-2f81bd443426
+		summarizeBy: none
+		sourceColumn: FechaCreacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaRetiro
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8bd71594-9d74-413d-8eea-661ab1e66c90
+		summarizeBy: none
+		sourceColumn: FechaRetiro
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaProceso
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 65b34bbe-7358-4033-9b0d-7def6cd4f764
+		summarizeBy: none
+		sourceColumn: FechaProceso
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProveedor = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimProveedor"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

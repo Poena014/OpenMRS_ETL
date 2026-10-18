@@ -1,0 +1,80 @@
+relationship fa10a7cc-98a0-4c7e-9c45-dcb4eca82c96
+	fromColumn: FactDiagnosticos.EnfermedadKey
+	toColumn: DimEnfermedad.EnfermedadKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6371ba94-e5b5-4358-a8e6-7beca667eeba
+	fromColumn: FactDiagnosticos.TiempoKey
+	toColumn: DimTiempo.TiempoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4f468e3e-3184-4307-b861-c3ee36383ba4
+	fromColumn: FactMedicamentos.MedicamentoKey
+	toColumn: DimMedicamento.MedicamentoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship c6f54be5-8976-441a-a75e-1e1dc9d5c70c
+	fromColumn: FactMedicamentos.TiempoKey
+	toColumn: DimTiempo.TiempoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 894e23e8-c6a3-496f-84e8-ef6911f670c9
+	fromColumn: FactVitales.SignoVitalKey
+	toColumn: DimSignoVital.SignoVitalKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4cef65ba-85f0-4bc3-98d7-48ed81c10e4d
+	fromColumn: FactVitales.TiempoKey
+	toColumn: DimTiempo.TiempoKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 7a225982-5c97-57a5-ebde-859913791d06
+	fromColumn: FactVitales.LocalKey
+	toColumn: DimLocal.LocalKey
+
+relationship d399d8de-6305-2eed-2204-f82eb271cb2f
+	fromColumn: FactVitales.PacienteKey
+	toColumn: DimPaciente.PacienteKey
+
+relationship c904383c-f662-c569-e65f-bc0cac95b06d
+	fromColumn: FactVitales.ProveedorKey
+	toColumn: DimProveedor.ProveedorKey
+
+relationship 405a5760-e0fd-c8c3-5c9f-bca562a7f1a8
+	fromColumn: FactVitales.UbicacionKey
+	toColumn: DimUbicacion.UbicacionKey
+
+relationship 19877aec-ed4c-e417-7db2-a2ebda4403ef
+	fromColumn: FactMedicamentos.LocalKey
+	toColumn: DimLocal.LocalKey
+
+relationship 4651a7f2-50b1-a4da-8189-edb3f90ba4c8
+	fromColumn: FactMedicamentos.PacienteKey
+	toColumn: DimPaciente.PacienteKey
+
+relationship b73d0e9c-2a4c-305d-94d5-ab14c9fac661
+	fromColumn: FactMedicamentos.ProveedorKey
+	toColumn: DimProveedor.ProveedorKey
+
+relationship 8819949a-6f5b-cbbb-88a7-1cbb537ed1a6
+	fromColumn: FactMedicamentos.TipoVisitaKey
+	toColumn: DimTipoVisita.TipoVisitaKey
+
+relationship 8473e616-3d7a-6e80-83c8-6433b941ad7b
+	fromColumn: FactMedicamentos.UbicacionKey
+	toColumn: DimUbicacion.UbicacionKey
+
+relationship c9b75027-22ff-a0ff-44e4-a9597da4c30d
+	fromColumn: FactDiagnosticos.PacienteKey
+	toColumn: DimPaciente.PacienteKey
+
+relationship 9f2e2013-0387-7069-05bf-6693abb2623a
+	fromColumn: FactDiagnosticos.UbicacionKey
+	toColumn: DimUbicacion.UbicacionKey
+

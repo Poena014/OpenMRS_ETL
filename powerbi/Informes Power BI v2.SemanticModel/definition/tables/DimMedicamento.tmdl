@@ -1,0 +1,66 @@
+table DimMedicamento
+	lineageTag: 67d78253-b88f-43c9-a0f7-48f35f05dbca
+
+	column MedicamentoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e900c761-9729-451f-94b9-ca17ecf184c3
+		summarizeBy: none
+		sourceColumn: MedicamentoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MedicamentoId
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f5f0d08-2283-427e-a6d5-62f320dbcd3d
+		summarizeBy: none
+		sourceColumn: MedicamentoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: 3c99e369-c3db-4085-9c11-50517ea38784
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fortaleza
+		dataType: string
+		lineageTag: ee52310c-ff42-408c-bf3d-a306fed857ac
+		summarizeBy: none
+		sourceColumn: Fortaleza
+
+		annotation SummarizationSetBy = Automatic
+
+	column ConceptoId
+		dataType: int64
+		formatString: 0
+		lineageTag: 2afe4eca-c1a3-4919-b041-4abaa363b887
+		summarizeBy: none
+		sourceColumn: ConceptoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EstaRetirado
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8dc77499-5aec-4822-84b3-5ad4642f4232
+		summarizeBy: none
+		sourceColumn: EstaRetirado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMedicamento = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimMedicamento"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

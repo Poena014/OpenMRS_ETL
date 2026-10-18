@@ -1,0 +1,76 @@
+table DimPaciente
+	lineageTag: ec995d25-fbe1-40ff-ba87-f9ed95b7bec9
+
+	column PacienteKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e50d5d9-397e-4d04-9c47-5c4319c7f8ba
+		summarizeBy: none
+		sourceColumn: PacienteKey
+
+		annotation SummarizationSetBy = User
+
+	column PacienteId
+		dataType: int64
+		formatString: 0
+		lineageTag: e1706476-2c9a-41ee-a522-bbf744619184
+		summarizeBy: count
+		sourceColumn: PacienteId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombres
+		dataType: string
+		lineageTag: dc2b91bb-7843-4739-a3a7-da71bd2f5b44
+		summarizeBy: none
+		sourceColumn: Nombres
+
+		annotation SummarizationSetBy = Automatic
+
+	column Apellidos
+		dataType: string
+		lineageTag: e801164d-6068-493d-9b1e-aedf5f705fde
+		summarizeBy: none
+		sourceColumn: Apellidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sexo
+		dataType: string
+		lineageTag: 412db99a-009f-43cb-a3d1-55515cb78f29
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaNacimiento
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 01c12bd6-c41e-40e0-b146-5cf37a8018cd
+		summarizeBy: none
+		sourceColumn: FechaNacimiento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FechaIngreso
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 52eb46ad-d166-41b7-827f-24b07d348873
+		summarizeBy: none
+		sourceColumn: FechaIngreso
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimPaciente = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimPaciente"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

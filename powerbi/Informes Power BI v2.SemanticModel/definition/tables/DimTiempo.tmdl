@@ -1,0 +1,96 @@
+table DimTiempo
+	lineageTag: 47a6c36e-2d2d-403c-b9eb-d3b91b3e89d0
+	dataCategory: Time
+
+	column TiempoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e349f1ce-4f8e-425e-8c41-2787cf98489c
+		summarizeBy: none
+		sourceColumn: TiempoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		isKey
+		formatString: General Date
+		lineageTag: 1f28d4ae-67c1-419a-97ab-61a6244b8196
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 195594dc-2335-4b93-abab-4d4da5780942
+		summarizeBy: none
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = User
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c7b6d37-9cf6-476c-aca0-118e7bdf95af
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = User
+
+	column Anio
+		dataType: int64
+		formatString: 0
+		lineageTag: d55c5ff9-3e17-466a-9f09-9785ebd0a02b
+		summarizeBy: none
+		sourceColumn: Anio
+
+		annotation SummarizationSetBy = User
+
+	column PrimerDiaMes = DATE(DimTiempo[Anio], DimTiempo[Mes], 1)
+		formatString: General Date
+		lineageTag: 71fdec64-c479-4de1-966b-e1c40df3e601
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsMesActual =
+			
+			IF(
+			    YEAR(DimTiempo[Fecha]) = YEAR(TODAY()) && MONTH(DimTiempo[Fecha]) = MONTH(TODAY()),
+			    "Actual",
+			    "Completo"
+			)
+		lineageTag: a614063d-0fd4-43a3-954c-1ed77b4d50ce
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy JerarquiaFecha
+		lineageTag: 8e1820d6-4d81-4742-b9b8-99e452d3934c
+
+		level Anio
+			lineageTag: f153fb46-0eea-4a85-b80b-b2bd6e765f88
+			column: Anio
+
+		level Mes
+			lineageTag: 37427d39-e929-483d-8666-e2c15ac32654
+			column: Mes
+
+		level Fecha
+			lineageTag: 97de8e5b-680e-4eea-be03-0feb3153984d
+			column: Fecha
+
+	partition DimTiempo = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimTiempo"]}[Data],
+				  #"Filas filtradas" = Table.SelectRows(#"Navegación 1", each [TiempoKey] >= 20200101)
+				in
+				  #"Filas filtradas"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,48 @@
+table DimTipoVisita
+	lineageTag: 5038c275-2bb3-44ce-a1e0-c2b07a0f861c
+
+	column TipoVisitaKey
+		dataType: int64
+		formatString: 0
+		lineageTag: acc340c5-ca13-4ef3-a3f5-2babead23ab9
+		summarizeBy: none
+		sourceColumn: TipoVisitaKey
+
+		annotation SummarizationSetBy = User
+
+	column TipoVisitaId
+		dataType: int64
+		formatString: 0
+		lineageTag: ea966a31-624e-4162-b1a7-c6fbaaf7992e
+		summarizeBy: none
+		sourceColumn: TipoVisitaId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: ed124d79-89da-429f-88bd-9603a180da40
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descripcion
+		dataType: string
+		lineageTag: 2e0a888e-0067-4f0d-b977-5a6db3947e4a
+		summarizeBy: none
+		sourceColumn: Descripcion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTipoVisita = m
+		mode: import
+		source =
+				let
+				  Origen = Sql.Database("DESKTOP-SEU29NB\SERVER1", "OpenmrsETL"),
+				  #"Navegación 1" = Origen{[Schema = "dbo", Item = "DimTipoVisita"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

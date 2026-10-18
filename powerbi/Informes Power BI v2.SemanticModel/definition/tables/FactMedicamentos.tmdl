@@ -25,6 +25,19 @@ table FactMedicamentos
 		formatString: 0
 		lineageTag: 14345540-8fc3-478a-a5bf-c852766ebc71
 
+	measure 'Unidades promedio por orden' = DIVIDE(SUM(FactMedicamentos[Cantidad]), COUNTROWS(FactMedicamentos))
+		formatString: 0.00
+		lineageTag: e8c9e777-ad6c-4a12-b046-c7425265ec75
+
+	measure '% órdenes con resurtidos' =
+			DIVIDE(
+			    CALCULATE(COUNTROWS(FactMedicamentos), FactMedicamentos[NumRefills] > 0),
+			    COUNTROWS(FactMedicamentos)
+			)
+		lineageTag: 17e50ad7-c28b-4d83-b4d0-3ec895b7e636
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column MedicamentoPedidoKey
 		dataType: int64
 		formatString: 0
@@ -133,6 +146,50 @@ table FactMedicamentos
 		sourceColumn: EdadSuceso
 
 		annotation SummarizationSetBy = Automatic
+
+	column RangoEdad =
+			
+			SWITCH(
+			    TRUE(),
+			    FactMedicamentos[EdadSuceso] < 3,  "0-2",
+			    FactMedicamentos[EdadSuceso] < 11, "3-10",
+			    FactMedicamentos[EdadSuceso] < 18, "11-17",
+			    FactMedicamentos[EdadSuceso] < 30, "18-29",
+			    FactMedicamentos[EdadSuceso] < 45, "30-44",
+			    FactMedicamentos[EdadSuceso] < 60, "45-59",
+			    FactMedicamentos[EdadSuceso] < 70, "60-69",
+			    FactMedicamentos[EdadSuceso] < 80, "70-79",
+			    FactMedicamentos[EdadSuceso] >= 80, "80+",
+			    "Sin edad"
+			)
+		lineageTag: 3a57df81-dc57-4635-a675-b6adf7bc6c4b
+		summarizeBy: none
+		sortByColumn: OrdenRango
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrdenRango =
+			
+			SWITCH(
+			    TRUE(),
+			    FactMedicamentos[EdadSuceso] < 3,  1,
+			    FactMedicamentos[EdadSuceso] < 11, 2,
+			    FactMedicamentos[EdadSuceso] < 18, 3,
+			    FactMedicamentos[EdadSuceso] < 30, 4,
+			    FactMedicamentos[EdadSuceso] < 45, 5,
+			    FactMedicamentos[EdadSuceso] < 60, 6,
+			    FactMedicamentos[EdadSuceso] < 70, 7,
+			    FactMedicamentos[EdadSuceso] < 80, 8,
+			    FactMedicamentos[EdadSuceso] >= 80, 9,
+			    10
+			)
+		formatString: 0
+		lineageTag: 31a5d3cc-c240-4b59-891d-a5128d4d174b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
 
 	partition FactMedicamentos = m
 		mode: import

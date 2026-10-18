@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "30000000000000000001",
   "position": {
-    "x": 40,
-    "y": 45,
+    "x": 39.901477832512313,
+    "y": 43.891625615763544,
     "z": 0,
-    "height": 220,
-    "width": 1840,
+    "height": 220.78817733990147,
+    "width": 1134.5320197044334,
     "tabOrder": 0
   },
   "visual": {
@@ -26,9 +26,9 @@
                   "Property": "Ördenes de Medicamentos"
                 }
               },
+              "queryRef": "FactMedicamentos.Ördenes de Medicamentos",
               "nativeQueryRef": "Ördenes de Medicamentos",
-              "format": "0",
-              "queryRef": "FactMedicamentos.Ördenes de Medicamentos"
+              "format": "0"
             },
             {
               "field": {
@@ -41,9 +41,9 @@
                   "Property": "Pacientes con órdenes"
                 }
               },
+              "queryRef": "FactMedicamentos.Pacientes con órdenes",
               "nativeQueryRef": "Pacientes con órdenes",
-              "format": "0",
-              "queryRef": "FactMedicamentos.Pacientes con órdenes"
+              "format": "0"
             },
             {
               "field": {
@@ -56,9 +56,9 @@
                   "Property": "Unidades indicadas"
                 }
               },
+              "queryRef": "FactMedicamentos.Unidades indicadas",
               "nativeQueryRef": "Unidades indicadas",
-              "format": "0",
-              "queryRef": "FactMedicamentos.Unidades indicadas"
+              "format": "0"
             },
             {
               "field": {
@@ -71,9 +71,9 @@
                   "Property": "Medicamentos distintos"
                 }
               },
+              "queryRef": "FactMedicamentos.Medicamentos distintos",
               "nativeQueryRef": "Medicamentos distintos",
-              "format": "0",
-              "queryRef": "FactMedicamentos.Medicamentos distintos"
+              "format": "0"
             }
           ]
         }
@@ -100,9 +100,6 @@
     "objects": {
       "value": [
         {
-          "selector": {
-            "id": "default"
-          },
           "properties": {
             "horizontalAlignment": {
               "expr": {
@@ -111,12 +108,33 @@
                 }
               }
             }
+          },
+          "selector": {
+            "id": "default"
           }
         },
         {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
           "selector": {
             "metadata": "FactMedicamentos.Ördenes de Medicamentos"
-          },
+          }
+        },
+        {
           "properties": {
             "labelDisplayUnits": {
               "expr": {
@@ -132,12 +150,12 @@
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "metadata": "FactMedicamentos.Pacientes con órdenes"
-          },
+          }
+        },
+        {
           "properties": {
             "labelDisplayUnits": {
               "expr": {
@@ -153,33 +171,12 @@
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "metadata": "FactMedicamentos.Unidades indicadas"
-          },
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            },
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            }
           }
         },
         {
-          "selector": {
-            "metadata": "FactMedicamentos.Medicamentos distintos"
-          },
           "properties": {
             "labelDisplayUnits": {
               "expr": {
@@ -195,11 +192,13 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "FactMedicamentos.Medicamentos distintos"
           }
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -339,6 +338,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

@@ -25,6 +25,18 @@ table FactDiagnosticos
 		formatString: 0
 		lineageTag: 1d03b5ae-03cd-4400-9837-d90c6697b3f5
 
+	measure 'Diagnósticos repetidos meses completos' =
+			
+			VAR UltimaFecha = MAXX(ALL(FactDiagnosticos), RELATED(DimTiempo[Fecha]))
+			VAR FinMesContexto = EOMONTH(MAX(DimTiempo[Fecha]), 0)
+			RETURN IF(
+			    FinMesContexto = EOMONTH(UltimaFecha, 0) && UltimaFecha < EOMONTH(UltimaFecha, 0),
+			    BLANK(),
+			    [Diagnósticos repetidos]
+			)
+		formatString: 0
+		lineageTag: 6919d605-9d6f-47eb-9277-c3f58aa55eb0
+
 	column DiagnosticoKey
 		dataType: int64
 		formatString: 0

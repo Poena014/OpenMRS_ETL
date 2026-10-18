@@ -48,6 +48,25 @@ table DimTiempo
 
 		annotation SummarizationSetBy = User
 
+	column PrimerDiaMes = DATE(DimTiempo[Anio], DimTiempo[Mes], 1)
+		formatString: General Date
+		lineageTag: 71fdec64-c479-4de1-966b-e1c40df3e601
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsMesActual =
+			
+			IF(
+			    YEAR(DimTiempo[Fecha]) = YEAR(TODAY()) && MONTH(DimTiempo[Fecha]) = MONTH(TODAY()),
+			    "Actual",
+			    "Completo"
+			)
+		lineageTag: a614063d-0fd4-43a3-954c-1ed77b4d50ce
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	hierarchy JerarquiaFecha
 		lineageTag: 8e1820d6-4d81-4742-b9b8-99e452d3934c
 

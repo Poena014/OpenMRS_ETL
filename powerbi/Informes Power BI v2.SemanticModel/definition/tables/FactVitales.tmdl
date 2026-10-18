@@ -29,6 +29,11 @@ table FactVitales
 		formatString: 0
 		lineageTag: f8602c98-1086-4f80-ad9f-1c64ccfa045f
 
+	measure 'Observaciones promedio por paciente' = DIVIDE(COUNTROWS(FactVitales), DISTINCTCOUNT(FactVitales[PacienteKey]))
+		lineageTag: 3976f018-832f-4aac-bc3b-b3822a43b438
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column VitalKey
 		dataType: int64
 		formatString: 0
@@ -108,6 +113,47 @@ table FactVitales
 		lineageTag: 9f5d790a-d3d0-48c7-9d3e-f41383edb1df
 		summarizeBy: sum
 		sourceColumn: EdadSuceso
+
+		annotation SummarizationSetBy = Automatic
+
+	column RangoEdad =
+			
+			SWITCH(
+			    TRUE(),
+			    FactVitales[EdadSuceso] < 3,  "0-2",
+			    FactVitales[EdadSuceso] < 11, "3-10",
+			    FactVitales[EdadSuceso] < 18, "11-17",
+			    FactVitales[EdadSuceso] < 30, "18-29",
+			    FactVitales[EdadSuceso] < 45, "30-44",
+			    FactVitales[EdadSuceso] < 60, "45-59",
+			    FactVitales[EdadSuceso] < 70, "60-69",
+			    FactVitales[EdadSuceso] < 80, "70-79",
+			    FactVitales[EdadSuceso] >= 80, "80+",
+			    "Sin edad"
+			)
+		lineageTag: 868bf4b4-2ce8-4bb5-82a1-e96db12416b6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrdenRango =
+			
+			SWITCH(
+			    TRUE(),
+			    FactVitales[EdadSuceso] < 3,  1,
+			    FactVitales[EdadSuceso] < 11, 2,
+			    FactVitales[EdadSuceso] < 18, 3,
+			    FactVitales[EdadSuceso] < 30, 4,
+			    FactVitales[EdadSuceso] < 45, 5,
+			    FactVitales[EdadSuceso] < 60, 6,
+			    FactVitales[EdadSuceso] < 70, 7,
+			    FactVitales[EdadSuceso] < 80, 8,
+			    FactVitales[EdadSuceso] >= 80, 9,
+			    10
+			)
+		formatString: 0
+		lineageTag: 98e9e3cf-4d6f-44fd-bad0-1d0794ab104b
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 

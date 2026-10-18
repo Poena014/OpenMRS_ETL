@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "10000000000000000003",
+  "name": "980781385aae4d924c35",
   "position": {
-    "x": 660,
-    "y": 310,
-    "z": 1000,
-    "height": 700,
-    "width": 600,
-    "tabOrder": 1000
+    "x": 661.21546961325964,
+    "y": 309.39226519337012,
+    "z": 3000,
+    "height": 699.60591133004925,
+    "width": 595.86206896551721,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "lineChart",
@@ -17,17 +17,42 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimTiempo"
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTiempo"
+                        }
+                      },
+                      "Hierarchy": "JerarquiaFecha"
                     }
                   },
-                  "Property": "Fecha"
+                  "Level": "Anio"
                 }
               },
-              "queryRef": "DimTiempo.Fecha.Variación.Jerarquía de fechas.Año",
-              "nativeQueryRef": "Fecha Año",
+              "queryRef": "DimTiempo.JerarquiaFecha.Anio",
+              "nativeQueryRef": "JerarquiaFecha Anio",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTiempo"
+                        }
+                      },
+                      "Hierarchy": "JerarquiaFecha"
+                    }
+                  },
+                  "Level": "Mes"
+                }
+              },
+              "queryRef": "DimTiempo.JerarquiaFecha.Mes",
+              "nativeQueryRef": "JerarquiaFecha Mes",
               "active": true
             }
           ]
@@ -51,6 +76,46 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "HierarchyLevel": {
+                "Expression": {
+                  "Hierarchy": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "DimTiempo"
+                      }
+                    },
+                    "Hierarchy": "JerarquiaFecha"
+                  }
+                },
+                "Level": "Anio"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "HierarchyLevel": {
+                "Expression": {
+                  "Hierarchy": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "DimTiempo"
+                      }
+                    },
+                    "Hierarchy": "JerarquiaFecha"
+                  }
+                },
+                "Level": "Mes"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "objects": {

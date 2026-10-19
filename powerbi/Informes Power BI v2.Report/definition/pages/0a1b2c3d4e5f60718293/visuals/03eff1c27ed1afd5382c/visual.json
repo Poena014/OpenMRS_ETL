@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "10000000000000000004",
+  "name": "03eff1c27ed1afd5382c",
   "position": {
-    "x": 1280,
-    "y": 310,
+    "x": 1285.3038674033148,
+    "y": 309.39226519337012,
     "z": 1000,
-    "height": 700,
-    "width": 600,
+    "height": 700.110497237569,
+    "width": 594.03314917127068,
     "tabOrder": 1000
   },
   "visual": {
@@ -23,11 +23,11 @@
                       "Entity": "DimTiempo"
                     }
                   },
-                  "Property": "Fecha"
+                  "Property": "PrimerDiaMes"
                 }
               },
-              "queryRef": "DimTiempo.Fecha.Variación.Jerarquía de fechas.Año",
-              "nativeQueryRef": "Fecha Año",
+              "queryRef": "DimTiempo.PrimerDiaMes",
+              "nativeQueryRef": "PrimerDiaMes",
               "active": true
             }
           ]
@@ -51,6 +51,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FactVitales"
+                  }
+                },
+                "Property": "Observaciones meses completos"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "objects": {

@@ -5,13 +5,13 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 81.27993285211538
+        "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 282.74711681303813,
-            "y": 1346.369147741503
+            "x": 1842.945534468661,
+            "y": 964.77563525592211
           },
           "nodeIndex": "DimEnfermedad",
           "nodeLineageTag": "f2edf2d2-c4c1-4b87-b188-1a25f1eff5fe",
@@ -23,8 +23,8 @@
         },
         {
           "location": {
-            "x": 1938.6854559194023,
-            "y": 462.23754894644668
+            "x": 1803.0790774884856,
+            "y": 39.568317473459388
           },
           "nodeIndex": "DimMedicamento",
           "nodeLineageTag": "67d78253-b88f-43c9-a0f7-48f35f05dbca",
@@ -49,8 +49,8 @@
         },
         {
           "location": {
-            "x": 603.03814459891578,
-            "y": 662.33515164700827
+            "x": 669.960772915472,
+            "y": 424.5837089434529
           },
           "nodeIndex": "DimTiempo",
           "nodeLineageTag": "47a6c36e-2d2d-403c-b9eb-d3b91b3e89d0",
@@ -62,8 +62,8 @@
         },
         {
           "location": {
-            "x": 715.12748621433309,
-            "y": 1187.4410830605939
+            "x": 1427.5059548825263,
+            "y": 812.18109643543778
           },
           "nodeIndex": "FactDiagnosticos",
           "nodeLineageTag": "e41578fd-deac-4610-8b98-195cb0bf970c",
@@ -75,8 +75,8 @@
         },
         {
           "location": {
-            "x": 1462.633014875101,
-            "y": 438.6168279526928
+            "x": 1450.3051622904723,
+            "y": 207.90987244035392
           },
           "nodeIndex": "FactMedicamentos",
           "nodeLineageTag": "6dd1ecb1-94ed-4b55-9a9d-d33390b924f3",
@@ -114,8 +114,8 @@
         },
         {
           "location": {
-            "x": 855.10314855333945,
-            "y": 447.56905082377386
+            "x": 985.426161590844,
+            "y": 414.10773666549568
           },
           "nodeIndex": "DimPaciente",
           "nodeLineageTag": "ec995d25-fbe1-40ff-ba87-f9ed95b7bec9",
@@ -127,8 +127,8 @@
         },
         {
           "location": {
-            "x": 164.86983488105233,
-            "y": 820.35997260886438
+            "x": 159.58646948764,
+            "y": 982.38317800684274
           },
           "nodeIndex": "DimProveedor",
           "nodeLineageTag": "2b52244b-251e-4133-8988-8bd9068dd569",
@@ -140,8 +140,8 @@
         },
         {
           "location": {
-            "x": 1910.4540170855871,
-            "y": 752.6281479062194
+            "x": 1810.6964097258165,
+            "y": 381.03144856955134
           },
           "nodeIndex": "DimTipoVisita",
           "nodeLineageTag": "5038c275-2bb3-44ce-a1e0-c2b07a0f861c",
@@ -153,8 +153,8 @@
         },
         {
           "location": {
-            "x": 1085.6622580313663,
-            "y": 786.29210502340277
+            "x": 812.68837937172862,
+            "y": 696.474893335393
           },
           "nodeIndex": "DimUbicacion",
           "nodeLineageTag": "64d8d94c-321c-4f7b-b412-5b6bd2a0a774",
@@ -166,7 +166,7 @@
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 50.442955058288952,
+      "zoomValue": 56.781989823013255,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

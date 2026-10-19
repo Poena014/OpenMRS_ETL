@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "20000000000000000001",
   "position": {
-    "x": 572.85714285714289,
-    "y": 310,
+    "x": 573.25123152709352,
+    "y": 309.90147783251228,
     "z": 2000,
-    "height": 297.14285714285717,
-    "width": 594.28571428571433,
+    "height": 296.60098522167488,
+    "width": 594.53201970443342,
     "tabOrder": 2000
   },
   "visual": {
@@ -17,42 +17,17 @@
           "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DimTiempo"
-                        }
-                      },
-                      "Hierarchy": "JerarquiaFecha"
+                    "SourceRef": {
+                      "Entity": "DimTiempo"
                     }
                   },
-                  "Level": "Anio"
+                  "Property": "PrimerDiaMes"
                 }
               },
-              "queryRef": "DimTiempo.JerarquiaFecha.Anio",
-              "nativeQueryRef": "JerarquiaFecha Anio",
-              "active": true
-            },
-            {
-              "field": {
-                "HierarchyLevel": {
-                  "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DimTiempo"
-                        }
-                      },
-                      "Hierarchy": "JerarquiaFecha"
-                    }
-                  },
-                  "Level": "Mes"
-                }
-              },
-              "queryRef": "DimTiempo.JerarquiaFecha.Mes",
-              "nativeQueryRef": "JerarquiaFecha Mes",
+              "queryRef": "DimTiempo.PrimerDiaMes",
+              "nativeQueryRef": "PrimerDiaMes",
               "active": true
             }
           ]
@@ -81,41 +56,19 @@
         "sort": [
           {
             "field": {
-              "HierarchyLevel": {
+              "Column": {
                 "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "DimTiempo"
-                      }
-                    },
-                    "Hierarchy": "JerarquiaFecha"
+                  "SourceRef": {
+                    "Entity": "DimTiempo"
                   }
                 },
-                "Level": "Anio"
-              }
-            },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "HierarchyLevel": {
-                "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "DimTiempo"
-                      }
-                    },
-                    "Hierarchy": "JerarquiaFecha"
-                  }
-                },
-                "Level": "Mes"
+                "Property": "PrimerDiaMes"
               }
             },
             "direction": "Ascending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
@@ -340,6 +293,7 @@
           }
         },
         "type": "Categorical",
+        "howCreated": "User",
         "objects": {
           "general": [
             {

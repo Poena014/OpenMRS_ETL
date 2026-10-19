@@ -3,7 +3,7 @@
   "name": "40000000000000000003",
   "position": {
     "x": 1080,
-    "y": 310,
+    "y": 309.90147783251228,
     "z": 2000,
     "height": 700,
     "width": 800,
@@ -23,11 +23,11 @@
                       "Entity": "DimTiempo"
                     }
                   },
-                  "Property": "Fecha"
+                  "Property": "PrimerDiaMes"
                 }
               },
-              "queryRef": "DimTiempo.Fecha.Variación.Jerarquía de fechas.Año",
-              "nativeQueryRef": "Fecha Año",
+              "queryRef": "DimTiempo.PrimerDiaMes",
+              "nativeQueryRef": "PrimerDiaMes",
               "active": true
             }
           ]
@@ -51,6 +51,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FactVitales"
+                  }
+                },
+                "Property": "Observaciones meses completos"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "objects": {

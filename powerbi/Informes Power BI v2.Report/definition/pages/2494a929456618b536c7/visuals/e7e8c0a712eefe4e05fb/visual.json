@@ -17,42 +17,17 @@
           "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DimTiempo"
-                        }
-                      },
-                      "Hierarchy": "JerarquiaFecha"
+                    "SourceRef": {
+                      "Entity": "DimTiempo"
                     }
                   },
-                  "Level": "Anio"
+                  "Property": "PrimerDiaMes"
                 }
               },
-              "queryRef": "DimTiempo.JerarquiaFecha.Anio",
-              "nativeQueryRef": "JerarquiaFecha Anio",
-              "active": true
-            },
-            {
-              "field": {
-                "HierarchyLevel": {
-                  "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DimTiempo"
-                        }
-                      },
-                      "Hierarchy": "JerarquiaFecha"
-                    }
-                  },
-                  "Level": "Mes"
-                }
-              },
-              "queryRef": "DimTiempo.JerarquiaFecha.Mes",
-              "nativeQueryRef": "JerarquiaFecha Mes",
+              "queryRef": "DimTiempo.PrimerDiaMes",
+              "nativeQueryRef": "PrimerDiaMes",
               "active": true
             }
           ]
@@ -67,12 +42,11 @@
                       "Entity": "FactMedicamentos"
                     }
                   },
-                  "Property": "Órdenes meses completos"
+                  "Property": "Unidades meses completos"
                 }
               },
-              "queryRef": "FactMedicamentos.Órdenes meses completos",
-              "nativeQueryRef": "Órdenes meses completos",
-              "format": "0"
+              "queryRef": "FactMedicamentos.Unidades meses completos",
+              "nativeQueryRef": "Unidades meses completos"
             }
           ]
         }
@@ -81,64 +55,22 @@
         "sort": [
           {
             "field": {
-              "HierarchyLevel": {
+              "Column": {
                 "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "DimTiempo"
-                      }
-                    },
-                    "Hierarchy": "JerarquiaFecha"
+                  "SourceRef": {
+                    "Entity": "DimTiempo"
                   }
                 },
-                "Level": "Anio"
-              }
-            },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "HierarchyLevel": {
-                "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "DimTiempo"
-                      }
-                    },
-                    "Hierarchy": "JerarquiaFecha"
-                  }
-                },
-                "Level": "Mes"
+                "Property": "PrimerDiaMes"
               }
             },
             "direction": "Ascending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "dataPoint": [
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0F766E'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "FactMedicamentos.Órdenes meses completos"
-          }
-        }
-      ],
       "labels": [
         {
           "properties": {
@@ -220,7 +152,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Órdenes de medicamentos por mes'"
+                  "Value": "'Cantidad de medicamentos por mes'"
                 }
               }
             },

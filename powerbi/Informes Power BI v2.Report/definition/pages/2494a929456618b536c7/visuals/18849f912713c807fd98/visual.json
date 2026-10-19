@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "18849f912713c807fd98",
   "position": {
-    "x": 464.28571428571433,
-    "y": 647.14285714285722,
-    "z": 7000,
-    "height": 362.85714285714289,
-    "width": 697.14285714285722,
-    "tabOrder": 7000
+    "x": 464.97237569060769,
+    "y": 647.07182320441984,
+    "z": 6000,
+    "height": 362.43093922651929,
+    "width": 710.71823204419888,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "lineChart",
@@ -42,11 +42,11 @@
                       "Entity": "FactMedicamentos"
                     }
                   },
-                  "Property": "Órdenes meses completos"
+                  "Property": "Unidades meses completos"
                 }
               },
-              "queryRef": "FactMedicamentos.Órdenes meses completos",
-              "nativeQueryRef": "Órdenes meses completos"
+              "queryRef": "FactMedicamentos.Unidades meses completos",
+              "nativeQueryRef": "Unidades meses completos"
             }
           ]
         }
@@ -93,13 +93,13 @@
               "parameters": [
                 {
                   "Literal": {
-                    "Value": "2D"
+                    "Value": "7D"
                   },
                   "Name": "Unit"
                 },
                 {
                   "Literal": {
-                    "Value": "12D"
+                    "Value": "10D"
                   },
                   "Name": "ForecastLength"
                 },
@@ -125,7 +125,7 @@
             }
           },
           "selector": {
-            "metadata": "FactMedicamentos.Órdenes meses completos",
+            "metadata": "FactMedicamentos.Unidades meses completos",
             "id": "1"
           }
         }
@@ -138,7 +138,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Proyeccion de ordenes de medicamentos 12 meses'"
+                  "Value": "'Proyeccion de cantidad de medicamento 12 meses'"
                 }
               }
             },
@@ -205,7 +205,8 @@
             "Property": "Órdenes meses completos"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "5e754dd974a043dea3f0",

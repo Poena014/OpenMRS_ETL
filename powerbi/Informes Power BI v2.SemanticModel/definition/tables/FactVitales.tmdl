@@ -133,6 +133,9 @@ table FactVitales
 			)
 		lineageTag: 868bf4b4-2ce8-4bb5-82a1-e96db12416b6
 		summarizeBy: none
+		sortByColumn: OrdenRango
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

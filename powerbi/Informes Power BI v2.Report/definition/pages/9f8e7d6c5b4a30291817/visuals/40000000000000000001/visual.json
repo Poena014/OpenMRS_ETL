@@ -6,7 +6,7 @@
     "y": 45,
     "z": 0,
     "height": 220,
-    "width": 1840,
+    "width": 1200,
     "tabOrder": 0
   },
   "visual": {
@@ -59,6 +59,21 @@
               "nativeQueryRef": "Tipos de signos vitales",
               "format": "0",
               "queryRef": "FactVitales.Tipos de signos vitales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactVitales"
+                    }
+                  },
+                  "Property": "Observaciones promedio por paciente"
+                }
+              },
+              "nativeQueryRef": "Observaciones promedio por paciente",
+              "format": "0.00",
+              "queryRef": "FactVitales.Observaciones promedio por paciente"
             }
           ]
         }
@@ -156,6 +171,27 @@
               "expr": {
                 "Literal": {
                   "Value": "0L"
+                }
+              }
+            }
+          }
+        },
+        {
+          "selector": {
+            "metadata": "FactVitales.Observaciones promedio por paciente"
+          },
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
                 }
               }
             }

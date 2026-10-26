@@ -371,6 +371,20 @@
             }
           ]
         }
+      },
+      {
+        "name": "6cb99c20d7882c7ca78c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactMedicamentos"
+              }
+            },
+            "Property": "Ördenes de Medicamentos"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

@@ -34,6 +34,27 @@ table FactVitales
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Mediana de valor' = MEDIANX(FactVitales, FactVitales[Valor])
+		formatString: 0.00
+
+	measure 'Percentil 25' = PERCENTILE.INC(FactVitales[Valor], 0.25)
+		formatString: 0.00
+
+	measure 'Percentil 75' = PERCENTILE.INC(FactVitales[Valor], 0.75)
+		formatString: 0.00
+
+	measure 'Rango intercuartil' = [Percentil 75] - [Percentil 25]
+		formatString: 0.00
+
+	measure 'Desviación estándar' = STDEV.P(FactVitales[Valor])
+		formatString: 0.00
+
+	measure 'Valores atípicos' = SUMX(VALUES(DimSignoVital[SignoVitalKey]), VAR _avg = CALCULATE(AVERAGE(FactVitales[Valor])) VAR _sd = CALCULATE(STDEV.P(FactVitales[Valor])) RETURN CALCULATE(COUNTROWS(FactVitales), FactVitales[Valor] > _avg + 3 * _sd || FactVitales[Valor] < _avg - 3 * _sd))
+		formatString: 0
+
+	measure '% valores atípicos' = DIVIDE([Valores atípicos], [Observaciones vitales])
+		formatString: 0.0%
+
 	column VitalKey
 		dataType: int64
 		formatString: 0

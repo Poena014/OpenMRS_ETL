@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "41000000000000000005",
+  "name": "e0000000000000000008",
   "position": {
-    "x": 1520,
-    "y": 310,
-    "z": 7000,
-    "height": 700,
-    "width": 360,
-    "tabOrder": 7000
+    "x": 450.93057607090105,
+    "y": 397.04579025110786,
+    "z": 11000,
+    "height": 643.743842364532,
+    "width": 413.64532019704433,
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimUbicacion"
+                      "Entity": "DimMedicamento"
                     }
                   },
-                  "Property": "Departamento"
+                  "Property": "Nombre"
                 }
               },
-              "queryRef": "DimUbicacion.Departamento",
-              "nativeQueryRef": "Departamento",
+              "queryRef": "DimMedicamento.Nombre",
+              "nativeQueryRef": "Nombre",
               "active": true
             }
           ]
@@ -39,14 +39,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactVitales"
+                      "Entity": "FactMedicamentos"
                     }
                   },
-                  "Property": "Observaciones vitales"
+                  "Property": "Ördenes de Medicamentos"
                 }
               },
-              "queryRef": "FactVitales.Observaciones vitales",
-              "nativeQueryRef": "Observaciones vitales"
+              "queryRef": "FactMedicamentos.Ördenes de Medicamentos",
+              "nativeQueryRef": "Ördenes de Medicamentos"
             }
           ]
         }
@@ -58,10 +58,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "FactVitales"
+                    "Entity": "FactMedicamentos"
                   }
                 },
-                "Property": "Observaciones vitales"
+                "Property": "Ördenes de Medicamentos"
               }
             },
             "direction": "Descending"
@@ -79,7 +79,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C46535'"
+                      "Value": "'#0F766E'"
                     }
                   }
                 }
@@ -145,7 +145,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top 10 departamentos'"
+                  "Value": "'Cantidad despachada por medicamentos'"
                 }
               }
             },
@@ -272,15 +272,16 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "d3ede8544beb9a8d9283",
+        "name": "14a97fcf84b18f629375",
+        "ordinal": 0,
         "field": {
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "DimUbicacion"
+                "Entity": "DimMedicamento"
               }
             },
-            "Property": "Departamento"
+            "Property": "Nombre"
           }
         },
         "type": "TopN",
@@ -296,12 +297,12 @@
                     "From": [
                       {
                         "Name": "d",
-                        "Entity": "DimUbicacion",
+                        "Entity": "DimMedicamento",
                         "Type": 0
                       },
                       {
                         "Name": "f",
-                        "Entity": "FactVitales",
+                        "Entity": "FactMedicamentos",
                         "Type": 0
                       }
                     ],
@@ -313,7 +314,7 @@
                               "Source": "d"
                             }
                           },
-                          "Property": "Departamento"
+                          "Property": "Nombre"
                         },
                         "Name": "field"
                       }
@@ -328,7 +329,7 @@
                                 "Source": "f"
                               }
                             },
-                            "Property": "Observaciones vitales"
+                            "Property": "Ördenes de Medicamentos"
                           }
                         }
                       }
@@ -341,7 +342,7 @@
             },
             {
               "Name": "d",
-              "Entity": "DimUbicacion",
+              "Entity": "DimMedicamento",
               "Type": 0
             }
           ],
@@ -357,7 +358,7 @@
                             "Source": "d"
                           }
                         },
-                        "Property": "Departamento"
+                        "Property": "Nombre"
                       }
                     }
                   ],
@@ -373,20 +374,37 @@
         }
       },
       {
-        "name": "6e2e7e1fb090f9094f32",
-        "displayName": "10 departamentos con más observaciones",
+        "name": "8d2eb593263bd48f0ac8",
+        "ordinal": 1,
         "field": {
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "FactVitales"
+                "Entity": "FactMedicamentos"
               }
             },
-            "Property": "Observaciones vitales"
+            "Property": "Ördenes de Medicamentos"
           }
         },
         "type": "Advanced"
+      },
+      {
+        "name": "23473deb701889bcb9c4",
+        "ordinal": 2,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTiempo"
+              }
+            },
+            "Property": "PrimerDiaMes"
+          }
+        },
+        "type": "TopN",
+        "howCreated": "User"
       }
-    ]
+    ],
+    "filterSortOrder": "Custom"
   }
 }

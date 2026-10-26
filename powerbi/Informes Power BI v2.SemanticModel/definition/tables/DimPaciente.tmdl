@@ -63,6 +63,74 @@ table DimPaciente
 
 		annotation SummarizationSetBy = Automatic
 
+	column Edad = ```
+			
+					IF(
+					    ISBLANK(DimPaciente[FechaNacimiento]),
+					    BLANK(),
+					    YEAR(TODAY()) - YEAR(DimPaciente[FechaNacimiento])
+					        - IF(
+					            MONTH(TODAY()) < MONTH(DimPaciente[FechaNacimiento])
+					                || (MONTH(TODAY()) = MONTH(DimPaciente[FechaNacimiento]) && DAY(TODAY()) < DAY(DimPaciente[FechaNacimiento])),
+					            1,
+					            0
+					        )
+					)
+			
+			```
+		formatString: 0
+		lineageTag: 3b8f5a92-dae9-474d-a15d-c2ac345fd478
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column RangoEdad = ```
+			
+					SWITCH(
+					    TRUE(),
+					    DimPaciente[Edad] < 3,  "0-2",
+					    DimPaciente[Edad] < 11, "3-10",
+					    DimPaciente[Edad] < 18, "11-17",
+					    DimPaciente[Edad] < 30, "18-29",
+					    DimPaciente[Edad] < 45, "30-44",
+					    DimPaciente[Edad] < 60, "45-59",
+					    DimPaciente[Edad] < 70, "60-69",
+					    DimPaciente[Edad] < 80, "70-79",
+					    DimPaciente[Edad] >= 80, "80+",
+					    "Sin edad"
+					)
+			
+			```
+		lineageTag: 2dc5b380-5609-4fe2-8c9e-64e19b8a5385
+		summarizeBy: none
+		sortByColumn: OrdenRango
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrdenRango = ```
+			
+					SWITCH(
+					    TRUE(),
+					    DimPaciente[Edad] < 3,  1,
+					    DimPaciente[Edad] < 11, 2,
+					    DimPaciente[Edad] < 18, 3,
+					    DimPaciente[Edad] < 30, 4,
+					    DimPaciente[Edad] < 45, 5,
+					    DimPaciente[Edad] < 60, 6,
+					    DimPaciente[Edad] < 70, 7,
+					    DimPaciente[Edad] < 80, 8,
+					    DimPaciente[Edad] >= 80, 9,
+					    10
+					)
+			```
+		formatString: 0
+		lineageTag: a98c3c03-2b3a-4bc7-a5cf-b63d5c7a67d9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition DimPaciente = m
 		mode: import
 		source =

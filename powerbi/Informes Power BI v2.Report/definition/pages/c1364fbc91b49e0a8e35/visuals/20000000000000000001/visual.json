@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "20000000000000000001",
   "position": {
-    "x": 572.85714285714289,
-    "y": 310,
+    "x": 557.68197879858656,
+    "y": 309.37102473498237,
     "z": 2000,
     "height": 297.14285714285717,
     "width": 594.28571428571433,
@@ -355,6 +355,39 @@
             }
           ]
         }
+      },
+      {
+        "name": "bbab59811ff9a7db3f7d",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimTiempo"
+                  }
+                },
+                "Hierarchy": "JerarquiaFecha"
+              }
+            },
+            "Level": "Mes"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "941c70e61b02c6b20146",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactDiagnosticos"
+              }
+            },
+            "Property": "Diagnósticos meses completos"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

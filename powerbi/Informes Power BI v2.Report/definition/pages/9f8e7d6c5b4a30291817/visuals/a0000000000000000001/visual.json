@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "bcea1060f801cb3d825c",
+  "name": "a0000000000000000001",
   "position": {
-    "x": 90,
-    "y": 310,
-    "z": 2000,
-    "height": 700,
-    "width": 538.57142857142856,
-    "tabOrder": 2000
+    "x": 880,
+    "y": 260,
+    "z": 7000,
+    "height": 400,
+    "width": 500,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "lineChart",
@@ -17,42 +17,36 @@
           "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DimTiempo"
-                        }
-                      },
-                      "Hierarchy": "JerarquiaFecha"
+                    "SourceRef": {
+                      "Entity": "DimTiempo"
                     }
                   },
-                  "Level": "Anio"
+                  "Property": "PrimerDiaMes"
                 }
               },
-              "queryRef": "DimTiempo.JerarquiaFecha.Anio",
-              "nativeQueryRef": "JerarquiaFecha Anio",
+              "queryRef": "DimTiempo.PrimerDiaMes",
+              "nativeQueryRef": "PrimerDiaMes",
               "active": true
-            },
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DimTiempo"
-                        }
-                      },
-                      "Hierarchy": "JerarquiaFecha"
+                    "SourceRef": {
+                      "Entity": "DimSignoVital"
                     }
                   },
-                  "Level": "Mes"
+                  "Property": "Nombre"
                 }
               },
-              "queryRef": "DimTiempo.JerarquiaFecha.Mes",
-              "nativeQueryRef": "JerarquiaFecha Mes",
+              "queryRef": "DimSignoVital.Nombre",
+              "nativeQueryRef": "Nombre",
               "active": true
             }
           ]
@@ -64,81 +58,21 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactDiagnosticos"
+                      "Entity": "FactVitales"
                     }
                   },
-                  "Property": "Diagnósticos meses completos"
+                  "Property": "Observaciones vitales"
                 }
               },
-              "queryRef": "FactDiagnosticos.Diagnósticos meses completos",
-              "nativeQueryRef": "Diagnósticos meses completos",
+              "queryRef": "FactVitales.Observaciones vitales",
+              "nativeQueryRef": "Observaciones vitales",
               "format": "0"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "HierarchyLevel": {
-                "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "DimTiempo"
-                      }
-                    },
-                    "Hierarchy": "JerarquiaFecha"
-                  }
-                },
-                "Level": "Anio"
-              }
-            },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "HierarchyLevel": {
-                "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "DimTiempo"
-                      }
-                    },
-                    "Hierarchy": "JerarquiaFecha"
-                  }
-                },
-                "Level": "Mes"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ]
       }
     },
     "objects": {
-      "dataPoint": [
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#2F6B9A'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "FactDiagnosticos.Diagnósticos meses completos"
-          }
-        }
-      ],
       "labels": [
         {
           "properties": {
@@ -196,7 +130,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Diagnósticos por mes'"
+                  "Value": "'Observaciones por tipo de signo'"
                 }
               }
             },
@@ -319,43 +253,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "15c6baef841982e32c6d",
-        "field": {
-          "HierarchyLevel": {
-            "Expression": {
-              "Hierarchy": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "DimTiempo"
-                  }
-                },
-                "Hierarchy": "JerarquiaFecha"
-              }
-            },
-            "Level": "Anio"
-          }
-        },
-        "type": "Categorical",
-        "objects": {
-          "general": [
-            {
-              "properties": {
-                "isInvertedSelectionMode": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "true"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
-      }
-    ]
   }
 }

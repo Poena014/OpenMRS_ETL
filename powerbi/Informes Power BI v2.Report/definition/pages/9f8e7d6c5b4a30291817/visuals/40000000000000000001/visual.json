@@ -3,10 +3,10 @@
   "name": "40000000000000000001",
   "position": {
     "x": 40,
-    "y": 45,
+    "y": 40,
     "z": 0,
-    "height": 220,
-    "width": 1200,
+    "height": 200,
+    "width": 1280,
     "tabOrder": 0
   },
   "visual": {
@@ -74,6 +74,21 @@
               "nativeQueryRef": "Observaciones promedio por paciente",
               "format": "0.00",
               "queryRef": "FactVitales.Observaciones promedio por paciente"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactVitales"
+                    }
+                  },
+                  "Property": "% valores atípicos"
+                }
+              },
+              "queryRef": "FactVitales.% valores atípicos",
+              "nativeQueryRef": "% valores atípicos",
+              "format": "0.0%"
             }
           ]
         }

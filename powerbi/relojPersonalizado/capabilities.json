@@ -1,0 +1,93 @@
+{
+    "dataRoles": [
+        {
+            "displayName": "Categoría (opcional)",
+            "name": "category",
+            "kind": "Grouping"
+        },
+        {
+            "displayName": "Medida (opcional)",
+            "name": "measure",
+            "kind": "Measure"
+        }
+    ],
+    "objects": {
+        "clock": {
+            "properties": {
+                "fontColor": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "fontSize": {
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "backgroundColor": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "showDate": {
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showSeconds": {
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "timeFormat": {
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "24h",
+                                "displayName": "24 horas"
+                            },
+                            {
+                                "value": "12h",
+                                "displayName": "12 horas"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "dataViewMappings": [
+        {
+            "categorical": {
+                "categories": {
+                    "for": {
+                        "in": "category"
+                    },
+                    "dataReductionAlgorithm": {
+                        "top": {}
+                    }
+                },
+                "values": {
+                    "select": [
+                        {
+                            "for": {
+                                "in": "measure"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "privileges": []
+}

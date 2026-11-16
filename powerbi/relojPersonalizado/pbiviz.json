@@ -1,0 +1,26 @@
+{
+    "visual": {
+        "name": "relojPersonalizado",
+        "displayName": "Reloj Personalizado",
+        "guid": "reloj8048fcf0bf3c425f86581f2b7b733f95",
+        "visualClassName": "Visual",
+        "version": "1.0.1.0",
+        "description": "Reloj en vivo con fecha y hora configurable (24h/12h, segundos y colores).",
+        "supportUrl": "https://github.com/",
+        "gitHubUrl": "https://github.com/"
+    },
+    "apiVersion": "5.11.1",
+    "author": {
+        "name": "Moises Molina",
+        "email": "moises.molina@example.com"
+    },
+    "assets": {
+        "icon": "assets/icon.png"
+    },
+    "externalJS": null,
+    "style": "style/visual.less",
+    "capabilities": "capabilities.json",
+    "dependencies": null,
+    "stringResources": [],
+    "version": "1.0.1.0"
+}

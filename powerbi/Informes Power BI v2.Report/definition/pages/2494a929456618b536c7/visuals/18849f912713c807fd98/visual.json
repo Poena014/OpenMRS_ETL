@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "18849f912713c807fd98",
   "position": {
-    "x": 464.28571428571433,
-    "y": 647.14285714285722,
-    "z": 7000,
-    "height": 362.85714285714289,
-    "width": 697.14285714285722,
-    "tabOrder": 7000
+    "x": 446.89655172413791,
+    "y": 623.79310344827582,
+    "z": 6000,
+    "height": 363.10344827586204,
+    "width": 703.5960591133005,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "lineChart",
@@ -36,17 +36,22 @@
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactMedicamentos"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactMedicamentos"
+                        }
+                      },
+                      "Property": "Cantidad"
                     }
                   },
-                  "Property": "Órdenes meses completos"
+                  "Function": 0
                 }
               },
-              "queryRef": "FactMedicamentos.Órdenes meses completos",
-              "nativeQueryRef": "Órdenes meses completos"
+              "queryRef": "Sum(FactMedicamentos.Cantidad)",
+              "nativeQueryRef": "Suma de Cantidad"
             }
           ]
         }
@@ -93,13 +98,13 @@
               "parameters": [
                 {
                   "Literal": {
-                    "Value": "2D"
+                    "Value": "7D"
                   },
                   "Name": "Unit"
                 },
                 {
                   "Literal": {
-                    "Value": "12D"
+                    "Value": "10D"
                   },
                   "Name": "ForecastLength"
                 },
@@ -114,18 +119,12 @@
                     "Value": "0.95D"
                   },
                   "Name": "ConfidenceLevel"
-                },
-                {
-                  "Literal": {
-                    "Value": "12D"
-                  },
-                  "Name": "MaxSeasonality"
                 }
               ]
             }
           },
           "selector": {
-            "metadata": "FactMedicamentos.Órdenes meses completos",
+            "metadata": "Sum(FactMedicamentos.Cantidad)",
             "id": "1"
           }
         }
@@ -138,7 +137,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Proyeccion de ordenes de medicamentos 12 meses'"
+                  "Value": "'Proyeccion de unidades necesarios de medicamentos a 12 meses'"
                 }
               }
             },
@@ -205,7 +204,8 @@
             "Property": "Órdenes meses completos"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "5e754dd974a043dea3f0",

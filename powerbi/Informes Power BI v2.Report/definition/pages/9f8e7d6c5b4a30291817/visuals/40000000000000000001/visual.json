@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "40000000000000000001",
   "position": {
-    "x": 40,
-    "y": 40,
+    "x": 227.4384236453202,
+    "y": 19.950738916256157,
     "z": 0,
-    "height": 200,
-    "width": 1280,
+    "height": 199.50738916256157,
+    "width": 1064.039408866995,
     "tabOrder": 0
   },
   "visual": {
@@ -26,9 +26,9 @@
                   "Property": "Observaciones vitales"
                 }
               },
+              "queryRef": "FactVitales.Observaciones vitales",
               "nativeQueryRef": "Observaciones vitales",
-              "format": "0",
-              "queryRef": "FactVitales.Observaciones vitales"
+              "format": "0"
             },
             {
               "field": {
@@ -41,9 +41,9 @@
                   "Property": "Pacientes con signos vitales"
                 }
               },
+              "queryRef": "FactVitales.Pacientes con signos vitales",
               "nativeQueryRef": "Pacientes con signos vitales",
-              "format": "0",
-              "queryRef": "FactVitales.Pacientes con signos vitales"
+              "format": "0"
             },
             {
               "field": {
@@ -56,9 +56,9 @@
                   "Property": "Tipos de signos vitales"
                 }
               },
+              "queryRef": "FactVitales.Tipos de signos vitales",
               "nativeQueryRef": "Tipos de signos vitales",
-              "format": "0",
-              "queryRef": "FactVitales.Tipos de signos vitales"
+              "format": "0"
             },
             {
               "field": {
@@ -71,9 +71,9 @@
                   "Property": "Observaciones promedio por paciente"
                 }
               },
+              "queryRef": "FactVitales.Observaciones promedio por paciente",
               "nativeQueryRef": "Observaciones promedio por paciente",
-              "format": "0.00",
-              "queryRef": "FactVitales.Observaciones promedio por paciente"
+              "format": "0.00"
             },
             {
               "field": {
@@ -115,9 +115,6 @@
     "objects": {
       "value": [
         {
-          "selector": {
-            "id": "default"
-          },
           "properties": {
             "horizontalAlignment": {
               "expr": {
@@ -126,12 +123,33 @@
                 }
               }
             }
+          },
+          "selector": {
+            "id": "default"
           }
         },
         {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
           "selector": {
             "metadata": "FactVitales.Observaciones vitales"
-          },
+          }
+        },
+        {
           "properties": {
             "labelDisplayUnits": {
               "expr": {
@@ -147,12 +165,12 @@
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "metadata": "FactVitales.Pacientes con signos vitales"
-          },
+          }
+        },
+        {
           "properties": {
             "labelDisplayUnits": {
               "expr": {
@@ -168,33 +186,12 @@
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "metadata": "FactVitales.Tipos de signos vitales"
-          },
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            },
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            }
           }
         },
         {
-          "selector": {
-            "metadata": "FactVitales.Observaciones promedio por paciente"
-          },
           "properties": {
             "labelDisplayUnits": {
               "expr": {
@@ -210,11 +207,13 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "FactVitales.Observaciones promedio por paciente"
           }
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -354,6 +353,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

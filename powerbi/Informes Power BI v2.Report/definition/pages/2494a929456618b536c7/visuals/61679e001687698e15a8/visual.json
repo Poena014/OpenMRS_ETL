@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "61679e001687698e15a8",
   "position": {
-    "x": 1209.3312597200622,
-    "y": 44.7900466562986,
-    "z": 7001,
-    "height": 186.62519440124416,
-    "width": 350.855365474339,
-    "tabOrder": 7001
+    "x": 1177.0935960591132,
+    "y": 172.90640394088669,
+    "z": 7000,
+    "height": 123.69458128078817,
+    "width": 367.09359605911328,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "slicer",
@@ -63,6 +63,47 @@
                 "Literal": {
                   "Value": "2D"
                 }
+              }
+            },
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "d",
+                    "Entity": "DimPaciente",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Sexo"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'F'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
               }
             }
           }

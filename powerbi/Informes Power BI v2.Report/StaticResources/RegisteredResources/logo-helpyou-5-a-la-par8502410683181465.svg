@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 272" width="540" height="272" role="img" aria-label="HELP YOU logotipo a la par sobre línea base">
+  <title>HELP YOU — a la par (línea base común)</title>
+  <desc>Corazón y wordmark HELP YOU lado a lado, centrados verticalmente, sobre una línea de pulso verde.</desc>
+  <defs>
+    <linearGradient id="hyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(120 150) scale(0.8) translate(-128 -128)">
+    <path d="M128 222 C 60 168, 32 128, 32 88 C 32 56, 60 30, 92 30 C 112 30, 126 44, 128 64 C 130 44, 144 30, 164 30 C 196 30, 224 56, 224 88 C 224 128, 196 168, 128 222 Z" fill="url(#hyGradient)"/>
+    <path d="M 38 122 L 80 122 L 96 96 L 112 150 L 128 60 L 144 150 L 160 96 L 176 122 L 218 122" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif" font-weight="900">
+    <text x="234" y="169" font-size="50" letter-spacing="1" fill="#FFFFFF">HELP YOU</text>
+    <text x="232" y="166" font-size="50" letter-spacing="1" fill="#DC2626">HELP YOU</text>
+  </g>
+
+  <path d="M 35 240 L 185 240 L 197 228 L 206 252 L 213 210 L 220 252 L 229 228 L 241 240 L 508 240" fill="none" stroke="#059669" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

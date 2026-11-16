@@ -36,24 +36,31 @@ table FactVitales
 
 	measure 'Mediana de valor' = MEDIANX(FactVitales, FactVitales[Valor])
 		formatString: 0.00
+		lineageTag: 9aad55ec-a76e-4345-94c1-0cc1622f55fa
 
 	measure 'Percentil 25' = PERCENTILE.INC(FactVitales[Valor], 0.25)
 		formatString: 0.00
+		lineageTag: 9af665ce-acbc-417b-98e0-2818bd07db85
 
 	measure 'Percentil 75' = PERCENTILE.INC(FactVitales[Valor], 0.75)
 		formatString: 0.00
+		lineageTag: df98fa1a-fdca-4978-8499-984eefd6c3ae
 
 	measure 'Rango intercuartil' = [Percentil 75] - [Percentil 25]
 		formatString: 0.00
+		lineageTag: c2d18c56-395b-46dd-af01-5b2405a5b452
 
 	measure 'Desviación estándar' = STDEV.P(FactVitales[Valor])
 		formatString: 0.00
+		lineageTag: 8969a060-abb3-4a75-971a-6589260fbf56
 
 	measure 'Valores atípicos' = SUMX(VALUES(DimSignoVital[SignoVitalKey]), VAR _avg = CALCULATE(AVERAGE(FactVitales[Valor])) VAR _sd = CALCULATE(STDEV.P(FactVitales[Valor])) RETURN CALCULATE(COUNTROWS(FactVitales), FactVitales[Valor] > _avg + 3 * _sd || FactVitales[Valor] < _avg - 3 * _sd))
 		formatString: 0
+		lineageTag: 8990e7e9-df73-45ef-8a24-18a419ddb4ca
 
 	measure '% valores atípicos' = DIVIDE([Valores atípicos], [Observaciones vitales])
 		formatString: 0.0%
+		lineageTag: 6c46000f-8889-4660-985a-e608288b91ed
 
 	column VitalKey
 		dataType: int64

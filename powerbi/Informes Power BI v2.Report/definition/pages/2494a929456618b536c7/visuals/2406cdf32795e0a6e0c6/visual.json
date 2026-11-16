@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "2406cdf32795e0a6e0c6",
   "position": {
-    "x": 1596.46408839779,
-    "y": 311.16022099447514,
-    "z": 5000,
-    "height": 700.110497237569,
-    "width": 305.8563535911602,
-    "tabOrder": 5000
+    "x": 1596.0591133004925,
+    "y": 601.18226600985224,
+    "z": 4000,
+    "height": 409.65517241379308,
+    "width": 305.9113300492611,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "slicer",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimUbicacion"
+                      "Entity": "DimMedicamento"
                     }
                   },
-                  "Property": "Departamento"
+                  "Property": "Nombre"
                 }
               },
-              "queryRef": "DimUbicacion.Departamento",
-              "nativeQueryRef": "Departamento",
+              "queryRef": "DimMedicamento.Nombre",
+              "nativeQueryRef": "Nombre",
               "active": true
             }
           ]
@@ -70,6 +70,11 @@
         {
           "properties": {}
         }
+      ],
+      "dropdown": [
+        {
+          "properties": {}
+        }
       ]
     },
     "visualContainerObjects": {
@@ -86,7 +91,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Filtro por Departamento'"
+                  "Value": "'Filtro por medicamento'"
                 }
               }
             },
@@ -137,5 +142,61 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b3bcf4c548d6c3ceb03e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimUbicacion"
+              }
+            },
+            "Property": "Departamento"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "DimUbicacion",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Contains": {
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Departamento"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "'N/A'"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
   }
 }

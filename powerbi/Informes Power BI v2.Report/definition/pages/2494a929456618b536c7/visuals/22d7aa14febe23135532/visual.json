@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "22d7aa14febe23135532",
   "position": {
-    "x": 40,
-    "y": 310,
+    "x": 39.901477832512313,
+    "y": 271.33004926108373,
     "z": 1000,
-    "height": 700,
-    "width": 380,
+    "height": 738.17733990147781,
+    "width": 391.0344827586207,
     "tabOrder": 1000
   },
   "visual": {
@@ -371,20 +371,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "6cb99c20d7882c7ca78c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FactMedicamentos"
-              }
-            },
-            "Property": "Ördenes de Medicamentos"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

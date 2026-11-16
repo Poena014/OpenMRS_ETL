@@ -57,6 +57,33 @@
           "type": "BaseTheme"
         }
       ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "logo-helpyou-5-a-la-par8198485055549247.svg",
+          "path": "logo-helpyou-5-a-la-par8198485055549247.svg",
+          "type": "Image"
+        },
+        {
+          "name": "logo-helpyou-5-a-la-par8502410683181465.svg",
+          "path": "logo-helpyou-5-a-la-par8502410683181465.svg",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "reloj8048fcf0bf3c425f86581f2b7b733f95",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "reloj8048fcf0bf3c425f86581f2b7b733f95.pbiviz.json",
+          "path": "reloj8048fcf0bf3c425f86581f2b7b733f95.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
     }
   ],
   "settings": {

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "62886ad500da5b8d8352",
+  "position": {
+    "x": 1544.1871921182264,
+    "y": 0,
+    "z": 8002,
+    "height": 150.29556650246306,
+    "width": 357.78325123152706,
+    "tabOrder": 8002
+  },
+  "visual": {
+    "visualType": "reloj8048fcf0bf3c425f86581f2b7b733f95",
+    "query": {
+      "queryState": {
+        "category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimTiempo"
+                    }
+                  },
+                  "Property": "TiempoKey"
+                }
+              },
+              "queryRef": "DimTiempo.TiempoKey",
+              "nativeQueryRef": "TiempoKey"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

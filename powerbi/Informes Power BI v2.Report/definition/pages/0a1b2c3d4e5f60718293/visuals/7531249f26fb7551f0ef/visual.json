@@ -158,37 +158,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "eb30ece44be399ec37bb",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DimSignoVital"
-              }
-            },
-            "Property": "Nombre"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "07f45e595381ff867d60",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FactVitales"
-              }
-            },
-            "Property": "Valor promedio"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

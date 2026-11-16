@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "6a8fbd614558995b24d8",
   "position": {
-    "x": 1591.6325088339224,
-    "y": 401.63957597173146,
-    "z": 13001,
-    "height": 427.42049469964667,
-    "width": 287.660777385159,
-    "tabOrder": 13001
+    "x": 1592.0689655172414,
+    "y": 401.67487684729065,
+    "z": 14000,
+    "height": 292.61083743842363,
+    "width": 304.58128078817731,
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "slicer",
@@ -142,23 +142,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "784df2ddc62a783979c5",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DimPaciente"
-              }
-            },
-            "Property": "RangoEdad"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

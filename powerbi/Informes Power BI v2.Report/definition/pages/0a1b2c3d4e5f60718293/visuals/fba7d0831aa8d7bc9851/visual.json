@@ -6,7 +6,7 @@
     "y": 10.64039408866995,
     "z": 6000,
     "height": 78.472906403940883,
-    "width": 1838.1280788177339,
+    "width": 1162.463054187192,
     "tabOrder": 6000
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Resumen Ejecutivo",
+                    "value": "Resumen Ejecutivo ONG Help You!",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "28pt"
